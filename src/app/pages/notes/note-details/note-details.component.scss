@@ -1,0 +1,21 @@
+@import '../../../../assets/constants';
+
+.note-details {
+  padding: $layout_padding;
+
+  code {
+    overflow: auto;
+    padding: 1rem;
+    margin: 1rem 0 0;
+    background-color: $code_background_light;
+    border: 1px solid $code_border_light;
+    font-size: 0.875rem;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    tab-size: 4;
+    hyphens: none;
+    -webkit-overflow-scrolling: touch;
+  }
+}
