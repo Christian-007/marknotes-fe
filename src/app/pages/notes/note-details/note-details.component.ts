@@ -12,24 +12,28 @@ import * as DOMPurify from 'dompurify';
   encapsulation: ViewEncapsulation.None,
 })
 export class NoteDetailsComponent implements OnInit {
-  text: string;
-  data: SafeHtml;
-  md: any;
+  markdownText: string;
+  htmlText: SafeHtml;
+  markdownParser: typeof marked;
 
   constructor(private sanitizer: DomSanitizer) {
     const renderer = new marked.Renderer();
     renderer.code = this.highlightCode;
-    this.md = marked.setOptions({ renderer });
-    this.text =
-      '# Hello Markdown\n```ts\nimport { Providers } from "@providers/provider";\n\nexport class Encryptor {\n  encryptionMethod: string; \n}\n```';
+    this.markdownParser = marked.setOptions({ renderer });
+    this.markdownText =
+      '### Initialize in JavaScript\nYou can provide more options by initializing the provider in JavaScript.\n```ts\nimport { Providers } from "@providers/provider";\n\nexport class Encryptor {\n  encryptionMethod: string; \n}\n```\nYou must provide a `clientId` (to create a new `UserAgentApplication`).';
   }
 
   ngOnInit() {
-    this.data = this.markdownToSafeHtml(this.text);
+    this.convertMarkdown();
+  }
+
+  convertMarkdown(): void {
+    this.htmlText = this.markdownToSafeHtml(this.markdownText);
   }
 
   markdownToSafeHtml(markdownTexts: string): SafeHtml {
-    const html = this.md(markdownTexts);
+    const html = this.markdownParser(markdownTexts);
     const safeHtml = DOMPurify.sanitize(html);
     return this.sanitizer.bypassSecurityTrustHtml(safeHtml);
   }
@@ -41,6 +45,6 @@ export class NoteDetailsComponent implements OnInit {
     }
 
     const result = highlightjs.highlight(language, code).value;
-    return `<code class="hljs ${language}">${result}</code>`;
+    return `<code class="hljs code-block ${language}">${result}</code>`;
   }
 }

@@ -1,3 +1,12 @@
-<div class="note-details">
-  <pre [innerHTML]="data"></pre>
+<div class="note-details d-flex flex-column">
+  <textarea
+    class="note-details__markdownArea form-control"
+    id="MarkdownContentTxtArea"
+    placeholder="Type something"
+    [(ngModel)]="markdownText"
+  ></textarea>
+  <br />
+  <button (click)="convertMarkdown()">PREVIEW</button>
+  <br />
+  <div class="note-details__content" [innerHTML]="htmlText"></div>
 </div>
