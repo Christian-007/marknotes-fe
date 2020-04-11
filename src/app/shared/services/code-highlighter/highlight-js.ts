@@ -7,7 +7,8 @@ import { CodeHighlighter } from './code-highlighter';
 @Injectable()
 export class HighlightJs extends CodeHighlighter {
   highlight(code: string, language: string): string {
-    if (!(language && highlightjs.getLanguage(language))) {
+    const isNotFoundLanguage = !highlightjs.getLanguage(language);
+    if (isNotFoundLanguage) {
       // use 'markdown' as default language
       language = 'markdown';
     }
