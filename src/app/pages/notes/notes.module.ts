@@ -3,8 +3,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import {
-  markedProvider,
-  highlightJsProvider,
+  markdownParserProvider,
+  codeHighlighterProvider,
   customSanitizerProvider,
 } from './notes.module.config';
 import { NoteDetailsComponent } from './note-details/note-details.component';
@@ -14,6 +14,10 @@ import { routes } from './router';
 @NgModule({
   declarations: [NotesComponent, NoteDetailsComponent],
   imports: [RouterModule.forChild(routes), FormsModule],
-  providers: [markedProvider, highlightJsProvider, customSanitizerProvider],
+  providers: [
+    markdownParserProvider,
+    codeHighlighterProvider,
+    customSanitizerProvider,
+  ],
 })
 export class NotesModule {}

@@ -8,6 +8,7 @@ import { CustomSanitizer } from 'src/app/shared/services/custom-sanitizer/custom
 import { DomPurify } from 'src/app/shared/services/custom-sanitizer/dom-purify';
 import { Provider } from '@angular/core';
 
+// Factories
 export const markedFactory = (
   sanitizer: DomSanitizer,
   codeHighlighter: CodeHighlighter,
@@ -16,13 +17,14 @@ export const markedFactory = (
   return new Marked(sanitizer, codeHighlighter, customSaniziter);
 };
 
-export const markedProvider: Provider = {
+// Providers
+export const markdownParserProvider: Provider = {
   provide: MarkdownParser,
   useFactory: markedFactory,
   deps: [DomSanitizer, CodeHighlighter, CustomSanitizer],
 };
 
-export const highlightJsProvider: Provider = {
+export const codeHighlighterProvider: Provider = {
   provide: CodeHighlighter,
   useClass: HighlightJs,
 };
