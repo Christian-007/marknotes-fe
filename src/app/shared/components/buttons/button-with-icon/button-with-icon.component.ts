@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-button-with-icon',
@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
       type="button"
       class="BtnIcon btn d-flex align-items-center"
       [attr.aria-label]="icon"
+      (click)="buttonClick.emit()"
     >
       <i aria-hidden="true" class="material-icons">{{ icon }}</i>
     </button>
@@ -15,8 +16,10 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ButtonWithIconComponent {
   @Input() icon: string;
+  @Output() buttonClick: EventEmitter<any>;
 
   constructor() {
     this.icon = 'not_interested';
+    this.buttonClick = new EventEmitter();
   }
 }

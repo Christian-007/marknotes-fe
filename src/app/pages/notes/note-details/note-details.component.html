@@ -4,9 +4,8 @@
     id="MarkdownContentTxtArea"
     placeholder="Type something"
     [(ngModel)]="markdownText"
+    (ngModelChange)="onMarkdownChange()"
   ></textarea>
-  <br />
-  <button (click)="convertMarkdown()">PREVIEW</button>
   <br />
   <div class="note-details__content" [innerHTML]="htmlText"></div>
 </div>

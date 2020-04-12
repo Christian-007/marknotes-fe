@@ -5,7 +5,10 @@
 
   <div class="pl-2 d-flex">
     <app-button-with-icon icon="delete"></app-button-with-icon>
-    <app-button-with-icon icon="visibility"></app-button-with-icon>
+    <app-button-with-icon
+      icon="visibility"
+      (buttonClick)="onClickPreview()"
+    ></app-button-with-icon>
     <app-button-with-icon icon="save"></app-button-with-icon>
   </div>
 </nav>

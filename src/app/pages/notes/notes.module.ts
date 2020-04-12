@@ -14,10 +14,5 @@ import { routes } from './router';
 @NgModule({
   declarations: [NotesComponent, NoteDetailsComponent],
   imports: [RouterModule.forChild(routes), FormsModule],
-  providers: [
-    markdownParserProvider,
-    codeHighlighterProvider,
-    customSanitizerProvider,
-  ],
 })
 export class NotesModule {}
