@@ -14,16 +14,18 @@ import { MarkdownStore } from 'src/app/shared/services/store/markdown.store';
 export class NoteDetailsComponent implements OnInit {
   markdownText: string;
   htmlText: SafeHtml;
+  checked: { [key: string]: boolean };
 
   constructor(
     private markdownParser: MarkdownParser,
-    private markdownStore: MarkdownStore<MarkdownState>,
+    private markdownStore: MarkdownStore,
   ) {}
 
   ngOnInit() {
     this.markdownStore.state$.subscribe((state: MarkdownState) => {
       this.markdownText = state.markdownText;
       this.htmlText = state.htmlText;
+      this.checked = state.checked;
     });
 
     this.markdownStore.setMarkdownText(

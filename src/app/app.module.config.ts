@@ -19,12 +19,13 @@ export const markedFactory = (
   return new Marked(sanitizer, codeHighlighter, customSaniziter);
 };
 
-export const markdownStoreFactory = (): MarkdownStore<MarkdownState> => {
+export const markdownStoreFactory = (): MarkdownStore => {
   const initialState: MarkdownState = {
     markdownText: '',
     htmlText: '',
+    checked: {},
   };
-  return new MarkdownStore<MarkdownState>(initialState);
+  return new MarkdownStore(initialState);
 };
 
 // Providers

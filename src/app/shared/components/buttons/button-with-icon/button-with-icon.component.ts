@@ -17,7 +17,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ButtonWithIconComponent {
   @Input() icon: string;
-  @Output() buttonClick: EventEmitter<any>;
+  @Output() buttonClick: EventEmitter<boolean>;
 
   private checked: boolean;
 
@@ -30,7 +30,7 @@ export class ButtonWithIconComponent {
   onButtonClick(): void {
     this.checked = !this.checked;
 
-    this.buttonClick.emit();
+    this.buttonClick.emit(this.checked);
   }
 
   getClassName(): string {
