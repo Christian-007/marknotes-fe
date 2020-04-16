@@ -9,6 +9,7 @@ import { CustomSanitizer } from 'src/app/shared/services/custom-sanitizer/custom
 import { DomPurify } from 'src/app/shared/services/custom-sanitizer/dom-purify';
 import { MarkdownStore } from './shared/services/store/markdown.store';
 import { MarkdownState } from './shared/services/store/markdown-state.model';
+import { Toolbar } from './shared/enums/toolbars.enum';
 
 // Factories
 export const markedFactory = (
@@ -23,7 +24,9 @@ export const markdownStoreFactory = (): MarkdownStore => {
   const initialState: MarkdownState = {
     markdownText: '',
     htmlText: '',
-    checked: {},
+    checked: {
+      [Toolbar.Preview]: false,
+    },
   };
   return new MarkdownStore(initialState);
 };
