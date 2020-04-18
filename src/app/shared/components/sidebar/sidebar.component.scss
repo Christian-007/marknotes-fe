@@ -1,6 +1,20 @@
 @import '../../../../assets/constants';
 
 .sidebar {
-  padding: $layout_padding;
   background-color: $sidebar_background;
+
+  .column {
+    padding: $layout_padding;
+  }
+
+  &__brand {
+    border-bottom: 1px solid $border_color;
+    display: flex;
+    align-items: center;
+    height: $navigation_height;
+  }
+
+  &__note-list {
+    // flex: 5;
+  }
 }
