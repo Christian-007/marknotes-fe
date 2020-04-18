@@ -10,10 +10,11 @@ import {
   customSanitizerProvider,
   markdownStoreProvider,
 } from './app.module.config';
+import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, TopbarModule],
+  imports: [BrowserModule, AppRoutingModule, TopbarModule, SidebarModule],
   providers: [
     markdownParserProvider,
     codeHighlighterProvider,

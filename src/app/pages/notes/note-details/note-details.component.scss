@@ -2,9 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
 
 .note-details {
-  padding: $layout_padding;
+  overflow-y: auto;
 
   &__markdownArea {
+    padding: $layout_padding;
     border: none;
     font-size: 0.875rem;
     font-family: Inconsolata, monospace;
@@ -14,10 +15,11 @@
     box-shadow: none;
     resize: none;
 
-    height: 500px; // change this later
+    height: 100%;
   }
 
   &__content {
+    padding: $layout_padding;
     font-family: Arial, Helvetica, sans-serif;
 
     code {
