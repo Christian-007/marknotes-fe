@@ -1,9 +1,11 @@
-<div class="d-flex h-100">
-  <div class="flex-1">
+<div class="h-100 d-flex">
+  <div class="left-section flex-1">
     <app-sidebar></app-sidebar>
   </div>
-  <div class="flex-5 h-100">
+  <div class="right-section flex-5">
     <app-topbar></app-topbar>
-    <router-outlet></router-outlet>
+    <div class="flex-1">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

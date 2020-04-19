@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 import { MarkdownParser } from '../../services/markdown-parser/markdown-parser';
 import { MarkdownStore } from '../../services/store/markdown.store';
@@ -8,6 +8,7 @@ import { Toolbar } from '../../enums/toolbars.enum';
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.scss'],
+  // encapsulation: ViewEncapsulation.None,
 })
 export class TopbarComponent {
   constructor(

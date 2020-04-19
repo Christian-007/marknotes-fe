@@ -1,0 +1,21 @@
+@import '../../../../assets/constants';
+
+.card {
+  .material-icons {
+    font-size: 14px;
+  }
+
+  &__header {
+    padding: $layout_padding;
+    display: flex;
+    align-items: center;
+    color: $darker_gray;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  &__body {
+    background-color: #efefef;
+    padding: $layout_padding;
+  }
+}

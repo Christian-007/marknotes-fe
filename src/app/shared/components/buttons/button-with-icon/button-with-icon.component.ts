@@ -10,13 +10,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       [attr.aria-label]="icon"
       (click)="onButtonClick()"
     >
-      <i aria-hidden="true" class="material-icons">{{ icon }}</i>
+      <i aria-hidden="true" class="material-icons md-18">{{ icon }}</i>
     </button>
   `,
   styleUrls: ['./button-with-icon.component.scss'],
 })
 export class ButtonWithIconComponent {
   @Input() icon: string;
+  @Input() size: string;
   @Output() buttonClick: EventEmitter<boolean>;
 
   private checked: boolean;
