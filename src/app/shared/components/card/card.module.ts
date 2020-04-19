@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NoteListComponent } from './note-list.component';
+import { CardComponent } from './card.component';
 import { ButtonWithIconModule } from '../buttons/button-with-icon/button-with-icon.module';
 
 @NgModule({
-  declarations: [NoteListComponent],
+  declarations: [CardComponent],
   imports: [CommonModule, ButtonWithIconModule],
-  exports: [NoteListComponent],
+  exports: [CardComponent],
 })
-export class NoteListModule {}
+export class CardModule {}

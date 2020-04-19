@@ -2,8 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
 
 .note-details {
-  overflow-y: auto;
-
   &__markdownArea {
     padding: $layout_padding;
     border: none;

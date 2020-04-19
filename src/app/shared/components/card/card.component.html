@@ -1,0 +1,22 @@
+<div class="card d-flex flex-column">
+  <div class="card__header pb-0">
+    <div class="mr-auto d-flex align-items-center">
+      NOTES
+    </div>
+    <app-button-with-icon
+      icon="add_circle_outline"
+      (buttonClick)="onClickAdd($event)"
+    ></app-button-with-icon>
+  </div>
+  <button
+    *ngFor="let s of state"
+    type="button"
+    class="card__body no-outline btn d-flex"
+  >
+    <i aria-hidden="true" class="material-icons md-18 pt-2">description</i>
+    <div class="d-flex flex-column pl-2">
+      <div class="card__body__title">{{ s.title }}</div>
+      <span class="card__body__subtitle">{{ s.time }}</span>
+    </div>
+  </button>
+</div>
