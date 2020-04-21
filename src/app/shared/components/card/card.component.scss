@@ -9,7 +9,7 @@
 }
 
 .card {
-  padding: $layout_padding;
+  padding: $layout_padding $layout_padding $layout_padding $container_left_right;
 
   .material-icons {
     font-size: 14px;

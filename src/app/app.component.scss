@@ -4,10 +4,14 @@
   flex-direction: column;
 }
 
-.flex-1 {
+.left-section {
   flex: 1;
 }
 
-.flex-5 {
-  flex: 5;
+.right-section {
+  flex: 3.5;
+
+  .main-content {
+    flex: 1;
+  }
 }

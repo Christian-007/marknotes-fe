@@ -3,7 +3,8 @@
 
 .note-details {
   &__markdownArea {
-    padding: $layout_padding;
+    padding: $layout_padding $container_left_right $layout_padding
+      $layout_padding;
     border: none;
     font-size: 0.875rem;
     font-family: Inconsolata, monospace;
@@ -17,23 +18,58 @@
   }
 
   &__content {
-    padding: $layout_padding;
-    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.2px;
+    padding: $layout_padding $container_left_right $layout_padding
+      $layout_padding;
+    line-height: 160%;
+    font-family: 'WeblySleek UI';
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 32px 0 12px;
+    }
+
+    h1 {
+      font-weight: 600;
+    }
+
+    p {
+      margin: 1rem 0 0;
+      word-wrap: break-word;
+      font-family: 'WeblySleek UI-SL';
+      color: #171717;
+    }
+
+    strong {
+      font-family: 'WeblySleek UI-SB';
+    }
 
     code {
-      font-family: Inconsolata, monospace;
+      font-family: Consolas, monospace;
       padding: 0.1em 0.2em;
-      background-color: $code_background_light;
+      background-color: $code_background_dark;
       border-radius: 3px;
       font-size: 85%;
       word-wrap: break-word;
+      line-height: 19px;
+    }
+
+    blockquote {
+      padding: 0 0.8em;
+      border-width: 0 0 0 3px;
+      border-style: solid;
+      border-color: #e3e3e3;
     }
 
     .code-block {
-      font-family: Inconsolata, monospace;
+      font-family: Consolas, monospace;
       overflow: auto;
       padding: 1rem;
-      margin: 0 0 1rem;
+      margin: 16px 0 0;
       background-color: $code_background_light;
       border: 1px solid $code_border_light;
       border-radius: 0;
@@ -46,5 +82,9 @@
       hyphens: none;
       -webkit-overflow-scrolling: touch;
     }
+  }
+
+  &__content > *:first-child {
+    margin-top: 0 !important;
   }
 }

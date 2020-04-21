@@ -1,11 +1,9 @@
 @import '../../../../assets/constants';
 
 .sidebar {
-  background-color: $sidebar_background;
-  border-right: 1px solid $border_color;
-
   .column {
-    padding: $layout_padding;
+    padding: $layout_padding $layout_padding $layout_padding
+      $container_left_right;
   }
 
   &__brand {
@@ -13,7 +11,6 @@
     display: flex;
     align-items: center;
     height: $navigation_height;
-    background-color: $navbar_background;
   }
 }
 
