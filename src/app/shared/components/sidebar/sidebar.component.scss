@@ -11,6 +11,11 @@
     display: flex;
     align-items: center;
     height: $navigation_height;
+
+    a {
+      font-family: 'WeblySleek UI-SB';
+      color: $active_state;
+    }
   }
 }
 
