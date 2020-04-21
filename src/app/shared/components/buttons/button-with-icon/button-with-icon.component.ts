@@ -18,9 +18,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class ButtonWithIconComponent {
   @Input() icon: string;
   @Input() size: string;
+  @Input() checked: boolean;
   @Output() buttonClick: EventEmitter<boolean>;
-
-  private checked: boolean;
 
   constructor() {
     this.icon = 'not_interested';
