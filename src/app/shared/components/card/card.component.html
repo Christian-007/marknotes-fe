@@ -4,6 +4,7 @@
       NOTES
     </div>
     <app-button-with-icon
+      [buttonStyles]="buttonStyles"
       icon="add_circle_outline"
       (buttonClick)="onClickAdd($event)"
     ></app-button-with-icon>
@@ -12,6 +13,8 @@
     *ngFor="let s of state"
     type="button"
     class="card__body no-outline btn d-flex"
+    [ngClass]="{ Active: s.id === currentActiveDoc }"
+    (click)="onClickDocList(s.id)"
   >
     <i aria-hidden="true" class="material-icons md-18 pt-2">description</i>
     <div class="d-flex flex-column pl-2">
