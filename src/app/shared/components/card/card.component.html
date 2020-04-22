@@ -6,20 +6,22 @@
     <app-button-with-icon
       [buttonStyles]="buttonStyles"
       icon="add_circle_outline"
-      (buttonClick)="onClickAdd($event)"
+      (buttonClick)="onClickAddNote($event)"
     ></app-button-with-icon>
   </div>
   <button
-    *ngFor="let s of state"
+    *ngFor="let note of notes"
     type="button"
     class="card__body no-outline btn d-flex"
-    [ngClass]="{ Active: s.id === currentActiveDoc }"
-    (click)="onClickDocList(s.id)"
+    [ngClass]="{ Active: note.id === currentActiveNoteId }"
+    (click)="onClickNoteList(note.id)"
   >
     <i aria-hidden="true" class="material-icons md-18 pt-2">description</i>
     <div class="d-flex flex-column pl-2">
-      <div class="card__body__title">{{ s.title }}</div>
-      <span class="card__body__subtitle">{{ s.time }}</span>
+      <div class="card__body__title">{{ note.title }}</div>
+      <span class="card__body__subtitle">
+        {{ note.dateCreated | date: 'dd/MM/yyyy' }}
+      </span>
     </div>
   </button>
 </div>

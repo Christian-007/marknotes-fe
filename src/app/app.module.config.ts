@@ -27,6 +27,8 @@ export const markdownStoreFactory = (): MarkdownStore => {
     checked: {
       [Toolbar.Preview]: true,
     },
+    currentActiveNoteId: '',
+    notes: [],
   };
   return new MarkdownStore(initialState);
 };

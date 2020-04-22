@@ -1,31 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 
+import { MarkdownStore } from '../../services/store/markdown.store';
+import {
+  INote,
+  MarkdownState,
+} from '../../services/store/markdown-state.model';
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-  state = [
-    { id: 1, title: 'Code of Conduct', time: '07/07/2020' },
-    { id: 2, title: 'Angular Providers', time: '17/12/2019' },
-    { id: 3, title: 'Flexbox Layout', time: '12/01/2020' },
-  ];
-  currentActiveDoc = 1;
-  buttonStyles = {
-    'padding-right': 0,
-  };
+  notes: INote[];
+  currentActiveNoteId: string;
+  buttonStyles: {};
 
-  constructor() {}
-
-  ngOnInit() {}
-
-  onClickAdd(): void {
-    console.log('hello on add');
+  constructor(private markdownStore: MarkdownStore) {
+    this.buttonStyles = {
+      'padding-right': 0,
+    };
   }
 
-  onClickDocList(docId: number): void {
+  ngOnInit() {
+    this.markdownStore.state$.subscribe((state: MarkdownState) => {
+      this.notes = state.notes;
+      this.currentActiveNoteId = state.currentActiveNoteId;
+    });
+  }
+
+  onClickAddNote(): void {
+    console.log('hello on add');
+    this.markdownStore.createNote();
+  }
+
+  onClickNoteList(docId: string): void {
     console.log('Document Click: ', docId);
-    this.currentActiveDoc = docId;
+    // this.currentActiveNoteId = docId;
   }
 }

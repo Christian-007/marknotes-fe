@@ -2,7 +2,8 @@ import { SafeHtml } from '@angular/platform-browser';
 
 import { Store } from './store';
 import { Toolbar } from '../../enums/toolbars.enum';
-import { MarkdownState } from './markdown-state.model';
+import { MarkdownState, INote } from './markdown-state.model';
+import { generateRandomId } from '../../utils/generator.util';
 
 export class MarkdownStore extends Store<MarkdownState> {
   setMarkdownText(value: string): void {
@@ -26,6 +27,40 @@ export class MarkdownStore extends Store<MarkdownState> {
         ...this.state.checked,
         [featureName]: value,
       },
+    });
+  }
+
+  createNote(): void {
+    const defaultNote: INote = {
+      id: generateRandomId(),
+      markdownText: '',
+      htmlText: '',
+      title: 'Untitled Note',
+      dateCreated: Date.now(),
+    };
+
+    this.setState({
+      ...this.state,
+      notes: [...this.state.notes, defaultNote],
+      currentActiveNoteId: defaultNote.id,
+    });
+  }
+
+  updateNote(addedNote: INote): void {
+    this.setState({
+      ...this.state,
+      notes: this.overwriteNote(addedNote),
+    });
+  }
+
+  private overwriteNote(addedNote: INote): INote[] {
+    return this.state.notes.map((note: INote) => {
+      if (note.id === addedNote.id) {
+        return {
+          ...note,
+          ...addedNote,
+        };
+      }
     });
   }
 }
