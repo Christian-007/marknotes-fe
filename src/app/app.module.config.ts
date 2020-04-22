@@ -25,7 +25,7 @@ export const markdownStoreFactory = (): MarkdownStore => {
     markdownText: '',
     htmlText: '',
     checked: {
-      [Toolbar.Preview]: false,
+      [Toolbar.Preview]: true,
     },
   };
   return new MarkdownStore(initialState);

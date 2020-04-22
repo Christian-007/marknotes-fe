@@ -5,6 +5,7 @@ import { MarkdownParser } from 'src/app/shared/services/markdown-parser/markdown
 import { MarkdownState } from 'src/app/shared/services/store/markdown-state.model';
 import { MarkdownStore } from 'src/app/shared/services/store/markdown.store';
 import { Toolbar } from 'src/app/shared/enums/toolbars.enum';
+import * as data from './note-dummy.json';
 
 @Component({
   selector: 'app-note-details',
@@ -32,10 +33,8 @@ export class NoteDetailsComponent implements OnInit {
       this.isChecked = state.checked;
     });
 
-    this.markdownStore.setMarkdownText(
-      (this.markdownText =
-        '### Initialize in JavaScript\nYou can provide more options by initializing the provider in JavaScript.\n```ts\nimport { Providers } from "@providers/provider";\n\nexport class Encryptor {\n  encryptionMethod: string; \n}\n```\nYou must provide a `clientId` (to create a new `UserAgentApplication`).\n### Initialize in JavaScript\nYou can provide more options by initializing the provider in JavaScript.\n```ts\nimport { Providers } from "@providers/provider";\n\nexport class Encryptor {\n  encryptionMethod: string; \n}\n```\nYou must provide a `clientId` (to create a new `UserAgentApplication`).\n### Initialize in JavaScript\nYou can provide more options by initializing the provider in JavaScript.\n```ts\nimport { Providers } from "@providers/provider";\n\nexport class Encryptor {\n  encryptionMethod: string; \n}\n```\nYou must provide a `clientId` (to create a new `UserAgentApplication`).\n### Initialize in JavaScript\nYou can provide more options by initializing the provider in JavaScript.\n```ts\nimport { Providers } from "@providers/provider";\n\nexport class Encryptor {\n  encryptionMethod: string; \n}\n```\nYou must provide a `clientId` (to create a new `UserAgentApplication`).'),
-    );
+    this.markdownStore.setMarkdownText(data.content);
+    this.convertMarkdown();
   }
 
   convertMarkdown(): void {

@@ -7,6 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       type="button"
       class="BtnIcon btn d-flex align-items-center"
       [ngClass]="getClassName()"
+      [ngStyle]="buttonStyles"
       [attr.aria-label]="icon"
       (click)="onButtonClick()"
     >
@@ -18,9 +19,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class ButtonWithIconComponent {
   @Input() icon: string;
   @Input() size: string;
+  @Input() checked: boolean;
+  @Input() buttonStyles: {};
   @Output() buttonClick: EventEmitter<boolean>;
-
-  private checked: boolean;
 
   constructor() {
     this.icon = 'not_interested';

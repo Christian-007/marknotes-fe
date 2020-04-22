@@ -9,7 +9,7 @@
 }
 
 .card {
-  padding: $layout_padding;
+  padding: $layout_padding $layout_padding $layout_padding $container_left_right;
 
   .material-icons {
     font-size: 14px;
@@ -24,7 +24,9 @@
   }
 
   &__body {
-    padding: 0.5rem 0;
+    border-radius: 2px;
+    padding: 0.25rem 0.6rem;
+    margin: 0.25rem 0;
     text-align: left;
 
     &__title {
@@ -35,6 +37,20 @@
     &__subtitle {
       font-size: 12px;
       color: $lighter_gray;
+    }
+  }
+
+  &__body:not(.Active):hover {
+    .card__body__title {
+      text-decoration: underline;
+    }
+  }
+
+  .Active {
+    background: $code_background_dark;
+
+    .card__body__title {
+      font-family: 'WeblySleek UI-SB';
     }
   }
 }
