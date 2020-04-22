@@ -4,7 +4,7 @@ export interface MarkdownState {
   markdownText: string;
   htmlText: SafeHtml;
   checked: { [key: string]: boolean };
-  currentActiveNoteId: string;
+  currentActiveNote: INote;
   notes: INote[];
 }
 

@@ -13,7 +13,7 @@ import {
 })
 export class CardComponent implements OnInit {
   notes: INote[];
-  currentActiveNoteId: string;
+  currentActiveNote: INote;
   buttonStyles: {};
 
   constructor(private markdownStore: MarkdownStore) {
@@ -25,7 +25,7 @@ export class CardComponent implements OnInit {
   ngOnInit() {
     this.markdownStore.state$.subscribe((state: MarkdownState) => {
       this.notes = state.notes;
-      this.currentActiveNoteId = state.currentActiveNoteId;
+      this.currentActiveNote = state.currentActiveNote;
     });
   }
 

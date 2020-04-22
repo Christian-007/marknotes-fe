@@ -2,10 +2,12 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 
 import { MarkdownParser } from 'src/app/shared/services/markdown-parser/markdown-parser';
-import { MarkdownState } from 'src/app/shared/services/store/markdown-state.model';
+import {
+  MarkdownState,
+  INote,
+} from 'src/app/shared/services/store/markdown-state.model';
 import { MarkdownStore } from 'src/app/shared/services/store/markdown.store';
 import { Toolbar } from 'src/app/shared/enums/toolbars.enum';
-import * as data from './note-dummy.json';
 
 @Component({
   selector: 'app-note-details',
@@ -17,6 +19,7 @@ export class NoteDetailsComponent implements OnInit {
   markdownText: string;
   htmlText: SafeHtml;
   isChecked: { [key: string]: boolean };
+  note: INote;
   Toolbar: typeof Toolbar;
 
   constructor(
@@ -28,13 +31,21 @@ export class NoteDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.markdownStore.state$.subscribe((state: MarkdownState) => {
-      this.markdownText = state.markdownText;
-      this.htmlText = state.htmlText;
       this.isChecked = state.checked;
-    });
 
-    this.markdownStore.setMarkdownText(data.content);
-    this.convertMarkdown();
+      const currentNote = state.notes.find(
+        note => note.id === state.currentActiveNote.id,
+      );
+
+      if (currentNote) {
+        this.markdownText = currentNote.markdownText;
+        this.note = currentNote;
+        this.convertMarkdown();
+      } else {
+        this.markdownText = '';
+        this.htmlText = '';
+      }
+    });
   }
 
   convertMarkdown(): void {
@@ -42,6 +53,9 @@ export class NoteDetailsComponent implements OnInit {
   }
 
   onMarkdownChange(): void {
-    this.markdownStore.setMarkdownText(this.markdownText);
+    this.markdownStore.updateNote({
+      ...this.note,
+      markdownText: this.markdownText,
+    });
   }
 }

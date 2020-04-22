@@ -27,7 +27,7 @@ export class TopbarComponent implements OnInit {
   }
 
   onClickPreview(isChecked: boolean): void {
-    const { markdownText } = this.markdownStore.state;
+    const { markdownText } = this.markdownStore.state.currentActiveNote;
     const parsedMarkdownText = this.markdownParser.convert(markdownText);
 
     this.markdownStore.setHtmlText(parsedMarkdownText);

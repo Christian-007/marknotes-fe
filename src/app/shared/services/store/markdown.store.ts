@@ -42,7 +42,7 @@ export class MarkdownStore extends Store<MarkdownState> {
     this.setState({
       ...this.state,
       notes: [...this.state.notes, defaultNote],
-      currentActiveNoteId: defaultNote.id,
+      currentActiveNote: defaultNote,
     });
   }
 
@@ -55,12 +55,16 @@ export class MarkdownStore extends Store<MarkdownState> {
 
   private overwriteNote(addedNote: INote): INote[] {
     return this.state.notes.map((note: INote) => {
+      // Edit the matched note
       if (note.id === addedNote.id) {
         return {
           ...note,
           ...addedNote,
         };
       }
+
+      // Otherwise, return the existing note
+      return note;
     });
   }
 }
