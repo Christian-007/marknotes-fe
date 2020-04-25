@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
-import { MarkdownStore } from '../../services/store/markdown.store';
-import {
-  INote,
-  MarkdownState,
-} from '../../services/store/markdown-state.model';
+import { INote } from '../../services/store/markdown-state.model';
+import { NotesActions } from 'src/app/pages/notes/shared/actions';
+import { NotesReducerState } from 'src/app/pages/notes/shared/reducers/notes.reducer';
 
 @Component({
   selector: 'app-card',
@@ -12,26 +12,31 @@ import {
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-  notes: INote[];
+  notes$: Observable<NotesReducerState>;
   currentActiveNote: INote;
   buttonStyles: {};
 
-  constructor(private markdownStore: MarkdownStore) {
+  constructor(private store: Store<{ notes: NotesReducerState }>) {
     this.buttonStyles = {
       'padding-right': 0,
     };
+
+    const dummyNote = {
+      id: '1',
+      title: 'Untiteld Documnet',
+      dateCreated: Date.now(),
+      htmlText: '',
+      markdownText: '',
+    };
+    this.store.dispatch(NotesActions.getNotes());
+    this.notes$ = store.pipe(select('notes'));
+    this.currentActiveNote = dummyNote;
   }
 
-  ngOnInit() {
-    this.markdownStore.state$.subscribe((state: MarkdownState) => {
-      this.notes = state.notes;
-      this.currentActiveNote = state.currentActiveNote;
-    });
-  }
+  ngOnInit() {}
 
   onClickAddNote(): void {
     console.log('hello on add');
-    this.markdownStore.createNote();
   }
 
   onClickNoteList(docId: string): void {

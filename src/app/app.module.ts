@@ -12,9 +12,21 @@ import {
 } from './app.module.config';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 
+import { StoreModule } from '@ngrx/store';
+import { notesReducer } from './pages/notes/shared/reducers/notes.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { NotesEffects } from 'src/app/pages/notes/shared/effects/notes.effects';
+
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, TopbarModule, SidebarModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    TopbarModule,
+    SidebarModule,
+    StoreModule.forRoot({ notes: notesReducer }),
+    EffectsModule.forRoot([NotesEffects]),
+  ],
   providers: [
     markdownParserProvider,
     codeHighlighterProvider,
