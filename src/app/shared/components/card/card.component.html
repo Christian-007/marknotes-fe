@@ -9,9 +9,9 @@
       (buttonClick)="onClickAddNote($event)"
     ></app-button-with-icon>
   </div>
-  <p *ngIf="(notes$ | async)?.pending">Loading...</p>
+  <p *ngIf="loading$ | async">Loading...</p>
   <button
-    *ngFor="let note of (notes$ | async)?.data"
+    *ngFor="let note of notes$ | async"
     type="button"
     class="card__body no-outline btn d-flex"
     [ngClass]="{ Active: note.id === currentActiveNote.id }"

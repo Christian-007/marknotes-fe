@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { INote } from '../../services/store/markdown-state.model';
 import { NotesActions } from 'src/app/pages/notes/shared/actions';
-import { NotesReducerState } from 'src/app/pages/notes/shared/reducers/notes.reducer';
+import * as fromNotes from 'src/app/pages/notes/shared/reducers';
 
 @Component({
   selector: 'app-card',
@@ -12,11 +12,12 @@ import { NotesReducerState } from 'src/app/pages/notes/shared/reducers/notes.red
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-  notes$: Observable<NotesReducerState>;
+  notes$: Observable<INote[]>;
+  loading$: Observable<boolean>;
   currentActiveNote: INote;
   buttonStyles: {};
 
-  constructor(private store: Store<{ notes: NotesReducerState }>) {
+  constructor(private store: Store<fromNotes.NotesState>) {
     this.buttonStyles = {
       'padding-right': 0,
     };
@@ -28,12 +29,14 @@ export class CardComponent implements OnInit {
       htmlText: '',
       markdownText: '',
     };
-    this.store.dispatch(NotesActions.getNotes());
-    this.notes$ = store.pipe(select('notes'));
+    this.notes$ = store.pipe(select(fromNotes.selectAllNotes));
+    this.loading$ = store.pipe(select(fromNotes.selectNotesPending));
     this.currentActiveNote = dummyNote;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.dispatch(NotesActions.getNotes());
+  }
 
   onClickAddNote(): void {
     console.log('hello on add');

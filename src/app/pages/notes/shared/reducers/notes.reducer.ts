@@ -1,31 +1,38 @@
-import { createReducer, on, Action } from '@ngrx/store';
+import {
+  createReducer,
+  on,
+  Action,
+  createFeatureSelector,
+  createSelector,
+} from '@ngrx/store';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 import { NotesActions } from '../actions';
+import { INote } from 'src/app/shared/services/store/markdown-state.model';
 
-export interface NotesReducerState {
-  data: any[];
+export const notesFeatureKey = 'notes';
+export interface State extends EntityState<INote> {
   pending: boolean;
   error: string;
 }
 
-const initialState: NotesReducerState = {
-  data: [],
+export const adapter: EntityAdapter<INote> = createEntityAdapter<INote>();
+
+const initialNotesState: State = adapter.getInitialState({
   pending: false,
   error: null,
-};
+});
 
-const _notesReducer = createReducer(
-  initialState,
+export const notesReducer = createReducer(
+  initialNotesState,
   on(NotesActions.getNotes, state => ({
     ...state,
     pending: true,
     error: null,
   })),
-  on(NotesActions.getNotesSuccess, (state, { payload }) => ({
-    ...state,
-    data: payload,
-    pending: false,
-  })),
+  on(NotesActions.getNotesSuccess, (state, { payload }) =>
+    adapter.addAll(payload, { ...state, pending: false }),
+  ),
   on(NotesActions.getNotesError, state => ({
     ...state,
     pending: false,
@@ -33,6 +40,4 @@ const _notesReducer = createReducer(
   })),
 );
 
-export function notesReducer(state: NotesReducerState, action: Action) {
-  return _notesReducer(state, action);
-}
+export const getPending = (state: State) => state.pending;
