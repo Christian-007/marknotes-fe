@@ -15,7 +15,7 @@ import * as fromRoot from 'src/app/pages/notes/shared/reducers';
 export class CardComponent implements OnInit {
   notes$: Observable<INote[]>;
   loading$: Observable<boolean>;
-  activeNoteId$: Observable<number>;
+  activeNoteId$: Observable<string>;
   buttonStyles: {};
 
   constructor(private store: Store<fromRoot.ApplicationState>) {
@@ -36,7 +36,7 @@ export class CardComponent implements OnInit {
     console.log('hello on add');
   }
 
-  onClickNoteList(noteId: number): void {
+  onClickNoteList(noteId: string): void {
     this.store.dispatch(NavigationsActions.clickNote({ payload: noteId }));
   }
 }

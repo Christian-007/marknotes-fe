@@ -5,11 +5,11 @@ import { NavigationsActions } from '../actions';
 export const navigationFeatureKey = 'navigations';
 
 export interface NavigationState {
-  activeNoteId: number;
+  activeNoteId: string;
 }
 
 const initialState: NavigationState = {
-  activeNoteId: 0,
+  activeNoteId: '-1',
 };
 
 export const navigationReducer = createReducer(

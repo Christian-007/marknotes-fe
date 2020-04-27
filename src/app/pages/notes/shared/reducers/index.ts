@@ -6,6 +6,7 @@ import {
 
 import * as fromNotes from 'src/app/pages/notes/shared/reducers/notes.reducer';
 import * as fromNavigation from 'src/app/pages/notes/shared/reducers/navigations.reducer';
+import { INote } from 'src/app/shared/services/store/markdown-state.model';
 
 export interface ApplicationState {
   [fromNotes.notesFeatureKey]: fromNotes.NotesState;
@@ -59,4 +60,13 @@ const selectNavigationEntitiesState = createSelector(
 export const selectActiveNoteId = createSelector(
   selectNavigationEntitiesState,
   fromNavigation.getActiveNoteId,
+);
+
+// Mix Selectors
+export const selectActiveNote = createSelector(
+  selectActiveNoteId,
+  selectAllNotes,
+  (activeNoteId: string, allNotes: INote[]) => {
+    return allNotes.filter(note => note.id === activeNoteId);
+  },
 );
