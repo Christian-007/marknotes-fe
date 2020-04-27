@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { MarkdownParser } from 'src/app/shared/services/markdown-parser/markdown-parser';
 import {
@@ -8,6 +10,7 @@ import {
 } from 'src/app/shared/services/store/markdown-state.model';
 import { MarkdownStore } from 'src/app/shared/services/store/markdown.store';
 import { Toolbar } from 'src/app/shared/enums/toolbars.enum';
+import * as fromRoot from 'src/app/pages/notes/shared/reducers';
 
 @Component({
   selector: 'app-note-details',
@@ -21,12 +24,15 @@ export class NoteDetailsComponent implements OnInit {
   isChecked: { [key: string]: boolean };
   note: INote;
   Toolbar: typeof Toolbar;
+  note$: Observable<INote>;
 
   constructor(
     private markdownParser: MarkdownParser,
     private markdownStore: MarkdownStore,
+    private store: Store<fromRoot.ApplicationState>,
   ) {
     this.Toolbar = Toolbar;
+    this.note$ = store.pipe(select(fromRoot.selectActiveNote));
   }
 
   ngOnInit() {

@@ -67,6 +67,6 @@ export const selectActiveNote = createSelector(
   selectActiveNoteId,
   selectAllNotes,
   (activeNoteId: string, allNotes: INote[]) => {
-    return allNotes.filter(note => note.id === activeNoteId);
+    return allNotes.find(note => note.id === activeNoteId);
   },
 );

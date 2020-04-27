@@ -12,14 +12,14 @@ export class NotesService {
         id: '1',
         title: 'Untitled Document',
         dateCreated: Date.now(),
-        htmlText: '',
+        htmlText: '<p>Hello this is 1</p>',
         markdownText: '',
       },
       {
         id: '2',
         title: '@ngrx/store tutorial',
         dateCreated: Date.now(),
-        htmlText: '',
+        htmlText: '<p>Hello this is 2</p>',
         markdownText: '',
       },
     ];
