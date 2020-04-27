@@ -1,14 +1,25 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import {
+  createFeatureSelector,
+  createSelector,
+  Action,
+  combineReducers,
+  ActionReducerMap,
+} from '@ngrx/store';
 
 import * as fromNotes from 'src/app/pages/notes/shared/reducers/notes.reducer';
 
-export interface NotesState {
-  [fromNotes.notesFeatureKey]: fromNotes.State;
+export interface ApplicationState {
+  [fromNotes.notesFeatureKey]: fromNotes.NotesState;
 }
 
-const selectNotesState = createFeatureSelector<NotesState, fromNotes.State>(
-  fromNotes.notesFeatureKey,
-);
+export const reducers: ActionReducerMap<ApplicationState> = {
+  [fromNotes.notesFeatureKey]: fromNotes.notesReducer,
+};
+
+const selectNotesState = createFeatureSelector<
+  ApplicationState,
+  fromNotes.NotesState
+>(fromNotes.notesFeatureKey);
 
 const selectNoteEntitiesState = createSelector(
   selectNotesState,

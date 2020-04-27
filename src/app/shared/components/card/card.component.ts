@@ -17,7 +17,7 @@ export class CardComponent implements OnInit {
   currentActiveNote: INote;
   buttonStyles: {};
 
-  constructor(private store: Store<fromNotes.NotesState>) {
+  constructor(private store: Store<fromNotes.ApplicationState>) {
     this.buttonStyles = {
       'padding-right': 0,
     };

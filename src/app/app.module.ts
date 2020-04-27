@@ -15,8 +15,8 @@ import {
 } from './app.module.config';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 
-import { notesReducer } from './pages/notes/shared/reducers/notes.reducer';
 import { NotesEffects } from 'src/app/pages/notes/shared/effects/notes.effects';
+import { reducers } from './pages/notes/shared/reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +25,7 @@ import { NotesEffects } from 'src/app/pages/notes/shared/effects/notes.effects';
     AppRoutingModule,
     TopbarModule,
     SidebarModule,
-    StoreModule.forRoot({ notes: notesReducer }),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([NotesEffects]),
     StoreDevtoolsModule.instrument({}),
   ],
