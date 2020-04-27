@@ -14,7 +14,7 @@
     *ngFor="let note of notes$ | async"
     type="button"
     class="card__body no-outline btn d-flex"
-    [ngClass]="{ Active: note.id === currentActiveNote.id }"
+    [ngClass]="{ Active: note.id === (activeNoteId$ | async) }"
     (click)="onClickNoteList(note.id)"
   >
     <i aria-hidden="true" class="material-icons md-18 pt-2">description</i>

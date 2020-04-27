@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 
 import { INote } from '../../services/store/markdown-state.model';
 import { NotesActions } from 'src/app/pages/notes/shared/actions';
-import * as fromNotes from 'src/app/pages/notes/shared/reducers';
+import { NavigationsActions } from 'src/app/pages/notes/shared/actions';
+import * as fromRoot from 'src/app/pages/notes/shared/reducers';
 
 @Component({
   selector: 'app-card',
@@ -14,24 +15,17 @@ import * as fromNotes from 'src/app/pages/notes/shared/reducers';
 export class CardComponent implements OnInit {
   notes$: Observable<INote[]>;
   loading$: Observable<boolean>;
-  currentActiveNote: INote;
+  activeNoteId$: Observable<number>;
   buttonStyles: {};
 
-  constructor(private store: Store<fromNotes.ApplicationState>) {
+  constructor(private store: Store<fromRoot.ApplicationState>) {
     this.buttonStyles = {
       'padding-right': 0,
     };
 
-    const dummyNote = {
-      id: '1',
-      title: 'Untiteld Documnet',
-      dateCreated: Date.now(),
-      htmlText: '',
-      markdownText: '',
-    };
-    this.notes$ = store.pipe(select(fromNotes.selectAllNotes));
-    this.loading$ = store.pipe(select(fromNotes.selectNotesPending));
-    this.currentActiveNote = dummyNote;
+    this.notes$ = store.pipe(select(fromRoot.selectAllNotes));
+    this.loading$ = store.pipe(select(fromRoot.selectNotesPending));
+    this.activeNoteId$ = store.pipe(select(fromRoot.selectActiveNoteId));
   }
 
   ngOnInit() {
@@ -42,8 +36,7 @@ export class CardComponent implements OnInit {
     console.log('hello on add');
   }
 
-  onClickNoteList(docId: string): void {
-    console.log('Document Click: ', docId);
-    // this.currentActiveNoteId = docId;
+  onClickNoteList(noteId: number): void {
+    this.store.dispatch(NavigationsActions.clickNote({ payload: noteId }));
   }
 }
