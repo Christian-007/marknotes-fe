@@ -30,6 +30,7 @@ export class TopbarComponent implements OnInit {
     this.note$ = this.store.pipe(select(fromRoot.selectActiveNote), take(1));
 
     if (isChecked) {
+      // ? Isolate this in Effect()
       this.note$.subscribe(note => {
         const parsedMarkdownText = this.markdownParser.convert(
           note.markdownText,

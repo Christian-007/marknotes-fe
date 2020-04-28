@@ -72,6 +72,14 @@ export const selectActiveNote = createSelector(
   selectActiveNoteId,
   selectAllNotes,
   (activeNoteId: string, allNotes: INote[]) => {
-    return allNotes.find(note => note.id === activeNoteId);
+    const foundNote = allNotes.find(note => note.id === activeNoteId);
+    const emptyNote: INote = {
+      id: '-1',
+      title: 'Untitled Document',
+      dateCreated: Date.now(),
+      htmlText: '<p>Hello this is 1</p>',
+      markdownText: '',
+    };
+    return foundNote || emptyNote;
   },
 );

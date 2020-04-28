@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { MarkdownParser } from 'src/app/shared/services/markdown-parser/markdown-parser';
 import { INote } from 'src/app/shared/services/store/markdown-state.model';
-import { Toolbar } from 'src/app/shared/enums/toolbars.enum';
 import * as fromRoot from 'src/app/pages/notes/shared/reducers';
+import { NotesActions } from '../shared/actions';
 
 @Component({
   selector: 'app-note-details',
@@ -13,30 +12,23 @@ import * as fromRoot from 'src/app/pages/notes/shared/reducers';
   styleUrls: ['./note-details.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class NoteDetailsComponent implements OnInit {
-  Toolbar: typeof Toolbar;
-  note$: Observable<INote>;
+export class NoteDetailsComponent {
+  note: INote;
   isPreview$: Observable<boolean>;
 
-  constructor(
-    private markdownParser: MarkdownParser,
-    private store: Store<fromRoot.ApplicationState>,
-  ) {
-    this.Toolbar = Toolbar;
-    this.note$ = store.pipe(select(fromRoot.selectActiveNote));
+  constructor(private store: Store<fromRoot.ApplicationState>) {
+    const note$ = store.pipe(select(fromRoot.selectActiveNote));
+    note$.subscribe((noteValue: INote) => {
+      this.note = noteValue;
+    });
     this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
   }
 
-  ngOnInit() {}
-
-  convertMarkdown(): void {
-    // this.htmlText = this.markdownParser.convert(this.markdownText);
-  }
-
   onMarkdownChange(): void {
-    /* this.markdownStore.updateNote({
-      ...this.note,
-      markdownText: this.markdownText,
-    }); */
+    const { id, markdownText } = this.note;
+    const update = {
+      payload: { id, changes: { markdownText } },
+    };
+    this.store.dispatch(NotesActions.writeNote(update));
   }
 }

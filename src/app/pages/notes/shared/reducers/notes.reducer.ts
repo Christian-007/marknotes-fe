@@ -33,8 +33,10 @@ export const notesReducer = createReducer(
     pending: false,
     error: 'Error',
   })),
-  on(NavigationsActions.previewNote, (state, { payload }) =>
-    adapter.updateOne(payload, state),
+  on(
+    NavigationsActions.previewNote,
+    NotesActions.writeNote,
+    (state, { payload }) => adapter.updateOne(payload, state),
   ),
 );
 

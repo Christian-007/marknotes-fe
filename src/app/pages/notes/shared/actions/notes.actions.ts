@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Update } from '@ngrx/entity';
 
 import { INote } from 'src/app/shared/services/store/markdown-state.model';
 
@@ -8,3 +9,7 @@ export const getNotesSuccess = createAction(
   props<{ payload: INote[] }>(),
 );
 export const getNotesError = createAction('GET_NOTES_ERROR');
+export const writeNote = createAction(
+  'WRITE_NOTE',
+  props<{ payload: Update<INote> }>(),
+);
