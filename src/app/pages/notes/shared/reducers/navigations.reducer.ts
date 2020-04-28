@@ -6,10 +6,12 @@ export const navigationFeatureKey = 'navigations';
 
 export interface NavigationState {
   activeNoteId: string;
+  isPreview: boolean;
 }
 
 const initialState: NavigationState = {
   activeNoteId: '-1',
+  isPreview: false,
 };
 
 export const navigationReducer = createReducer(
@@ -18,6 +20,15 @@ export const navigationReducer = createReducer(
     ...state,
     activeNoteId: payload,
   })),
+  on(NavigationsActions.showEditor, state => ({
+    ...state,
+    isPreview: false,
+  })),
+  on(NavigationsActions.previewNote, state => ({
+    ...state,
+    isPreview: true,
+  })),
 );
 
 export const getActiveNoteId = (state: NavigationState) => state.activeNoteId;
+export const getIsPreview = (state: NavigationState) => state.isPreview;

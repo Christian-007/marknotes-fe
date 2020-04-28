@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { MarkdownParser } from '../../services/markdown-parser/markdown-parser';
-import { MarkdownStore } from '../../services/store/markdown.store';
-import { MarkdownState } from '../../services/store/markdown-state.model';
-import { Toolbar } from '../../enums/toolbars.enum';
+import { INote } from '../../services/store/markdown-state.model';
+import * as fromRoot from 'src/app/pages/notes/shared/reducers';
+import { NavigationsActions } from 'src/app/pages/notes/shared/actions';
 
 @Component({
   selector: 'app-topbar',
@@ -11,26 +14,35 @@ import { Toolbar } from '../../enums/toolbars.enum';
   styleUrls: ['./topbar.component.scss'],
 })
 export class TopbarComponent implements OnInit {
-  isPreview: boolean;
+  isPreview$: Observable<boolean>;
+  note$: Observable<INote>;
 
   constructor(
     private markdownParser: MarkdownParser,
-    private markdownStore: MarkdownStore,
+    private store: Store<fromRoot.ApplicationState>,
   ) {
-    this.isPreview = false;
+    this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
   }
 
-  ngOnInit() {
-    this.markdownStore.state$.subscribe((state: MarkdownState) => {
-      this.isPreview = state.checked[Toolbar.Preview];
-    });
-  }
+  ngOnInit() {}
 
   onClickPreview(isChecked: boolean): void {
-    const { markdownText } = this.markdownStore.state.currentActiveNote;
-    const parsedMarkdownText = this.markdownParser.convert(markdownText);
+    this.note$ = this.store.pipe(select(fromRoot.selectActiveNote), take(1));
 
-    this.markdownStore.setHtmlText(parsedMarkdownText);
-    this.markdownStore.setChecked(Toolbar.Preview, isChecked);
+    if (isChecked) {
+      this.note$.subscribe(note => {
+        const parsedMarkdownText = this.markdownParser.convert(
+          note.markdownText,
+        );
+
+        const update = {
+          payload: { id: note.id, changes: { htmlText: parsedMarkdownText } },
+        };
+
+        this.store.dispatch(NavigationsActions.previewNote(update));
+      });
+    } else {
+      this.store.dispatch(NavigationsActions.showEditor());
+    }
   }
 }

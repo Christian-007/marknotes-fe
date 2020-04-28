@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 import { NotesActions } from '../actions';
+import { NavigationsActions } from '../actions';
 import { INote } from 'src/app/shared/services/store/markdown-state.model';
 
 export const notesFeatureKey = 'notes';
@@ -32,6 +33,9 @@ export const notesReducer = createReducer(
     pending: false,
     error: 'Error',
   })),
+  on(NavigationsActions.previewNote, (state, { payload }) =>
+    adapter.updateOne(payload, state),
+  ),
 );
 
 export const getPending = (state: NotesState) => state.pending;

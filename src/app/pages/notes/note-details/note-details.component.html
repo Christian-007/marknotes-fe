@@ -1,5 +1,5 @@
 <div class="note-details d-flex flex-column h-100">
-  <ng-container *ngIf="isChecked[Toolbar.Preview]; else markdownTextArea">
+  <ng-container *ngIf="isPreview$ | async; else markdownTextArea">
     <div
       class="note-details__content"
       [innerHTML]="(note$ | async)?.htmlText"

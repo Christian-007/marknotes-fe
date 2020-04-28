@@ -6,7 +6,7 @@
   <div class="pl-2 d-flex">
     <app-button-with-icon icon="delete"></app-button-with-icon>
     <app-button-with-icon
-      checked="isPreview"
+      [checked]="isPreview$ | async"
       icon="visibility"
       (buttonClick)="onClickPreview($event)"
     ></app-button-with-icon>

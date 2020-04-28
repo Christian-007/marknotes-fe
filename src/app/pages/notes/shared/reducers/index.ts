@@ -62,6 +62,11 @@ export const selectActiveNoteId = createSelector(
   fromNavigation.getActiveNoteId,
 );
 
+export const selectIsPreview = createSelector(
+  selectNavigationEntitiesState,
+  fromNavigation.getIsPreview,
+);
+
 // Mix Selectors
 export const selectActiveNote = createSelector(
   selectActiveNoteId,
