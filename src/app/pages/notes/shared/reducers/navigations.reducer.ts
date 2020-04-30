@@ -20,13 +20,9 @@ export const navigationReducer = createReducer(
     ...state,
     activeNoteId: payload,
   })),
-  on(NavigationsActions.showEditor, state => ({
+  on(NavigationsActions.togglePreview, state => ({
     ...state,
-    isPreview: false,
-  })),
-  on(NavigationsActions.previewNote, state => ({
-    ...state,
-    isPreview: true,
+    isPreview: !state.isPreview,
   })),
 );
 

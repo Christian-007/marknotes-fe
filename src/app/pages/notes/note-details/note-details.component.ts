@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -12,16 +12,20 @@ import { NotesActions } from '../shared/actions';
   styleUrls: ['./note-details.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class NoteDetailsComponent {
+export class NoteDetailsComponent implements OnInit {
+  note$: Observable<INote>;
   note: INote;
   isPreview$: Observable<boolean>;
 
   constructor(private store: Store<fromRoot.ApplicationState>) {
-    const note$ = store.pipe(select(fromRoot.selectActiveNote));
-    note$.subscribe((noteValue: INote) => {
+    this.note$ = store.pipe(select(fromRoot.selectActiveNote));
+    this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
+  }
+
+  ngOnInit() {
+    this.note$.subscribe((noteValue: INote) => {
       this.note = noteValue;
     });
-    this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
   }
 
   onMarkdownChange(): void {

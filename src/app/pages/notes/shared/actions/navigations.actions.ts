@@ -8,9 +8,11 @@ export const clickNote = createAction(
   props<{ payload: string }>(),
 );
 
-export const showEditor = createAction('SHOW_EDITOR');
+// export const showEditor = createAction('SHOW_EDITOR');
 
 export const previewNote = createAction(
   'PREVIEW_NOTE',
   props<{ payload: Update<INote> }>(),
 );
+
+export const togglePreview = createAction('TOGGLE_PREVIEW');

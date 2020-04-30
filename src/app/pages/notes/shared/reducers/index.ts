@@ -83,3 +83,9 @@ export const selectActiveNote = createSelector(
     return foundNote || emptyNote;
   },
 );
+
+export const selectIsPreviewAndActiveNote = createSelector(
+  selectIsPreview,
+  selectActiveNote,
+  (isPreview: boolean, activeNote: INote) => ({ isPreview, activeNote }),
+);
