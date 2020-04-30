@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { NavigationsActions } from '../actions';
+import { NavigationsActions, NotesActions } from '../actions';
 
 export const navigationFeatureKey = 'navigations';
 
@@ -23,6 +23,10 @@ export const navigationReducer = createReducer(
   on(NavigationsActions.togglePreview, state => ({
     ...state,
     isPreview: !state.isPreview,
+  })),
+  on(NotesActions.getNotesSuccess, (state, { payload }) => ({
+    ...state,
+    activeNoteId: payload[0].id,
   })),
 );
 
