@@ -8,23 +8,19 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       class="BtnIcon btn d-flex align-items-center"
       [ngClass]="getClassName()"
       [ngStyle]="buttonStyles"
-      [attr.aria-label]="icon"
       (click)="onButtonClick()"
     >
-      <i aria-hidden="true" class="material-icons md-18">{{ icon }}</i>
+      <ng-content></ng-content>
     </button>
   `,
   styleUrls: ['./app-toggle-button.component.scss'],
 })
 export class AppToggleButtonComponent {
-  @Input() icon: string;
-  @Input() size: string;
   @Input() checked: boolean;
   @Input() buttonStyles: {};
   @Output() buttonClick: EventEmitter<boolean>;
 
   constructor() {
-    this.icon = 'not_interested';
     this.buttonClick = new EventEmitter();
     this.checked = false;
   }
