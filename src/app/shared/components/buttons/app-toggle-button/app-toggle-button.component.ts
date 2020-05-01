@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-button-with-icon',
+  selector: 'app-toggle-button',
   template: `
     <button
       type="button"
@@ -14,9 +14,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       <i aria-hidden="true" class="material-icons md-18">{{ icon }}</i>
     </button>
   `,
-  styleUrls: ['./button-with-icon.component.scss'],
+  styleUrls: ['./app-toggle-button.component.scss'],
 })
-export class ButtonWithIconComponent {
+export class AppToggleButtonComponent {
   @Input() icon: string;
   @Input() size: string;
   @Input() checked: boolean;

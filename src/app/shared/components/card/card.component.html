@@ -3,11 +3,11 @@
     <div class="mr-auto d-flex align-items-center">
       NOTES
     </div>
-    <app-button-with-icon
+    <app-toggle-button
       [buttonStyles]="buttonStyles"
       icon="add_circle_outline"
       (buttonClick)="onClickAddNote($event)"
-    ></app-button-with-icon>
+    ></app-toggle-button>
   </div>
   <p *ngIf="loading$ | async">Loading...</p>
   <button
