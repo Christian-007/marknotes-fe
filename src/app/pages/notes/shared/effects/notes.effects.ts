@@ -50,7 +50,7 @@ export class NotesEffects {
     this.actions$.pipe(
       ofType(NotesActions.getNotesSuccess, NotesActions.addNoteSuccess),
       withLatestFrom(this.store.pipe(select(fromRoot.selectAllNotes))),
-      switchMap(([actions, orderedNotes]) => {
+      switchMap(([action, orderedNotes]) => {
         const firstNoteId = orderedNotes[0].id;
         return of(NavigationsActions.clickNote({ payload: firstNoteId }));
       }),
@@ -62,9 +62,8 @@ export class NotesEffects {
       ofType(NavigationsActions.togglePreview),
       withLatestFrom(
         this.store.pipe(select(fromRoot.selectIsPreviewAndActiveNote)),
-        (action, state) => ({ action, state }),
       ),
-      switchMap(({ state }) => {
+      switchMap(([action, state]) => {
         const { isPreview, activeNote } = state;
         const { id, markdownText } = activeNote;
 
