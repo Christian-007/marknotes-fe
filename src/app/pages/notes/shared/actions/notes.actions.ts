@@ -13,3 +13,8 @@ export const writeNote = createAction(
   'WRITE_NOTE',
   props<{ payload: Update<INote> }>(),
 );
+export const addNote = createAction('ADD_NOTE');
+export const addNoteSuccess = createAction(
+  'ADD_NOTE_SUCCESS',
+  props<{ payload: INote }>(),
+);

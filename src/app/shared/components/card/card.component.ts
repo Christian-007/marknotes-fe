@@ -33,7 +33,7 @@ export class CardComponent implements OnInit {
   }
 
   onClickAddNote(): void {
-    console.log('hello on add');
+    this.store.dispatch(NotesActions.addNote());
   }
 
   onClickNoteList(noteId: string): void {

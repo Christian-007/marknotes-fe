@@ -35,6 +35,17 @@ export class NotesEffects {
     ),
   );
 
+  addNote$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(NotesActions.addNote),
+      switchMap(() =>
+        this.notesService
+          .createNote()
+          .pipe(map(note => NotesActions.addNoteSuccess({ payload: note }))),
+      ),
+    ),
+  );
+
   togglePreview$ = createEffect(() =>
     this.actions$.pipe(
       ofType(NavigationsActions.togglePreview),
