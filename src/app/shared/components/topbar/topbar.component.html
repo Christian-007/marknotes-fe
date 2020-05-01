@@ -1,6 +1,6 @@
 <nav class="topbar d-flex align-items-center">
   <div class="topbar__title mr-auto">
-    Untitled Document
+    {{ (activeNote$ | async)?.title }}
   </div>
 
   <div class="pl-2 d-flex">
