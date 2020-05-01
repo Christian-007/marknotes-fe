@@ -46,6 +46,17 @@ export class NotesEffects {
     ),
   );
 
+  setActiveNoteId = createEffect(() =>
+    this.actions$.pipe(
+      ofType(NotesActions.getNotesSuccess, NotesActions.addNoteSuccess),
+      withLatestFrom(this.store.pipe(select(fromRoot.selectAllNotes))),
+      switchMap(([actions, orderedNotes]) => {
+        const firstNoteId = orderedNotes[0].id;
+        return of(NavigationsActions.clickNote({ payload: firstNoteId }));
+      }),
+    ),
+  );
+
   togglePreview$ = createEffect(() =>
     this.actions$.pipe(
       ofType(NavigationsActions.togglePreview),

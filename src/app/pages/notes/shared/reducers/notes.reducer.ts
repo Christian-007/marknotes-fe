@@ -4,6 +4,7 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { NotesActions } from '../actions';
 import { NavigationsActions } from '../actions';
 import { INote } from 'src/app/shared/services/store/markdown-state.model';
+import { sortDescendingByDateCreated } from 'src/app/shared/utils/sort.util';
 
 export const notesFeatureKey = 'notes';
 export interface NotesState extends EntityState<INote> {
@@ -11,7 +12,9 @@ export interface NotesState extends EntityState<INote> {
   error: string;
 }
 
-export const adapter: EntityAdapter<INote> = createEntityAdapter<INote>();
+export const adapter: EntityAdapter<INote> = createEntityAdapter<INote>({
+  sortComparer: sortDescendingByDateCreated,
+});
 
 const initialNotesState: NotesState = adapter.getInitialState({
   pending: false,

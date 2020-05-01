@@ -24,10 +24,6 @@ export const navigationReducer = createReducer(
     ...state,
     isPreview: !state.isPreview,
   })),
-  on(NotesActions.getNotesSuccess, (state, { payload }) => ({
-    ...state,
-    activeNoteId: payload[0].id,
-  })),
 );
 
 export const getActiveNoteId = (state: NavigationState) => state.activeNoteId;
