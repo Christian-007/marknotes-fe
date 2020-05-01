@@ -33,6 +33,6 @@ export class NoteDetailsComponent implements OnInit {
     const update = {
       payload: { id, changes: { markdownText } },
     };
-    this.store.dispatch(NotesActions.writeNote(update));
+    this.store.dispatch(NotesActions.updateNote(update));
   }
 }

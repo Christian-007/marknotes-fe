@@ -1,6 +1,9 @@
 <nav class="topbar d-flex align-items-center">
   <div class="topbar__title mr-auto">
-    <app-note-title [title]="(activeNote$ | async)?.title"></app-note-title>
+    <app-note-title
+      [title]="activeNote.title"
+      (submitEdit)="onSubmitEdit($event)"
+    ></app-note-title>
   </div>
 
   <div class="pl-2 d-flex">

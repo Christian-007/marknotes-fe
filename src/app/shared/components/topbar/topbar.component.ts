@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import * as fromRoot from 'src/app/pages/notes/shared/reducers';
-import { NavigationsActions } from 'src/app/pages/notes/shared/actions';
+import {
+  NavigationsActions,
+  NotesActions,
+} from 'src/app/pages/notes/shared/actions';
 import { INote } from 'src/app/shared/services/store/markdown-state.model';
 
 @Component({
@@ -11,18 +14,39 @@ import { INote } from 'src/app/shared/services/store/markdown-state.model';
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.scss'],
 })
-export class TopbarComponent implements OnInit {
+export class TopbarComponent implements OnInit, OnDestroy {
   isPreview$: Observable<boolean>;
   activeNote$: Observable<INote>;
+  activeNote: INote;
+  subscription: Subscription;
 
   constructor(private store: Store<fromRoot.ApplicationState>) {
     this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
     this.activeNote$ = store.pipe(select(fromRoot.selectActiveNote));
+    this.subscription = new Subscription();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subscription.add(
+      this.activeNote$.subscribe(note => {
+        this.activeNote = note;
+      }),
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   onClickPreview(): void {
     this.store.dispatch(NavigationsActions.togglePreview());
+  }
+
+  onSubmitEdit(updatedNoteTitle: string): void {
+    const { id } = this.activeNote;
+    const update = {
+      payload: { id, changes: { title: updatedNoteTitle } },
+    };
+    this.store.dispatch(NotesActions.updateNote(update));
   }
 }

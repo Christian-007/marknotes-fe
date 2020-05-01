@@ -9,10 +9,11 @@ export const getNotesSuccess = createAction(
   props<{ payload: INote[] }>(),
 );
 export const getNotesError = createAction('GET_NOTES_ERROR');
-export const writeNote = createAction(
-  'WRITE_NOTE',
+export const updateNote = createAction(
+  'UPDATE_NOTE',
   props<{ payload: Update<INote> }>(),
 );
+
 export const addNote = createAction('ADD_NOTE');
 export const addNoteSuccess = createAction(
   'ADD_NOTE_SUCCESS',

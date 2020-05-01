@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-note-title',
@@ -7,10 +7,13 @@ import { Component, Input } from '@angular/core';
 })
 export class NoteTitleComponent {
   @Input() title: string;
+  @Output() submitEdit: EventEmitter<string>;
+
   isEditting: boolean;
 
   constructor() {
     this.isEditting = false;
+    this.submitEdit = new EventEmitter();
     this.title = '';
   }
 
@@ -20,6 +23,7 @@ export class NoteTitleComponent {
 
   onSubmitEdit(): void {
     this.isEditting = false;
+    this.submitEdit.emit(this.title);
   }
 
   onCancelEdit(): void {
