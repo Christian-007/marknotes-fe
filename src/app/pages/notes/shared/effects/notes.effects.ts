@@ -46,7 +46,7 @@ export class NotesEffects {
     ),
   );
 
-  setActiveNoteId = createEffect(() =>
+  setActiveNoteId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(NotesActions.getNotesSuccess, NotesActions.addNoteSuccess),
       withLatestFrom(this.store.pipe(select(fromRoot.selectAllNotes))),
