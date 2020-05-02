@@ -2,11 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 
-import * as fromRoot from '@app/pages/notes/shared/reducers';
-import {
-  NavigationsActions,
-  NotesActions,
-} from '@app/pages/notes/shared/actions';
+import * as fromRoot from '@app/shared/store/reducers';
+import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
 import { INote } from '@app/shared/models/markdown-state.model';
 
 @Component({

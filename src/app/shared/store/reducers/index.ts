@@ -4,8 +4,8 @@ import {
   ActionReducerMap,
 } from '@ngrx/store';
 
-import * as fromNotes from '@app/pages/notes/shared/reducers/notes.reducer';
-import * as fromNavigation from '@app/pages/notes/shared/reducers/navigations.reducer';
+import * as fromNotes from '@app/shared/store/reducers/notes.reducer';
+import * as fromNavigation from '@app/shared/store/reducers/navigations.reducer';
 import { INote } from '@app/shared/models/markdown-state.model';
 
 export interface ApplicationState {

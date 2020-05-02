@@ -15,8 +15,8 @@ import {
 } from './app.module.config';
 import { SidebarModule } from '@app/shared/components/sidebar/sidebar.module';
 
-import { NotesEffects } from '@app/pages/notes/shared/effects/notes.effects';
-import { reducers } from '@app/pages/notes/shared/reducers';
+import { NotesEffects } from '@app/shared/store/effects/notes.effects';
+import { reducers } from '@app/shared/store/reducers';
 import { LocalStorageStrategy } from '@app/shared/services/storage-strategy/local-storage-strategy';
 
 @NgModule({
