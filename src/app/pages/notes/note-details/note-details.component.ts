@@ -1,13 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { SafeHtml } from '@angular/platform-browser';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
-import { MarkdownParser } from 'src/app/shared/services/markdown-parser/markdown-parser';
-import {
-  MarkdownState,
-  INote,
-} from 'src/app/shared/services/store/markdown-state.model';
-import { MarkdownStore } from 'src/app/shared/services/store/markdown.store';
-import { Toolbar } from 'src/app/shared/enums/toolbars.enum';
+import { INote } from '@app/shared/models/markdown-state.model';
+import * as fromRoot from '@app/shared/store/reducers';
+import { NotesActions } from '@app/shared/store/actions';
 
 @Component({
   selector: 'app-note-details',
@@ -16,46 +13,26 @@ import { Toolbar } from 'src/app/shared/enums/toolbars.enum';
   encapsulation: ViewEncapsulation.None,
 })
 export class NoteDetailsComponent implements OnInit {
-  markdownText: string;
-  htmlText: SafeHtml;
-  isChecked: { [key: string]: boolean };
+  note$: Observable<INote>;
   note: INote;
-  Toolbar: typeof Toolbar;
+  isPreview$: Observable<boolean>;
 
-  constructor(
-    private markdownParser: MarkdownParser,
-    private markdownStore: MarkdownStore,
-  ) {
-    this.Toolbar = Toolbar;
+  constructor(private store: Store<fromRoot.ApplicationState>) {
+    this.note$ = store.pipe(select(fromRoot.selectActiveNote));
+    this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
   }
 
   ngOnInit() {
-    this.markdownStore.state$.subscribe((state: MarkdownState) => {
-      this.isChecked = state.checked;
-
-      const currentNote = state.notes.find(
-        note => note.id === state.currentActiveNote.id,
-      );
-
-      if (currentNote) {
-        this.markdownText = currentNote.markdownText;
-        this.note = currentNote;
-        this.convertMarkdown();
-      } else {
-        this.markdownText = '';
-        this.htmlText = '';
-      }
+    this.note$.subscribe((noteValue: INote) => {
+      this.note = noteValue;
     });
-  }
-
-  convertMarkdown(): void {
-    this.htmlText = this.markdownParser.convert(this.markdownText);
   }
 
   onMarkdownChange(): void {
-    this.markdownStore.updateNote({
-      ...this.note,
-      markdownText: this.markdownText,
-    });
+    const { id, markdownText } = this.note;
+    const update = {
+      payload: { id, changes: { markdownText } },
+    };
+    this.store.dispatch(NotesActions.updateNote(update));
   }
 }

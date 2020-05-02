@@ -3,17 +3,20 @@
     <div class="mr-auto d-flex align-items-center">
       NOTES
     </div>
-    <app-button-with-icon
+    <app-button
       [buttonStyles]="buttonStyles"
-      icon="add_circle_outline"
       (buttonClick)="onClickAddNote($event)"
-    ></app-button-with-icon>
+    >
+      <i aria-hidden="true" class="material-icons md-18">add_circle_outline</i>
+    </app-button>
   </div>
+  <p *ngIf="loading$ | async">Loading...</p>
   <button
-    *ngFor="let note of notes"
+    *ngFor="let note of notes$ | async"
     type="button"
     class="card__body no-outline btn d-flex"
-    [ngClass]="{ Active: note.id === currentActiveNote.id }"
+    [disabled]="note.id === (activeNoteId$ | async)"
+    [ngClass]="{ Active: note.id === (activeNoteId$ | async) }"
     (click)="onClickNoteList(note.id)"
   >
     <i aria-hidden="true" class="material-icons md-18 pt-2">description</i>

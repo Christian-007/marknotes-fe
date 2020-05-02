@@ -1,4 +1,4 @@
-@import '../../../../assets/constants';
+@import './constants';
 
 .no-outline {
   /** Disable blue outline */
@@ -21,6 +21,7 @@
     color: $darker_gray;
     font-weight: 600;
     font-size: 12px;
+    margin-bottom: 0.25rem;
   }
 
   &__body {
@@ -52,5 +53,9 @@
     .card__body__title {
       font-family: 'WeblySleek UI-SB';
     }
+  }
+
+  .Active:disabled {
+    opacity: 1;
   }
 }

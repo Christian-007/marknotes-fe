@@ -28,7 +28,10 @@
               "src/styles.scss",
               "node_modules/highlight.js/styles/vs.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/assets/styles/"]
+            }
           },
           "configurations": {
             "production": {

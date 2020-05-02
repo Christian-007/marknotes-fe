@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "commit": "git-cz",
-    "release": "standard-version"
+    "release": "standard-version",
+    "serve:build": "lite-server --baseDir='dist/marknotes-fe'"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +22,9 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "@ngrx/effects": "^8.6.0",
+    "@ngrx/entity": "^8.6.0",
+    "@ngrx/store": "^8.6.0",
     "@types/dompurify": "^2.0.1",
     "@types/highlightjs": "^9.12.0",
     "@types/marked": "^0.7.3",
@@ -39,6 +43,7 @@
     "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
     "@commitlint/cli": "^8.3.5",
+    "@ngrx/store-devtools": "^9.1.0",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
@@ -53,6 +58,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "lite-server": "^2.5.4",
     "prettier": "^2.0.4",
     "protractor": "~5.4.0",
     "standard-version": "^7.1.0",

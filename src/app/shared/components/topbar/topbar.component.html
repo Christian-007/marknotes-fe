@@ -1,15 +1,23 @@
 <nav class="topbar d-flex align-items-center">
   <div class="topbar__title mr-auto">
-    Untitled Document
+    <app-note-title
+      [title]="activeNote.title"
+      (submitEdit)="onSubmitEdit($event)"
+    ></app-note-title>
   </div>
 
   <div class="pl-2 d-flex">
-    <app-button-with-icon icon="delete"></app-button-with-icon>
-    <app-button-with-icon
-      checked="isPreview"
-      icon="visibility"
+    <app-button>
+      <i aria-hidden="true" class="material-icons md-18">delete</i>
+    </app-button>
+    <app-toggle-button
+      [checked]="isPreview$ | async"
       (buttonClick)="onClickPreview($event)"
-    ></app-button-with-icon>
-    <app-button-with-icon icon="save"></app-button-with-icon>
+    >
+      <i aria-hidden="true" class="material-icons md-18">visibility</i>
+    </app-toggle-button>
+    <app-button>
+      <i aria-hidden="true" class="material-icons md-18">save</i>
+    </app-button>
   </div>
 </nav>

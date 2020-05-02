@@ -1,0 +1,25 @@
+<div class="d-flex align-items-center">
+  <ng-container *ngIf="!isEditting; else editToolbars">
+    <span>{{ title }}</span>
+    <div class="d-flex edit-wrapper">
+      <app-button (buttonClick)="onClickEdit()">
+        <i aria-hidden="true" class="material-icons md-18">edit</i>
+      </app-button>
+    </div>
+  </ng-container>
+  <ng-template #editToolbars>
+    <input type="text" class="mn-search" [(ngModel)]="title" />
+    <div class="d-flex edit-wrapper">
+      <app-button (buttonClick)="onSubmitEdit()">
+        <i aria-hidden="true" class="material-icons md-18 mn-text-success">
+          done
+        </i>
+      </app-button>
+      <app-button (buttonClick)="onCancelEdit()">
+        <i aria-hidden="true" class="material-icons md-18 mn-text-danger">
+          clear
+        </i>
+      </app-button>
+    </div>
+  </ng-template>
+</div>

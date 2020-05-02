@@ -1,6 +1,6 @@
 <div class="note-details d-flex flex-column h-100">
-  <ng-container *ngIf="isChecked[Toolbar.Preview]; else markdownTextArea">
-    <div class="note-details__content" [innerHTML]="htmlText"></div>
+  <ng-container *ngIf="isPreview$ | async; else markdownTextArea">
+    <div class="note-details__content" [innerHTML]="note.htmlText"></div>
   </ng-container>
 
   <ng-template #markdownTextArea>
@@ -8,7 +8,7 @@
       class="note-details__markdownArea form-control"
       id="MarkdownContentTxtArea"
       placeholder="Type something"
-      [(ngModel)]="markdownText"
+      [(ngModel)]="note.markdownText"
       (ngModelChange)="onMarkdownChange()"
     ></textarea>
   </ng-template>

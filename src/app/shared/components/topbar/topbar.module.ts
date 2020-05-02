@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { TopbarComponent } from './topbar.component';
-import { ButtonWithIconModule } from '../buttons/button-with-icon/button-with-icon.module';
+import { CustomButtonModule } from '../buttons/custom-button.module';
+import { NoteTitleComponent } from './note-title/note-title.component';
 
 @NgModule({
-  declarations: [TopbarComponent],
-  imports: [CommonModule, ButtonWithIconModule],
+  declarations: [TopbarComponent, NoteTitleComponent],
+  imports: [CommonModule, FormsModule, CustomButtonModule],
   exports: [TopbarComponent],
 })
 export class TopbarModule {}

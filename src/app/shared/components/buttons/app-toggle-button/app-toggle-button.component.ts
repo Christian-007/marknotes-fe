@@ -1,30 +1,26 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-button-with-icon',
+  selector: 'app-toggle-button',
   template: `
     <button
       type="button"
       class="BtnIcon btn d-flex align-items-center"
       [ngClass]="getClassName()"
       [ngStyle]="buttonStyles"
-      [attr.aria-label]="icon"
       (click)="onButtonClick()"
     >
-      <i aria-hidden="true" class="material-icons md-18">{{ icon }}</i>
+      <ng-content></ng-content>
     </button>
   `,
-  styleUrls: ['./button-with-icon.component.scss'],
+  styleUrls: ['./app-toggle-button.component.scss'],
 })
-export class ButtonWithIconComponent {
-  @Input() icon: string;
-  @Input() size: string;
+export class AppToggleButtonComponent {
   @Input() checked: boolean;
   @Input() buttonStyles: {};
   @Output() buttonClick: EventEmitter<boolean>;
 
   constructor() {
-    this.icon = 'not_interested';
     this.buttonClick = new EventEmitter();
     this.checked = false;
   }
