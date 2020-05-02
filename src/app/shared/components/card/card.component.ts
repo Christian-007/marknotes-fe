@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { INote } from '../../models/markdown-state.model';
+import { INote } from '@app/shared/models/markdown-state.model';
 import { NotesActions } from '@app/shared/store/actions';
 import { NavigationsActions } from '@app/shared/store/actions';
 import * as fromRoot from '@app/shared/store/reducers';
@@ -20,7 +20,7 @@ export class CardComponent implements OnInit {
 
   constructor(private store: Store<fromRoot.ApplicationState>) {
     this.buttonStyles = {
-      'padding-right': 0,
+      padding: 0,
     };
 
     this.notes$ = store.pipe(select(fromRoot.selectAllNotes));

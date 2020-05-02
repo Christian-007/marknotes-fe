@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { INote } from '@app/shared/models/markdown-state.model';
 import * as fromRoot from '@app/shared/store/reducers';
-import { NotesActions } from '../../../shared/store/actions';
+import { NotesActions } from '@app/shared/store/actions';
 
 @Component({
   selector: 'app-note-details',
