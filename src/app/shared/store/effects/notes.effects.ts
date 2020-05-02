@@ -5,7 +5,7 @@ import { of, EMPTY } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 
-import { NotesService } from '../../../pages/notes/notes.service';
+import { NotesService } from '@app/pages/notes/notes.service';
 import { NotesActions, NavigationsActions } from '@app/shared/store/actions';
 import * as fromRoot from '../reducers';
 import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';

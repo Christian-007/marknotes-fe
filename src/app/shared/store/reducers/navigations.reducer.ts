@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { NavigationsActions, NotesActions } from '../actions';
+import { NavigationsActions } from '../actions';
 
 export const navigationFeatureKey = 'navigations';
 
