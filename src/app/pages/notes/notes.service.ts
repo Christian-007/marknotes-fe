@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Update } from '@ngrx/entity';
 
 import { INote } from '@app/shared/models/markdown-state.model';
 import { StorageStrategy } from '@app/shared/services/storage-strategy/storage-strategy';
@@ -20,6 +20,10 @@ export class NotesService {
 
   getNotes(): Observable<INote[]> {
     return this.storageStrategy.load();
+  }
+
+  updateNote(payload: Update<INote>): Observable<any> {
+    return this.storageStrategy.update(payload);
   }
 
   createNote(defaultNote: INote): Observable<any> {

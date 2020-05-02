@@ -1,5 +1,6 @@
-import { Observable, throwError, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { Update } from '@ngrx/entity';
 
 import { StorageStrategy } from './storage-strategy';
 import { LOCAL_STORAGE } from '@app/shared/constants/storage-name.const';
@@ -48,7 +49,7 @@ export class LocalStorageStrategy extends StorageStrategy {
     return deleteObs;
   }
 
-  update(payload: Partial<INote>): Observable<any> {
+  update(payload: Update<INote>): Observable<any> {
     return this.load().pipe(
       switchMap((loadedNotes: INote[]) => {
         if (loadedNotes.length > 0) {
@@ -74,13 +75,13 @@ export class LocalStorageStrategy extends StorageStrategy {
 
   private getUpdatedData(
     loadedNotes: INote[],
-    payload: Partial<INote>,
+    payload: Update<INote>,
   ): INote[] {
     return loadedNotes.map(note => {
       if (note.id === payload.id) {
         return {
           ...note,
-          ...payload,
+          ...payload.changes,
         };
       }
       return note;

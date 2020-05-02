@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  switchMap,
-  map,
-  catchError,
-  withLatestFrom,
-  concatMap,
-} from 'rxjs/operators';
+import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
@@ -48,12 +42,14 @@ export class NotesEffects {
     this.actions$.pipe(
       ofType(NotesActions.updateNote),
       withLatestFrom(this.store.pipe(select(fromRoot.selectActiveNoteId))),
-      concatMap(([action, activeNoteId]) => {
+      switchMap(([action, activeNoteId]) => {
         const payload: Update<INote> = {
           id: activeNoteId,
           changes: action.payload,
         };
-        return of(NotesActions.updateNoteSuccess({ payload }));
+        return this.notesService
+          .updateNote(payload)
+          .pipe(map(() => NotesActions.updateNoteSuccess({ payload })));
       }),
     ),
   );
