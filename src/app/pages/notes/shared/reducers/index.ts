@@ -6,7 +6,7 @@ import {
 
 import * as fromNotes from '@app/pages/notes/shared/reducers/notes.reducer';
 import * as fromNavigation from '@app/pages/notes/shared/reducers/navigations.reducer';
-import { INote } from '@app/shared/services/store/markdown-state.model';
+import { INote } from '@app/shared/models/markdown-state.model';
 
 export interface ApplicationState {
   [fromNotes.notesFeatureKey]: fromNotes.NotesState;

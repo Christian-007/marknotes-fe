@@ -12,7 +12,7 @@ import {
 } from '@app/pages/notes/shared/actions';
 import * as fromRoot from '../reducers';
 import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
-import { INote } from '@app/shared/services/store/markdown-state.model';
+import { INote } from '@app/shared/models/markdown-state.model';
 import { createDefaultNote } from '@app/shared/constants/note.const';
 
 @Injectable()

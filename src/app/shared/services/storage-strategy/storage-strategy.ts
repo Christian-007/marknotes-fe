@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-import { INote } from '../store/markdown-state.model';
+import { INote } from '../../models/markdown-state.model';
 import { EStorageStrategy } from '@app/shared/enums/strategy.enum';
 
 export abstract class StorageStrategy {

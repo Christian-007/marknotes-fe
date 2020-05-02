@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { INote } from '../../services/store/markdown-state.model';
+import { INote } from '../../models/markdown-state.model';
 import { NotesActions } from '@app/pages/notes/shared/actions';
 import { NavigationsActions } from '@app/pages/notes/shared/actions';
 import * as fromRoot from '@app/pages/notes/shared/reducers';

@@ -7,7 +7,7 @@ import {
   NavigationsActions,
   NotesActions,
 } from '@app/pages/notes/shared/actions';
-import { INote } from '@app/shared/services/store/markdown-state.model';
+import { INote } from '@app/shared/models/markdown-state.model';
 
 @Component({
   selector: 'app-topbar',

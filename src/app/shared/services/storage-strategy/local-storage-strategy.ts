@@ -3,7 +3,7 @@ import { switchMap } from 'rxjs/operators';
 
 import { StorageStrategy } from './storage-strategy';
 import { LOCAL_STORAGE } from '@app/shared/constants/storage-name.const';
-import { INote } from '@app/shared/services/store/markdown-state.model';
+import { INote } from '@app/shared/models/markdown-state.model';
 import { EStorageStrategy } from '@app/shared/enums/strategy.enum';
 
 export class LocalStorageStrategy extends StorageStrategy {

@@ -6,18 +6,17 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TopbarModule } from './shared/components/topbar/topbar.module';
+import { TopbarModule } from '@app/shared/components/topbar/topbar.module';
 import {
   markdownParserProvider,
   codeHighlighterProvider,
   customSanitizerProvider,
-  markdownStoreProvider,
   notesServiceProvider,
 } from './app.module.config';
-import { SidebarModule } from './shared/components/sidebar/sidebar.module';
+import { SidebarModule } from '@app/shared/components/sidebar/sidebar.module';
 
 import { NotesEffects } from '@app/pages/notes/shared/effects/notes.effects';
-import { reducers } from './pages/notes/shared/reducers';
+import { reducers } from '@app/pages/notes/shared/reducers';
 import { LocalStorageStrategy } from '@app/shared/services/storage-strategy/local-storage-strategy';
 
 @NgModule({
@@ -35,7 +34,6 @@ import { LocalStorageStrategy } from '@app/shared/services/storage-strategy/loca
     markdownParserProvider,
     codeHighlighterProvider,
     customSanitizerProvider,
-    markdownStoreProvider,
     LocalStorageStrategy,
     notesServiceProvider,
   ],

@@ -3,7 +3,7 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 import { NotesActions } from '../actions';
 import { NavigationsActions } from '../actions';
-import { INote } from '@app/shared/services/store/markdown-state.model';
+import { INote } from '@app/shared/models/markdown-state.model';
 import { sortDescendingByDateCreated } from '@app/shared/utils/sort.util';
 
 export const notesFeatureKey = 'notes';
