@@ -11,6 +11,10 @@ export const getNotesSuccess = createAction(
 export const getNotesError = createAction('GET_NOTES_ERROR');
 export const updateNote = createAction(
   'UPDATE_NOTE',
+  props<{ payload: Partial<INote> }>(),
+);
+export const updateNoteSuccess = createAction(
+  'UPDATE_NOTE_SUCCESS',
   props<{ payload: Update<INote> }>(),
 );
 

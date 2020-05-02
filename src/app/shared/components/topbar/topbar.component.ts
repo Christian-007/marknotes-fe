@@ -40,10 +40,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
   }
 
   onSubmitEdit(updatedNoteTitle: string): void {
-    const { id } = this.activeNote;
-    const update = {
-      payload: { id, changes: { title: updatedNoteTitle } },
+    const update: Partial<INote> = {
+      title: updatedNoteTitle,
     };
-    this.store.dispatch(NotesActions.updateNote(update));
+    this.store.dispatch(NotesActions.updateNote({ payload: update }));
   }
 }

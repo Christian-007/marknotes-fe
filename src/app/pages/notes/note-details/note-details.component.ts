@@ -29,10 +29,10 @@ export class NoteDetailsComponent implements OnInit {
   }
 
   onMarkdownChange(): void {
-    const { id, markdownText } = this.note;
-    const update = {
-      payload: { id, changes: { markdownText } },
+    const { markdownText } = this.note;
+    const update: Partial<INote> = {
+      markdownText,
     };
-    this.store.dispatch(NotesActions.updateNote(update));
+    this.store.dispatch(NotesActions.updateNote({ payload: update }));
   }
 }

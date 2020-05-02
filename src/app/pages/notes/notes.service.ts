@@ -19,24 +19,7 @@ export class NotesService {
   }
 
   getNotes(): Observable<INote[]> {
-    const notes = [
-      {
-        id: '1',
-        title: 'Untitled Document',
-        dateCreated: Date.now() + 1,
-        htmlText: '<p>Hello this is 1</p>',
-        markdownText: '',
-      },
-      {
-        id: '2',
-        title: '@ngrx/store tutorial',
-        dateCreated: Date.now() + 2,
-        htmlText: '<p>Hello this is 2</p>',
-        markdownText: '',
-      },
-    ];
-
-    return of(notes).pipe(delay(2000));
+    return this.storageStrategy.load();
   }
 
   createNote(defaultNote: INote): Observable<any> {
