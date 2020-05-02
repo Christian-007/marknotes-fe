@@ -9,10 +9,10 @@ import { NotesService } from '../../notes.service';
 import {
   NotesActions,
   NavigationsActions,
-} from 'src/app/pages/notes/shared/actions';
+} from '@app/pages/notes/shared/actions';
 import * as fromRoot from '../reducers';
-import { MarkdownParser } from 'src/app/shared/services/markdown-parser/markdown-parser';
-import { INote } from 'src/app/shared/services/store/markdown-state.model';
+import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
+import { INote } from '@app/shared/services/store/markdown-state.model';
 
 @Injectable()
 export class NotesEffects {

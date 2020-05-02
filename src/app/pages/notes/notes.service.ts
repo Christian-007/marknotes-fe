@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
-import { INote } from 'src/app/shared/services/store/markdown-state.model';
-import { generateRandomId } from 'src/app/shared/utils/generator.util';
+import { INote } from '@app/shared/services/store/markdown-state.model';
+import { generateRandomId } from '@app/shared/utils/generator.util';
 
 @Injectable({ providedIn: 'root' })
 export class NotesService {

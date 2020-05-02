@@ -2,8 +2,8 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { INote } from 'src/app/shared/services/store/markdown-state.model';
-import * as fromRoot from 'src/app/pages/notes/shared/reducers';
+import { INote } from '@app/shared/services/store/markdown-state.model';
+import * as fromRoot from '@app/pages/notes/shared/reducers';
 import { NotesActions } from '../shared/actions';
 
 @Component({

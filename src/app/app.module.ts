@@ -15,7 +15,7 @@ import {
 } from './app.module.config';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 
-import { NotesEffects } from 'src/app/pages/notes/shared/effects/notes.effects';
+import { NotesEffects } from '@app/pages/notes/shared/effects/notes.effects';
 import { reducers } from './pages/notes/shared/reducers';
 
 @NgModule({

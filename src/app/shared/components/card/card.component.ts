@@ -3,9 +3,9 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { INote } from '../../services/store/markdown-state.model';
-import { NotesActions } from 'src/app/pages/notes/shared/actions';
-import { NavigationsActions } from 'src/app/pages/notes/shared/actions';
-import * as fromRoot from 'src/app/pages/notes/shared/reducers';
+import { NotesActions } from '@app/pages/notes/shared/actions';
+import { NavigationsActions } from '@app/pages/notes/shared/actions';
+import * as fromRoot from '@app/pages/notes/shared/reducers';
 
 @Component({
   selector: 'app-card',

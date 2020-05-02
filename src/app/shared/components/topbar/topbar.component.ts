@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 
-import * as fromRoot from 'src/app/pages/notes/shared/reducers';
+import * as fromRoot from '@app/pages/notes/shared/reducers';
 import {
   NavigationsActions,
   NotesActions,
-} from 'src/app/pages/notes/shared/actions';
-import { INote } from 'src/app/shared/services/store/markdown-state.model';
+} from '@app/pages/notes/shared/actions';
+import { INote } from '@app/shared/services/store/markdown-state.model';
 
 @Component({
   selector: 'app-topbar',

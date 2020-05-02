@@ -1,12 +1,12 @@
 import { Provider } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { Marked } from 'src/app/shared/services/markdown-parser/marked';
-import { MarkdownParser } from 'src/app/shared/services/markdown-parser/markdown-parser';
-import { CodeHighlighter } from 'src/app/shared/services/code-highlighter/code-highlighter';
-import { HighlightJs } from 'src/app/shared/services/code-highlighter/highlight-js';
-import { CustomSanitizer } from 'src/app/shared/services/custom-sanitizer/custom-sanitizer';
-import { DomPurify } from 'src/app/shared/services/custom-sanitizer/dom-purify';
+import { Marked } from '@app/shared/services/markdown-parser/marked';
+import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
+import { CodeHighlighter } from '@app/shared/services/code-highlighter/code-highlighter';
+import { HighlightJs } from '@app/shared/services/code-highlighter/highlight-js';
+import { CustomSanitizer } from '@app/shared/services/custom-sanitizer/custom-sanitizer';
+import { DomPurify } from '@app/shared/services/custom-sanitizer/dom-purify';
 import { MarkdownStore } from './shared/services/store/markdown.store';
 import { MarkdownState } from './shared/services/store/markdown-state.model';
 import { Toolbar } from './shared/enums/toolbars.enum';

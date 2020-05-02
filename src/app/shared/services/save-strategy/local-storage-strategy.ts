@@ -2,8 +2,8 @@ import { Observable, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { DataManagementStrategy } from './save-strategy';
-import { LOCAL_STORAGE } from '../../constants/storage-name.const';
-import { INote } from '../store/markdown-state.model';
+import { LOCAL_STORAGE } from '@app/shared/constants/storage-name.const';
+import { INote } from '@app/shared/services/store/markdown-state.model';
 
 export class LocalStorageStrategy extends DataManagementStrategy {
   save(payload: INote[]): Observable<any> {
