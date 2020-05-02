@@ -4,9 +4,21 @@ import { delay } from 'rxjs/operators';
 
 import { INote } from '@app/shared/services/store/markdown-state.model';
 import { generateRandomId } from '@app/shared/utils/generator.util';
+import { StorageStrategy } from '@app/shared/services/storage-strategy/storage-strategy';
+import { EStorageStrategy } from '@app/shared/enums/strategy.enum';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class NotesService {
+  private storageStrategy: StorageStrategy;
+
+  constructor(private strategies: StorageStrategy[]) {}
+
+  setStorageStrategy(strategyName: EStorageStrategy): void {
+    this.storageStrategy = this.strategies.find(
+      (strategy: StorageStrategy) => strategyName === strategy.name,
+    );
+  }
+
   getNotes(): Observable<INote[]> {
     const notes = [
       {
@@ -28,15 +40,7 @@ export class NotesService {
     return of(notes).pipe(delay(2000));
   }
 
-  createNote(): Observable<INote> {
-    const defaultNote: INote = {
-      id: generateRandomId(),
-      title: 'Untitled Document',
-      dateCreated: Date.now(),
-      htmlText: '',
-      markdownText: '',
-    };
-
-    return of(defaultNote);
+  createNote(defaultNote: INote): Observable<any> {
+    return this.storageStrategy.create(defaultNote);
   }
 }

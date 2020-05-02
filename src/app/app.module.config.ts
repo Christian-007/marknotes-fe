@@ -10,6 +10,9 @@ import { DomPurify } from '@app/shared/services/custom-sanitizer/dom-purify';
 import { MarkdownStore } from './shared/services/store/markdown.store';
 import { MarkdownState } from './shared/services/store/markdown-state.model';
 import { Toolbar } from './shared/enums/toolbars.enum';
+import { NotesService } from './pages/notes/notes.service';
+import { StorageStrategy } from './shared/services/storage-strategy/storage-strategy';
+import { LocalStorageStrategy } from './shared/services/storage-strategy/local-storage-strategy';
 
 // Factories
 export const markedFactory = (
@@ -33,6 +36,10 @@ export const markdownStoreFactory = (): MarkdownStore => {
   return new MarkdownStore(initialState);
 };
 
+const notesServiceFactory = (...storageStrategies: StorageStrategy[]) => {
+  return new NotesService(storageStrategies);
+};
+
 // Providers
 export const markdownParserProvider: Provider = {
   provide: MarkdownParser,
@@ -53,4 +60,10 @@ export const customSanitizerProvider: Provider = {
 export const markdownStoreProvider: Provider = {
   provide: MarkdownStore,
   useFactory: markdownStoreFactory,
+};
+
+export const notesServiceProvider: Provider = {
+  provide: NotesService,
+  useFactory: notesServiceFactory,
+  deps: [LocalStorageStrategy],
 };

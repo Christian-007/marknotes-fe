@@ -13,6 +13,7 @@ import {
 import * as fromRoot from '../reducers';
 import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
 import { INote } from '@app/shared/services/store/markdown-state.model';
+import { createDefaultNote } from '@app/shared/constants/note.const';
 
 @Injectable()
 export class NotesEffects {
@@ -38,11 +39,14 @@ export class NotesEffects {
   addNote$ = createEffect(() =>
     this.actions$.pipe(
       ofType(NotesActions.addNote),
-      switchMap(() =>
-        this.notesService
-          .createNote()
-          .pipe(map(note => NotesActions.addNoteSuccess({ payload: note }))),
-      ),
+      switchMap(() => {
+        const defaultNote = createDefaultNote();
+        return this.notesService
+          .createNote(defaultNote)
+          .pipe(
+            map(() => NotesActions.addNoteSuccess({ payload: defaultNote })),
+          );
+      }),
     ),
   );
 

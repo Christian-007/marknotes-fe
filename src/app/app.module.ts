@@ -12,11 +12,13 @@ import {
   codeHighlighterProvider,
   customSanitizerProvider,
   markdownStoreProvider,
+  notesServiceProvider,
 } from './app.module.config';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 
 import { NotesEffects } from '@app/pages/notes/shared/effects/notes.effects';
 import { reducers } from './pages/notes/shared/reducers';
+import { LocalStorageStrategy } from '@app/shared/services/storage-strategy/local-storage-strategy';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +36,8 @@ import { reducers } from './pages/notes/shared/reducers';
     codeHighlighterProvider,
     customSanitizerProvider,
     markdownStoreProvider,
+    LocalStorageStrategy,
+    notesServiceProvider,
   ],
   bootstrap: [AppComponent],
 })

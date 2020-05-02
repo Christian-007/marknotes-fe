@@ -1,4 +1,7 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { NotesService } from '@app/pages/notes/notes.service';
+import { EStorageStrategy } from '@app/shared/enums/strategy.enum';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent {
   title = 'marknotes-fe';
+
+  constructor(private notesService: NotesService) {
+    this.notesService.setStorageStrategy(EStorageStrategy.LocalStorage);
+  }
 }
