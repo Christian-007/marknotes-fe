@@ -11,20 +11,22 @@
     </app-button>
   </div>
   <p *ngIf="loading$ | async">Loading...</p>
-  <button
-    *ngFor="let note of notes$ | async"
-    type="button"
-    class="card__body no-outline btn d-flex"
-    [disabled]="note.id === (activeNoteId$ | async)"
-    [ngClass]="{ Active: note.id === (activeNoteId$ | async) }"
-    (click)="onClickNoteList(note.id)"
-  >
-    <i aria-hidden="true" class="material-icons md-18 pt-2">description</i>
-    <div class="d-flex flex-column pl-2">
-      <div class="card__body__title">{{ note.title }}</div>
-      <span class="card__body__subtitle">
-        {{ note.dateCreated | date: 'dd/MM/yyyy' }}
-      </span>
-    </div>
-  </button>
+  <div class="note-list d-flex flex-column">
+    <button
+      *ngFor="let note of notes$ | async"
+      type="button"
+      class="card__body no-outline btn d-flex align-items-center"
+      [disabled]="note.id === (activeNoteId$ | async)"
+      [ngClass]="{ Active: note.id === (activeNoteId$ | async) }"
+      (click)="onClickNoteList(note.id)"
+    >
+      <i aria-hidden="true" class="material-icons md-18">description</i>
+      <div class="d-flex flex-column pl-2">
+        <div class="card__body__title">{{ note.title }}</div>
+        <span class="card__body__subtitle">
+          {{ note.dateCreated | date: 'dd/MM/yyyy' }}
+        </span>
+      </div>
+    </button>
+  </div>
 </div>

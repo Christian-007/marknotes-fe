@@ -21,7 +21,13 @@
     color: $darker_gray;
     font-weight: 600;
     font-size: 12px;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .note-list {
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 200px;
   }
 
   &__body {
@@ -58,4 +64,10 @@
   .Active:disabled {
     opacity: 1;
   }
+}
+
+:host {
+  // Enable overflow-y for note-list
+  overflow: hidden;
+  display: flex;
 }

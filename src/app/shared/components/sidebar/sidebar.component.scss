@@ -21,4 +21,5 @@
 
 :host {
   flex-grow: 1; // Enable full height
+  overflow: hidden; // Enable overflow-y for note-list
 }
