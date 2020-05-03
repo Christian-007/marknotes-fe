@@ -18,6 +18,7 @@ import { SidebarModule } from '@app/shared/components/sidebar/sidebar.module';
 import { NotesEffects } from '@app/shared/store/effects/notes.effects';
 import { reducers } from '@app/shared/store/reducers';
 import { LocalStorageStrategy } from '@app/shared/services/storage-strategy/local-storage-strategy';
+import { AppDialogModule } from '@app/shared/components/dialog/app-dialog.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { LocalStorageStrategy } from '@app/shared/services/storage-strategy/loca
     AppRoutingModule,
     TopbarModule,
     SidebarModule,
+    AppDialogModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([NotesEffects]),
     StoreDevtoolsModule.instrument({}),
