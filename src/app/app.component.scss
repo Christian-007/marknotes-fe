@@ -11,6 +11,10 @@
 .right-section {
   flex: 4;
 
+  /* Show overflow-x on code-blocks */
+  overflow-x: hidden;
+  overflow-y: auto;
+
   .main-content {
     flex: 1;
   }
