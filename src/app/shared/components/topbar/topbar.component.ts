@@ -6,7 +6,7 @@ import * as fromRoot from '@app/shared/store/reducers';
 import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
 import { INote } from '@app/shared/models/markdown-state.model';
 import {
-  DynamicItem,
+  DynamicItemRef,
   ClickedItemData,
 } from '@app/shared/models/dynamic-component.model';
 import { generateRandomId } from '@app/shared/utils/generator.util';
@@ -58,7 +58,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.store.dispatch(NavigationsActions.buildComponent({ payload }));
   }
 
-  private createDynamicItem(): DynamicItem {
+  private createDynamicItem(): DynamicItemRef {
     return {
       component: DialogComponent,
       data: {

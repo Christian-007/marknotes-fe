@@ -2,7 +2,10 @@ import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 
 import { INote } from '@app/shared/models/markdown-state.model';
-import { DynamicItem } from '@app/shared/models/dynamic-component.model';
+import {
+  DynamicComponentRef,
+  DynamicItemRef,
+} from '@app/shared/models/dynamic-component.model';
 
 export const clickNote = createAction(
   'CLICK_NOTE',
@@ -18,10 +21,10 @@ export const togglePreview = createAction('TOGGLE_PREVIEW');
 
 export const buildComponent = createAction(
   'BUILD_COMPONENT',
-  props<{ payload: DynamicItem }>(),
+  props<{ payload: DynamicItemRef }>(),
 );
 
 export const buildComponentSuccess = createAction(
   'BUILD_COMPONENT_SUCCESS',
-  props<{ payload: DynamicItem }>(),
+  props<{ payload: DynamicComponentRef }>(),
 );

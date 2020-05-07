@@ -1,9 +1,14 @@
-import { Injectable, ComponentFactoryResolver, Injector } from '@angular/core';
+import {
+  Injectable,
+  ComponentFactoryResolver,
+  Injector,
+  ComponentRef,
+} from '@angular/core';
 
 import { ContainerHostDirective } from '@app/shared/directives/container-host.directive';
 import {
   DynamicComponent,
-  DynamicItem,
+  DynamicItemRef,
 } from '@app/shared/models/dynamic-component.model';
 import { Click } from '@app/shared/enums/ui-actions.enum';
 
@@ -24,7 +29,7 @@ export class ComponentCreator {
     this.containerHost = containerHost;
   }
 
-  build(dynamicItem: DynamicItem): void {
+  build(dynamicItem: DynamicItemRef): ComponentRef<DynamicComponent> {
     this.clearAll(); // clear created components
 
     const { component, data, onAction } = dynamicItem;
@@ -39,8 +44,16 @@ export class ComponentCreator {
       },
     );
 
+    return createdComponent;
+  }
+
+  insert(componentRef: ComponentRef<DynamicComponent>): void {
     const { viewContainerRef } = this.containerHost;
-    viewContainerRef.insert(createdComponent.hostView);
+    viewContainerRef.insert(componentRef.hostView);
+  }
+
+  destroy(componentRef: ComponentRef<DynamicComponent>): void {
+    componentRef.destroy();
   }
 
   clearAll(): void {

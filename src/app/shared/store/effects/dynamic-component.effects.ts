@@ -18,8 +18,13 @@ export class DynamicComponentEffects {
       ofType(NavigationsActions.buildComponent),
       switchMap(actions => {
         console.log('actions: ', actions);
-        const { payload } = actions;
-        this.componentCreator.build(payload);
+        const componentRef = this.componentCreator.build(actions.payload);
+        this.componentCreator.insert(componentRef);
+
+        const payload = {
+          ...actions.payload,
+          component: componentRef,
+        };
         return of(NavigationsActions.buildComponentSuccess({ payload }));
       }),
     ),
