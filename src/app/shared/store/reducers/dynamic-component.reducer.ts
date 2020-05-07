@@ -23,4 +23,7 @@ export const dynamicComponentReducer = createReducer(
   on(NavigationsActions.buildComponentSuccess, (state, { payload }) =>
     adapter.addOne(payload, state),
   ),
+  on(NavigationsActions.destroyComponentSuccess, (state, { id }) =>
+    adapter.removeOne(id, state),
+  ),
 );

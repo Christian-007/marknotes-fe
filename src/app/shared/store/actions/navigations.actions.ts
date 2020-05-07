@@ -28,3 +28,13 @@ export const buildComponentSuccess = createAction(
   'BUILD_COMPONENT_SUCCESS',
   props<{ payload: DynamicComponentRef }>(),
 );
+
+export const destroyComponent = createAction(
+  'DESTROY_COMPONENT',
+  props<{ id: string }>(),
+);
+
+export const destroyComponentSuccess = createAction(
+  'DESTROY_COMPONENT_SUCCESS',
+  props<{ id: string }>(),
+);
