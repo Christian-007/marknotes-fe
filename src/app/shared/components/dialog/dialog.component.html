@@ -13,8 +13,12 @@
       will permanently lose it.
     </div>
     <div class="mn-Dialog-footer">
-      <button class="btn btn-outline-dark">Cancel</button>
-      <button class="btn btn-danger">Delete</button>
+      <button (click)="onActions(Click.Cancel)" class="btn btn-outline-dark">
+        Cancel
+      </button>
+      <button (click)="onActions(Click.Success)" class="btn btn-danger">
+        Delete
+      </button>
     </div>
   </div>
 </div>

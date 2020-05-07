@@ -18,7 +18,9 @@ import { SidebarModule } from '@app/shared/components/sidebar/sidebar.module';
 import { NotesEffects } from '@app/shared/store/effects/notes.effects';
 import { reducers } from '@app/shared/store/reducers';
 import { LocalStorageStrategy } from '@app/shared/services/storage-strategy/local-storage-strategy';
-import { AppDialogModule } from '@app/shared/components/dialog/app-dialog.module';
+import { OverlayContainerComponent } from '@app/shared/components/overlay-container/overlay-container.component';
+import { OverlayContainerModule } from './shared/components/overlay-container/overlay-container.module';
+import { DynamicComponentEffects } from './shared/store/effects/dynamic-component.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,9 +29,9 @@ import { AppDialogModule } from '@app/shared/components/dialog/app-dialog.module
     AppRoutingModule,
     TopbarModule,
     SidebarModule,
-    AppDialogModule,
+    OverlayContainerModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([NotesEffects]),
+    EffectsModule.forRoot([NotesEffects, DynamicComponentEffects]),
     StoreDevtoolsModule.instrument({}),
   ],
   providers: [
@@ -39,6 +41,6 @@ import { AppDialogModule } from '@app/shared/components/dialog/app-dialog.module
     LocalStorageStrategy,
     notesServiceProvider,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, OverlayContainerComponent],
 })
 export class AppModule {}

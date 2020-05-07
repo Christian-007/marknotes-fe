@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CustomButtonModule } from '../buttons/custom-button.module';
-import { AppDialogComponent } from './app-dialog.component';
+import { DialogComponent } from './dialog.component';
 
 @NgModule({
-  declarations: [AppDialogComponent],
+  declarations: [DialogComponent],
   imports: [CommonModule, CustomButtonModule],
-  exports: [AppDialogComponent],
+  exports: [DialogComponent],
 })
-export class AppDialogModule {}
+export class DialogModule {}

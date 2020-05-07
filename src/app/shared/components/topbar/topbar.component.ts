@@ -5,6 +5,13 @@ import { Observable, Subscription } from 'rxjs';
 import * as fromRoot from '@app/shared/store/reducers';
 import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
 import { INote } from '@app/shared/models/markdown-state.model';
+import {
+  DynamicItem,
+  ClickedItemData,
+} from '@app/shared/models/dynamic-component.model';
+import { generateRandomId } from '@app/shared/utils/generator.util';
+import { DialogComponent } from '../dialog/dialog.component';
+import { Click } from '@app/shared/enums/ui-actions.enum';
 
 @Component({
   selector: 'app-topbar',
@@ -44,5 +51,27 @@ export class TopbarComponent implements OnInit, OnDestroy {
       title: updatedNoteTitle,
     };
     this.store.dispatch(NotesActions.updateNote({ payload: update }));
+  }
+
+  onClickDelete(): void {
+    const payload = this.createDynamicItem();
+    this.store.dispatch(NavigationsActions.buildComponent({ payload }));
+  }
+
+  private createDynamicItem(): DynamicItem {
+    return {
+      component: DialogComponent,
+      data: {
+        id: generateRandomId(),
+      },
+      onAction: (emittedValues: ClickedItemData) => {
+        const { id, type } = emittedValues;
+        if (type === Click.Cancel) {
+          console.log('Cancelling ', id);
+        } else {
+          console.log('Success ', id);
+        }
+      },
+    };
   }
 }
