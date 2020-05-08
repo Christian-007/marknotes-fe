@@ -23,3 +23,12 @@ export const addNoteSuccess = createAction(
   'ADD_NOTE_SUCCESS',
   props<{ payload: INote }>(),
 );
+
+export const deleteNote = createAction(
+  'DELETE_NOTE',
+  props<{ noteId: string; componentId: string }>(),
+);
+export const deleteNoteSuccess = createAction(
+  'DELETE_NOTE_SUCCESS',
+  props<{ noteId: string; componentId: string }>(),
+);

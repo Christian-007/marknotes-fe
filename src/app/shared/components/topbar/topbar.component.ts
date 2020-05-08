@@ -67,11 +67,16 @@ export class TopbarComponent implements OnInit, OnDestroy {
       onAction: (emittedValues: ClickedItemData) => {
         const { id, type } = emittedValues;
         if (type === Click.Cancel) {
-          this.store.dispatch(NavigationsActions.destroyComponent({ id }));
+          this.store.dispatch(
+            NavigationsActions.destroyComponent({ componentId: id }),
+          );
         } else {
-          console.log('Success ', id);
-          // Delete note (current active noteId) --> use Strategy
-          // If success, dispatch destroyComponent
+          this.store.dispatch(
+            NotesActions.deleteNote({
+              noteId: this.activeNote.id,
+              componentId: id,
+            }),
+          );
         }
       },
     };

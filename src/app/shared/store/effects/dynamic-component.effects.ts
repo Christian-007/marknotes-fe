@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { switchMap, withLatestFrom } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, EMPTY } from 'rxjs';
 
 import { ComponentCreator } from '@app/shared/services/component-creator/component-creator';
-import { NavigationsActions } from '../actions';
+import { NavigationsActions, NotesActions } from '../actions';
 import * as fromRoot from '../reducers';
 import { DynamicComponentRef } from '@app/shared/models/dynamic-component.model';
 
@@ -35,18 +35,26 @@ export class DynamicComponentEffects {
 
   destroyComponent$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NavigationsActions.destroyComponent),
+      ofType(
+        NavigationsActions.destroyComponent,
+        NotesActions.deleteNoteSuccess,
+      ),
       withLatestFrom(
         this.store.pipe(select(fromRoot.selectAllDynamicComponents)),
       ),
       switchMap(([actions, components]) => {
-        const { id } = actions;
-        const selectedComponent = components.find(
-          (component: DynamicComponentRef) => component.data.id === id,
-        );
-        this.componentCreator.destroy(selectedComponent.component);
-
-        return of(NavigationsActions.destroyComponentSuccess({ id }));
+        const { componentId } = actions;
+        if (componentId) {
+          const selectedComponent = components.find(
+            (component: DynamicComponentRef) =>
+              component.data.id === componentId,
+          );
+          this.componentCreator.destroy(selectedComponent.component);
+          return of(
+            NavigationsActions.destroyComponentSuccess({ componentId }),
+          );
+        }
+        return EMPTY;
       }),
     ),
   );

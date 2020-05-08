@@ -44,6 +44,9 @@ export const notesReducer = createReducer(
   on(NotesActions.addNoteSuccess, (state, { payload }) =>
     adapter.addOne(payload, { ...state, pending: false }),
   ),
+  on(NotesActions.deleteNoteSuccess, (state, { noteId }) =>
+    adapter.removeOne(noteId, state),
+  ),
 );
 
 export const getPending = (state: NotesState) => state.pending;

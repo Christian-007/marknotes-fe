@@ -68,6 +68,19 @@ export class NotesEffects {
     ),
   );
 
+  deleteNote$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(NotesActions.deleteNote),
+      switchMap(actions => {
+        const { noteId, componentId } = actions;
+        return this.notesService.deleteNote(noteId).pipe(
+          map(() => NotesActions.deleteNoteSuccess({ noteId, componentId })),
+          catchError(() => EMPTY),
+        );
+      }),
+    ),
+  );
+
   setActiveNoteId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(NotesActions.getNotesSuccess, NotesActions.addNoteSuccess),

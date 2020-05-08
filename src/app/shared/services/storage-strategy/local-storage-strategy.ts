@@ -36,17 +36,16 @@ export class LocalStorageStrategy extends StorageStrategy {
     return loadObs;
   }
 
-  // ! Should delete selectively (not delete all)
-  delete(): Observable<any> {
-    const deleteObs = new Observable(observer => {
-      try {
-        localStorage.removeItem(LOCAL_STORAGE.notesData);
-        observer.next();
-      } catch (error) {
-        observer.error(error);
-      }
-    });
-    return deleteObs;
+  delete(id: string): Observable<any> {
+    return this.load().pipe(
+      switchMap((loadedNotes: INote[]) => {
+        if (loadedNotes.length > 0) {
+          const filteredNotes = loadedNotes.filter(note => note.id !== id);
+          return this.setItem(filteredNotes);
+        }
+        throwError(null);
+      }),
+    );
   }
 
   update(payload: Update<INote>): Observable<any> {
@@ -61,7 +60,7 @@ export class LocalStorageStrategy extends StorageStrategy {
     );
   }
 
-  setItem(payload: INote[]): Observable<any> {
+  private setItem(payload: INote[]): Observable<any> {
     const setObs = new Observable(observer => {
       try {
         localStorage.setItem(LOCAL_STORAGE.notesData, JSON.stringify(payload));

@@ -31,10 +31,10 @@ export const buildComponentSuccess = createAction(
 
 export const destroyComponent = createAction(
   'DESTROY_COMPONENT',
-  props<{ id: string }>(),
+  props<{ componentId: string }>(),
 );
 
 export const destroyComponentSuccess = createAction(
   'DESTROY_COMPONENT_SUCCESS',
-  props<{ id: string }>(),
+  props<{ componentId: string }>(),
 );

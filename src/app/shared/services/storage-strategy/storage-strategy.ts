@@ -8,6 +8,6 @@ export abstract class StorageStrategy {
   abstract get name(): EStorageStrategy;
   abstract create(payload: INote): Observable<any>;
   abstract load(): Observable<any>;
-  abstract delete(): Observable<any>;
+  abstract delete(id: string): Observable<any>;
   abstract update(payload: Update<INote>): Observable<any>;
 }

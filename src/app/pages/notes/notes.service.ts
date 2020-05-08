@@ -29,4 +29,8 @@ export class NotesService {
   createNote(defaultNote: INote): Observable<any> {
     return this.storageStrategy.create(defaultNote);
   }
+
+  deleteNote(id: string): Observable<any> {
+    return this.storageStrategy.delete(id);
+  }
 }
