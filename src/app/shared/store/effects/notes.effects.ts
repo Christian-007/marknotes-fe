@@ -83,11 +83,18 @@ export class NotesEffects {
 
   setActiveNoteId$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NotesActions.getNotesSuccess, NotesActions.addNoteSuccess),
+      ofType(
+        NotesActions.getNotesSuccess,
+        NotesActions.addNoteSuccess,
+        NotesActions.deleteNoteSuccess,
+      ),
       withLatestFrom(this.store.pipe(select(fromRoot.selectAllNotes))),
       switchMap(([action, orderedNotes]) => {
-        const firstNoteId = orderedNotes[0].id;
-        return of(NavigationsActions.clickNote({ payload: firstNoteId }));
+        if (orderedNotes.length > 0) {
+          const firstNoteId = orderedNotes[0].id;
+          return of(NavigationsActions.clickNote({ payload: firstNoteId }));
+        }
+        return EMPTY;
       }),
     ),
   );
