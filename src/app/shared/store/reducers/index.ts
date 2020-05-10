@@ -71,6 +71,11 @@ export const selectIsPreview = createSelector(
   fromNavigation.getIsPreview,
 );
 
+export const isEditingTitle = createSelector(
+  selectNavigationEntitiesState,
+  fromNavigation.getisEditingTitle,
+);
+
 // Dynamic Component Selectors
 const selectDynamicComponetState = createFeatureSelector<
   ApplicationState,

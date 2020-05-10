@@ -7,26 +7,27 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class NoteTitleComponent {
   @Input() title: string;
+  @Input() isEditingTitle: boolean;
   @Output() submitEdit: EventEmitter<string>;
-
-  isEditting: boolean;
+  @Output() editTitle: EventEmitter<any>;
 
   constructor() {
-    this.isEditting = false;
     this.submitEdit = new EventEmitter();
+    this.editTitle = new EventEmitter();
     this.title = '';
+    this.isEditingTitle = false;
   }
 
   onClickEdit(): void {
-    this.isEditting = true;
+    this.editTitle.emit(true);
   }
 
   onSubmitEdit(): void {
-    this.isEditting = false;
+    this.isEditingTitle = false;
     this.submitEdit.emit(this.title);
   }
 
   onCancelEdit(): void {
-    this.isEditting = false;
+    this.editTitle.emit(false);
   }
 }

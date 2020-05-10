@@ -3,7 +3,9 @@
     <app-note-title
       *ngIf="hasNotesInStorage$ | async"
       [title]="activeNote.title"
+      [isEditingTitle]="isEditingTitle$ | async"
       (submitEdit)="onSubmitEdit($event)"
+      (editTitle)="onEditTitle($event)"
     ></app-note-title>
   </div>
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import { Update } from '@ngrx/entity';
 
 import * as fromRoot from '@app/shared/store/reducers';
 import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
@@ -24,11 +25,13 @@ export class TopbarComponent implements OnInit, OnDestroy {
   activeNote: INote;
   subscription: Subscription;
   hasNotesInStorage$: Observable<boolean>;
+  isEditingTitle$: Observable<boolean>;
 
   constructor(private store: Store<fromRoot.ApplicationState>) {
     this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
     this.activeNote$ = store.pipe(select(fromRoot.selectActiveNote));
     this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
+    this.isEditingTitle$ = store.pipe(select(fromRoot.isEditingTitle));
     this.subscription = new Subscription();
   }
 
@@ -49,15 +52,22 @@ export class TopbarComponent implements OnInit, OnDestroy {
   }
 
   onSubmitEdit(updatedNoteTitle: string): void {
-    const update: Partial<INote> = {
-      title: updatedNoteTitle,
+    const payload: Update<INote> = {
+      id: this.activeNote.id,
+      changes: {
+        title: updatedNoteTitle,
+      },
     };
-    this.store.dispatch(NotesActions.updateNote({ payload: update }));
+    this.store.dispatch(NavigationsActions.submitNoteTitle({ payload }));
   }
 
   onClickDelete(): void {
     const payload = this.createDynamicItem();
     this.store.dispatch(NavigationsActions.buildComponent({ payload }));
+  }
+
+  onEditTitle(isEditingTitle: boolean): void {
+    this.store.dispatch(NavigationsActions.clickEditTitle({ isEditingTitle }));
   }
 
   private createDynamicItem(): DynamicItemRef {

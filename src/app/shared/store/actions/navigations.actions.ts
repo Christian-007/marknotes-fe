@@ -23,7 +23,6 @@ export const buildComponent = createAction(
   'BUILD_COMPONENT',
   props<{ payload: DynamicItemRef }>(),
 );
-
 export const buildComponentSuccess = createAction(
   'BUILD_COMPONENT_SUCCESS',
   props<{ payload: DynamicComponentRef }>(),
@@ -33,8 +32,21 @@ export const destroyComponent = createAction(
   'DESTROY_COMPONENT',
   props<{ componentId: string }>(),
 );
-
 export const destroyComponentSuccess = createAction(
   'DESTROY_COMPONENT_SUCCESS',
   props<{ componentId: string }>(),
+);
+
+export const clickEditTitle = createAction(
+  'CLICK_EDIT_TITLE',
+  props<{ isEditingTitle: boolean }>(),
+);
+
+export const submitNoteTitle = createAction(
+  'SUBMIT_NOTE_TITLE',
+  props<{ payload: Update<INote> }>(),
+);
+export const submitNoteTitleSuccess = createAction(
+  'SUBMIT_NOTE_TITLE_SUCCESS',
+  props<{ payload: Update<INote> }>(),
 );

@@ -1,5 +1,5 @@
 <div class="d-flex align-items-center">
-  <ng-container *ngIf="!isEditting; else editToolbars">
+  <ng-container *ngIf="!isEditingTitle; else editToolbars">
     <span>{{ title }}</span>
     <div class="d-flex edit-wrapper">
       <app-button (buttonClick)="onClickEdit()">
