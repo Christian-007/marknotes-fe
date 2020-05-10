@@ -9,6 +9,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       [ngClass]="getClassName()"
       [ngStyle]="buttonStyles"
       (click)="onButtonClick()"
+      [disabled]="disabled"
     >
       <ng-content></ng-content>
     </button>
@@ -18,11 +19,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class AppToggleButtonComponent {
   @Input() checked: boolean;
   @Input() buttonStyles: {};
+  @Input() disabled: boolean;
   @Output() buttonClick: EventEmitter<boolean>;
 
   constructor() {
     this.buttonClick = new EventEmitter();
     this.checked = false;
+    this.disabled = false;
   }
 
   onButtonClick(): void {

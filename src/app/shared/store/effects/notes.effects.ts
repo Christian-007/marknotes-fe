@@ -27,10 +27,7 @@ export class NotesEffects {
       switchMap(() =>
         this.notesService.getNotes().pipe(
           map(notes => {
-            if (notes) {
-              return NotesActions.getNotesSuccess({ payload: notes });
-            }
-            return NotesActions.addNote();
+            return NotesActions.getNotesSuccess({ payload: notes });
           }),
           catchError(() => of(NotesActions.getNotesError)),
         ),

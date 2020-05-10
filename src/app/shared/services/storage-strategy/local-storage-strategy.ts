@@ -28,7 +28,8 @@ export class LocalStorageStrategy extends StorageStrategy {
     const loadObs = new Observable<INote[]>(observer => {
       try {
         const data = localStorage.getItem(LOCAL_STORAGE.notesData);
-        observer.next(JSON.parse(data));
+        const loadedData = data ? JSON.parse(data) : [];
+        observer.next(loadedData);
       } catch (error) {
         observer.error(error);
       }

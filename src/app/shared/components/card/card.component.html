@@ -11,6 +11,11 @@
     </app-button>
   </div>
   <p *ngIf="loading$ | async">Loading...</p>
+
+  <div *ngIf="!(hasNotesInStorage$ | async)" class="empty-note-list">
+    Empty note list
+  </div>
+
   <div class="note-list d-flex flex-column">
     <button
       *ngFor="let note of notes$ | async"

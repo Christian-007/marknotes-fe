@@ -8,6 +8,17 @@
   box-shadow: none;
 }
 
+.empty-note-list {
+  padding: 0.6rem 0.6rem;
+  margin: 0.25rem 0;
+  background-color: #f2f2f2;
+  text-align: center;
+  border-radius: 2px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.3);
+}
+
 .card {
   padding: $layout_padding $layout_padding $layout_padding $container_left_right;
   flex: 1;

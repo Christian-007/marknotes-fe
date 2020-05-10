@@ -16,10 +16,12 @@ export class NoteDetailsComponent implements OnInit {
   note$: Observable<INote>;
   note: INote;
   isPreview$: Observable<boolean>;
+  hasNotesInStorage$: Observable<boolean>;
 
   constructor(private store: Store<fromRoot.ApplicationState>) {
     this.note$ = store.pipe(select(fromRoot.selectActiveNote));
     this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
+    this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
   }
 
   ngOnInit() {

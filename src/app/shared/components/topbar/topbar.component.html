@@ -1,22 +1,27 @@
 <nav class="topbar d-flex align-items-center">
   <div class="topbar__title mr-auto">
     <app-note-title
+      *ngIf="hasNotesInStorage$ | async"
       [title]="activeNote.title"
       (submitEdit)="onSubmitEdit($event)"
     ></app-note-title>
   </div>
 
   <div class="pl-2 d-flex">
-    <app-button (buttonClick)="onClickDelete()">
+    <app-button
+      (buttonClick)="onClickDelete()"
+      [disabled]="!(hasNotesInStorage$ | async)"
+    >
       <i aria-hidden="true" class="material-icons md-18">delete</i>
     </app-button>
     <app-toggle-button
       [checked]="isPreview$ | async"
       (buttonClick)="onClickPreview($event)"
+      [disabled]="!(hasNotesInStorage$ | async)"
     >
       <i aria-hidden="true" class="material-icons md-18">visibility</i>
     </app-toggle-button>
-    <app-button>
+    <app-button [disabled]="!(hasNotesInStorage$ | async)">
       <i aria-hidden="true" class="material-icons md-18">save</i>
     </app-button>
   </div>

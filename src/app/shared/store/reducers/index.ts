@@ -97,14 +97,7 @@ export const selectActiveNote = createSelector(
   selectAllNotes,
   (activeNoteId: string, allNotes: INote[]) => {
     const foundNote = allNotes.find(note => note.id === activeNoteId);
-    const emptyNote: INote = {
-      id: '-1',
-      title: 'Untitled Document',
-      dateCreated: Date.now(),
-      htmlText: '<p>Hello this is 1</p>',
-      markdownText: '',
-    };
-    return foundNote || emptyNote;
+    return foundNote;
   },
 );
 
@@ -112,4 +105,11 @@ export const selectIsPreviewAndActiveNote = createSelector(
   selectIsPreview,
   selectActiveNote,
   (isPreview: boolean, activeNote: INote) => ({ isPreview, activeNote }),
+);
+
+export const hasNotesInStorage = createSelector(
+  selectAllNotes,
+  (notes: INote[]) => {
+    return notes.length > 0;
+  },
 );

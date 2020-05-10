@@ -16,6 +16,7 @@ export class CardComponent implements OnInit {
   notes$: Observable<INote[]>;
   loading$: Observable<boolean>;
   activeNoteId$: Observable<string>;
+  hasNotesInStorage$: Observable<boolean>;
   buttonStyles: {};
 
   constructor(private store: Store<fromRoot.ApplicationState>) {
@@ -26,6 +27,7 @@ export class CardComponent implements OnInit {
     this.notes$ = store.pipe(select(fromRoot.selectAllNotes));
     this.loading$ = store.pipe(select(fromRoot.selectNotesPending));
     this.activeNoteId$ = store.pipe(select(fromRoot.selectActiveNoteId));
+    this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
   }
 
   ngOnInit() {

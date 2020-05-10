@@ -23,10 +23,12 @@ export class TopbarComponent implements OnInit, OnDestroy {
   activeNote$: Observable<INote>;
   activeNote: INote;
   subscription: Subscription;
+  hasNotesInStorage$: Observable<boolean>;
 
   constructor(private store: Store<fromRoot.ApplicationState>) {
     this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
     this.activeNote$ = store.pipe(select(fromRoot.selectActiveNote));
+    this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
     this.subscription = new Subscription();
   }
 
