@@ -78,7 +78,5 @@ export class ComponentCreator {
       (component: DynamicComponentRef) => component.id !== componentId,
     );
     this.componentRefs = filteredComponent;
-
-    console.log('thisComponentRef: ', this.componentRefs);
   }
 }
