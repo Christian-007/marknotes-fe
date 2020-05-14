@@ -11,6 +11,7 @@ import * as fromRoot from '../reducers';
 import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
 import { INote } from '@app/shared/models/markdown-state.model';
 import { createDefaultNote } from '@app/shared/constants/note.const';
+import { ComponentCreator } from '@app/shared/services/component-creator/component-creator';
 
 @Injectable()
 export class NotesEffects {
@@ -19,6 +20,7 @@ export class NotesEffects {
     private notesService: NotesService,
     private store: Store<fromRoot.ApplicationState>,
     private markdownParser: MarkdownParser,
+    private componentCreator: ComponentCreator,
   ) {}
 
   getNotes$ = createEffect(() =>
@@ -71,8 +73,14 @@ export class NotesEffects {
       switchMap(actions => {
         const { noteId, componentId } = actions;
         return this.notesService.deleteNote(noteId).pipe(
-          map(() => NotesActions.deleteNoteSuccess({ noteId, componentId })),
-          catchError(() => EMPTY),
+          map(() => {
+            this.componentCreator.destroy(componentId);
+            return NotesActions.deleteNoteSuccess({ noteId });
+          }),
+          catchError(() => {
+            this.componentCreator.destroy(componentId);
+            return EMPTY;
+          }),
         );
       }),
     ),

@@ -6,20 +6,16 @@ import {
 
 import * as fromNotes from '@app/shared/store/reducers/notes.reducer';
 import * as fromNavigation from '@app/shared/store/reducers/navigations.reducer';
-import * as fromDynamicComponent from '@app/shared/store/reducers/dynamic-component.reducer';
 import { INote } from '@app/shared/models/markdown-state.model';
 
 export interface ApplicationState {
   [fromNotes.notesFeatureKey]: fromNotes.NotesState;
   [fromNavigation.navigationFeatureKey]: fromNavigation.NavigationState;
-  [fromDynamicComponent.dynamicComponentFeatureKey]: fromDynamicComponent.DynamicComponentState;
 }
 
 export const reducers: ActionReducerMap<ApplicationState> = {
   [fromNotes.notesFeatureKey]: fromNotes.notesReducer,
   [fromNavigation.navigationFeatureKey]: fromNavigation.navigationReducer,
-  [fromDynamicComponent.dynamicComponentFeatureKey]:
-    fromDynamicComponent.dynamicComponentReducer,
 };
 
 // Notes Selectors
@@ -74,26 +70,6 @@ export const selectIsPreview = createSelector(
 export const isEditingTitle = createSelector(
   selectNavigationEntitiesState,
   fromNavigation.getisEditingTitle,
-);
-
-// Dynamic Component Selectors
-const selectDynamicComponetState = createFeatureSelector<
-  ApplicationState,
-  fromDynamicComponent.DynamicComponentState
->(fromDynamicComponent.dynamicComponentFeatureKey);
-
-const selectDynamicComponentEntitiesState = createSelector(
-  selectDynamicComponetState,
-  state => state,
-);
-
-const {
-  selectAll: selectAllComponents,
-} = fromDynamicComponent.adapter.getSelectors();
-
-export const selectAllDynamicComponents = createSelector(
-  selectDynamicComponentEntitiesState,
-  selectAllComponents,
 );
 
 // Mix Selectors

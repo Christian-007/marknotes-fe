@@ -12,13 +12,12 @@ interface DynamicItemProperty {
   onAction: (emittedValues: ClickedItemData) => void;
 }
 
-// Before created from componentFactory
 export interface DynamicItemRef extends DynamicItemProperty {
   component: Type<any>;
 }
 
-// After created from componentFactory
-export interface DynamicComponentRef extends DynamicItemProperty {
+export interface DynamicComponentRef {
+  id: string;
   component: ComponentRef<any>;
 }
 

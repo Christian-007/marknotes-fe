@@ -20,7 +20,6 @@ import { reducers } from '@app/shared/store/reducers';
 import { LocalStorageStrategy } from '@app/shared/services/storage-strategy/local-storage-strategy';
 import { OverlayContainerComponent } from '@app/shared/components/overlay-container/overlay-container.component';
 import { OverlayContainerModule } from '@app/shared/components/overlay-container/overlay-container.module';
-import { DynamicComponentEffects } from '@app/shared/store/effects/dynamic-component.effects';
 import { NavigationsEffects } from '@app/shared/store/effects/navigations.effects';
 
 @NgModule({
@@ -32,11 +31,7 @@ import { NavigationsEffects } from '@app/shared/store/effects/navigations.effect
     SidebarModule,
     OverlayContainerModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([
-      NotesEffects,
-      NavigationsEffects,
-      DynamicComponentEffects,
-    ]),
+    EffectsModule.forRoot([NotesEffects, NavigationsEffects]),
     StoreDevtoolsModule.instrument({}),
   ],
   providers: [

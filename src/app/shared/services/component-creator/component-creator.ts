@@ -9,6 +9,7 @@ import { ContainerHostDirective } from '@app/shared/directives/container-host.di
 import {
   DynamicComponent,
   DynamicItemRef,
+  DynamicComponentRef,
 } from '@app/shared/models/dynamic-component.model';
 import { Click } from '@app/shared/enums/ui-actions.enum';
 
@@ -17,12 +18,14 @@ import { Click } from '@app/shared/enums/ui-actions.enum';
 })
 export class ComponentCreator {
   containerHost: ContainerHostDirective;
+  componentRefs: DynamicComponentRef[];
 
   constructor(
     private injector: Injector,
     private componentFactoryResolver: ComponentFactoryResolver,
   ) {
     this.containerHost = null;
+    this.componentRefs = [];
   }
 
   setContainerHost(containerHost: ContainerHostDirective): void {
@@ -44,6 +47,8 @@ export class ComponentCreator {
       },
     );
 
+    this.componentRefs.push({ id: data.id, component: createdComponent });
+
     return createdComponent;
   }
 
@@ -52,12 +57,28 @@ export class ComponentCreator {
     viewContainerRef.insert(componentRef.hostView);
   }
 
-  destroy(componentRef: ComponentRef<DynamicComponent>): void {
-    componentRef.destroy();
+  destroy(componentId: string): void {
+    const findComponent = this.componentRefs.find(
+      (component: DynamicComponentRef) => component.id === componentId,
+    );
+
+    if (findComponent) {
+      findComponent.component.destroy();
+      this.removeComponentFromList(componentId);
+    }
   }
 
   clearAll(): void {
     const { viewContainerRef } = this.containerHost;
     viewContainerRef.clear();
+  }
+
+  private removeComponentFromList(componentId: string): void {
+    const filteredComponent = this.componentRefs.filter(
+      (component: DynamicComponentRef) => component.id !== componentId,
+    );
+    this.componentRefs = filteredComponent;
+
+    console.log('thisComponentRef: ', this.componentRefs);
   }
 }

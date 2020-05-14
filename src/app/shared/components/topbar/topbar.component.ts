@@ -13,6 +13,7 @@ import {
 import { generateRandomId } from '@app/shared/utils/generator.util';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Click } from '@app/shared/enums/ui-actions.enum';
+import { ComponentCreator } from '@app/shared/services/component-creator/component-creator';
 
 @Component({
   selector: 'app-topbar',
@@ -27,7 +28,10 @@ export class TopbarComponent implements OnInit, OnDestroy {
   hasNotesInStorage$: Observable<boolean>;
   isEditingTitle$: Observable<boolean>;
 
-  constructor(private store: Store<fromRoot.ApplicationState>) {
+  constructor(
+    private store: Store<fromRoot.ApplicationState>,
+    private componentCreator: ComponentCreator,
+  ) {
     this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
     this.activeNote$ = store.pipe(select(fromRoot.selectActiveNote));
     this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
@@ -63,7 +67,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
   onClickDelete(): void {
     const payload = this.createDynamicItem();
-    this.store.dispatch(NavigationsActions.buildComponent({ payload }));
+    const createdComponent = this.componentCreator.build(payload);
+    this.componentCreator.insert(createdComponent);
   }
 
   onEditTitle(isEditingTitle: boolean): void {
@@ -79,9 +84,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
       onAction: (emittedValues: ClickedItemData) => {
         const { id, type } = emittedValues;
         if (type === Click.Cancel) {
-          this.store.dispatch(
-            NavigationsActions.destroyComponent({ componentId: id }),
-          );
+          this.componentCreator.destroy(id);
         } else {
           this.store.dispatch(
             NotesActions.deleteNote({

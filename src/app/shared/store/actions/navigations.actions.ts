@@ -2,10 +2,6 @@ import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 
 import { INote } from '@app/shared/models/markdown-state.model';
-import {
-  DynamicComponentRef,
-  DynamicItemRef,
-} from '@app/shared/models/dynamic-component.model';
 
 export const clickNote = createAction(
   'CLICK_NOTE',
@@ -18,24 +14,6 @@ export const previewNote = createAction(
 );
 
 export const togglePreview = createAction('TOGGLE_PREVIEW');
-
-export const buildComponent = createAction(
-  'BUILD_COMPONENT',
-  props<{ payload: DynamicItemRef }>(),
-);
-export const buildComponentSuccess = createAction(
-  'BUILD_COMPONENT_SUCCESS',
-  props<{ payload: DynamicComponentRef }>(),
-);
-
-export const destroyComponent = createAction(
-  'DESTROY_COMPONENT',
-  props<{ componentId: string }>(),
-);
-export const destroyComponentSuccess = createAction(
-  'DESTROY_COMPONENT_SUCCESS',
-  props<{ componentId: string }>(),
-);
 
 export const clickEditTitle = createAction(
   'CLICK_EDIT_TITLE',

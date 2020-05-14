@@ -30,5 +30,5 @@ export const deleteNote = createAction(
 );
 export const deleteNoteSuccess = createAction(
   'DELETE_NOTE_SUCCESS',
-  props<{ noteId: string; componentId: string }>(),
+  props<{ noteId: string }>(),
 );
