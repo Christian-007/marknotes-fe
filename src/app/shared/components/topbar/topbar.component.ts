@@ -80,6 +80,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
       component: DialogComponent,
       data: {
         id: generateRandomId(),
+        title: this.activeNote.title,
       },
       onAction: (emittedValues: ClickedItemData) => {
         const { id, type } = emittedValues;
