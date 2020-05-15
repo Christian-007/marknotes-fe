@@ -145,4 +145,28 @@ export class NotesEffects {
       }),
     ),
   );
+
+  convertNote$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(NavigationsActions.clickNote),
+      withLatestFrom(
+        this.store.pipe(select(fromRoot.selectIsPreviewAndActiveNote)),
+      ),
+      switchMap(([action, state]) => {
+        const { isPreview, activeNote } = state;
+        const { id, markdownText } = activeNote;
+
+        if (isPreview) {
+          const htmlText = this.markdownParser.convert(markdownText);
+          const payload: Update<INote> = {
+            id,
+            changes: { htmlText },
+          };
+
+          return of(NotesActions.updateNoteSuccess({ payload }));
+        }
+        return EMPTY;
+      }),
+    ),
+  );
 }
