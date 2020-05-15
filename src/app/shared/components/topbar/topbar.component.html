@@ -23,7 +23,10 @@
     >
       <i aria-hidden="true" class="material-icons md-18">visibility</i>
     </app-toggle-button>
-    <app-button [disabled]="!(hasNotesInStorage$ | async)">
+    <app-button
+      (buttonClick)="onClickSave()"
+      [disabled]="!(hasNotesInStorage$ | async)"
+    >
       <i aria-hidden="true" class="material-icons md-18">save</i>
     </app-button>
   </div>

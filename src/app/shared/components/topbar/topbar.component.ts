@@ -65,6 +65,10 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.store.dispatch(NavigationsActions.submitNoteTitle({ payload }));
   }
 
+  onClickSave(): void {
+    this.store.dispatch(NotesActions.saveNote({ payload: this.activeNote }));
+  }
+
   onClickDelete(): void {
     const payload = this.createDynamicItem();
     const createdComponent = this.componentCreator.build(payload);
