@@ -18,7 +18,6 @@
   }
 
   &__content {
-    letter-spacing: 0.2px;
     padding: $layout_padding $container_left_right $layout_padding
       $layout_padding;
     line-height: 160%;
@@ -86,6 +85,7 @@
 
   &__content > *:first-child {
     margin-top: 0 !important;
+    line-height: 0.75;
   }
 }
 
