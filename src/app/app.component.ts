@@ -10,6 +10,7 @@ import { EStorageStrategy } from '@app/shared/enums/strategy.enum';
 })
 export class AppComponent {
   title = 'marknotes-fe';
+  isNoteListOpen = false;
 
   constructor(private notesService: NotesService) {
     this.notesService.setStorageStrategy(EStorageStrategy.LocalStorage);

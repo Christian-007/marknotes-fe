@@ -1,9 +1,28 @@
 import { Component, OnInit } from '@angular/core';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-mobile-note-list',
   templateUrl: './mobile-note-list.component.html',
   styleUrls: ['./mobile-note-list.component.scss'],
+  animations: [
+    trigger('enterAnimation', [
+      transition(':enter', [
+        style({ transform: 'translate3d(-100%, 0, 0)', opacity: 0 }),
+        animate(
+          '200ms',
+          style({ transform: 'translate3d(0, 0, 0)', opacity: 1 }),
+        ),
+      ]),
+      transition(':leave', [
+        style({ transform: 'translate3d(0, 0, 0)', opacity: 1 }),
+        animate(
+          '200ms',
+          style({ transform: 'translate3d(-100%, 0, 0)', opacity: 0 }),
+        ),
+      ]),
+    ]),
+  ],
 })
 export class MobileNoteListComponent implements OnInit {
   closeButtonStyles: {};

@@ -1,11 +1,14 @@
 <div class="h-100 d-flex">
-  <div class="left-section">
+  <div class="left-section d-none d-sm-block">
     <app-sidebar></app-sidebar>
   </div>
   <div class="right-section">
-    <app-topbar></app-topbar>
+    <app-topbar class="d-none d-sm-block"></app-topbar>
+    <app-mobile-editor-nav class="d-block d-sm-none"></app-mobile-editor-nav>
     <div class="main-content overflow-auto">
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
+
+<app-mobile-note-list *ngIf="isNoteListOpen"></app-mobile-note-list>
