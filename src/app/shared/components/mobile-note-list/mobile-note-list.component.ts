@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
@@ -30,7 +30,7 @@ import { NavigationsActions } from '@app/shared/store/actions';
     ]),
   ],
 })
-export class MobileNoteListComponent implements OnInit {
+export class MobileNoteListComponent {
   isNoteListOpen$: Observable<boolean>;
   closeButtonStyles: {};
   noteListButtonStyles: {};
@@ -58,9 +58,7 @@ export class MobileNoteListComponent implements OnInit {
     this.isNoteListOpen$ = store.pipe(select(fromRoot.isNoteListOpen));
   }
 
-  ngOnInit() {}
-
-  onClickClose(): void {
+  closeDialog(): void {
     this.store.dispatch(NavigationsActions.closeNoteList());
   }
 }
