@@ -23,6 +23,7 @@ import { OverlayContainerModule } from '@app/shared/components/overlay-container
 import { NavigationsEffects } from '@app/shared/store/effects/navigations.effects';
 import { MobileEditorNavModule } from './shared/components/mobile-editor-nav/mobile-editor-nav.module';
 import { MobileNoteListModule } from './shared/components/mobile-note-list/mobile-note-list.module';
+import { ToolbarDialogModule } from './shared/components/toolbar-dialog/toolbar-dialog.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +38,7 @@ import { MobileNoteListModule } from './shared/components/mobile-note-list/mobil
     StoreDevtoolsModule.instrument({}),
     MobileEditorNavModule,
     MobileNoteListModule,
+    ToolbarDialogModule,
   ],
   providers: [
     markdownParserProvider,

@@ -1,0 +1,38 @@
+<div class="mn-Overlay" role="dialog">
+  <div class="mn-Main p-0">
+    <div class="mn-Dialog-header">
+      <div class="menu-title mr-auto">
+        Toolbars
+      </div>
+      <app-button
+        (buttonClick)="onClickClose()"
+        [buttonStyles]="closeButtonStyles"
+      >
+        <i aria-hidden="true" class="material-icons">close</i>
+      </app-button>
+    </div>
+    <div class="mn-Dialog-body">
+      <app-toggle-button
+        (buttonClick)="onClickPreview()"
+        [buttonStyles]="toolbarButtonStyles"
+      >
+        <i aria-hidden="true" class="material-icons md-18">visibility</i>
+        <span class="pl-2">Preview</span>
+      </app-toggle-button>
+      <app-button
+        (buttonClick)="onClickSave()"
+        [buttonStyles]="toolbarButtonStyles"
+      >
+        <i aria-hidden="true" class="material-icons md-18">save</i>
+        <span class="pl-2">Save</span>
+      </app-button>
+      <app-button
+        (buttonClick)="onClickDelete()"
+        [buttonStyles]="toolbarButtonStyles"
+      >
+        <i aria-hidden="true" class="material-icons md-18">delete</i>
+        <span class="pl-2">Delete</span>
+      </app-button>
+    </div>
+  </div>
+</div>
