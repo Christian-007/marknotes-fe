@@ -72,6 +72,11 @@ export const isEditingTitle = createSelector(
   fromNavigation.getisEditingTitle,
 );
 
+export const isNoteListOpen = createSelector(
+  selectNavigationEntitiesState,
+  fromNavigation.getIsNoteListOpen,
+);
+
 // Mix Selectors
 export const selectActiveNote = createSelector(
   selectActiveNoteId,

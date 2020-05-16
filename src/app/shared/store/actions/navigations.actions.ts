@@ -28,3 +28,6 @@ export const submitNoteTitleSuccess = createAction(
   'SUBMIT_NOTE_TITLE_SUCCESS',
   props<{ payload: Update<INote> }>(),
 );
+
+export const openNoteList = createAction('OPEN_NOTE_LIST');
+export const closeNoteList = createAction('CLOSE_NOTE_LIST');

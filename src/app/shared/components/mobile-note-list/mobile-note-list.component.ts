@@ -1,35 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+
+import * as fromRoot from '@app/shared/store/reducers';
+import { NavigationsActions } from '@app/shared/store/actions';
 
 @Component({
   selector: 'app-mobile-note-list',
   templateUrl: './mobile-note-list.component.html',
   styleUrls: ['./mobile-note-list.component.scss'],
   animations: [
-    trigger('enterAnimation', [
+    trigger('fadeInOut', [
       transition(':enter', [
-        style({ transform: 'translate3d(-100%, 0, 0)', opacity: 0 }),
-        animate(
-          '200ms',
-          style({ transform: 'translate3d(0, 0, 0)', opacity: 1 }),
-        ),
+        style({ opacity: 0 }),
+        animate('200ms', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [animate('200ms', style({ opacity: 0 }))]),
+    ]),
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)', opacity: 0 }),
+        animate('200ms', style({ transform: 'translateX(0)', opacity: 1 })),
       ]),
       transition(':leave', [
-        style({ transform: 'translate3d(0, 0, 0)', opacity: 1 }),
-        animate(
-          '200ms',
-          style({ transform: 'translate3d(-100%, 0, 0)', opacity: 0 }),
-        ),
+        style({ transform: 'translateX(0)', opacity: 1 }),
+        animate('200ms', style({ transform: 'translateX(-100%)', opacity: 0 })),
       ]),
     ]),
   ],
 })
 export class MobileNoteListComponent implements OnInit {
+  isNoteListOpen$: Observable<boolean>;
   closeButtonStyles: {};
   noteListButtonStyles: {};
   addButtonStyles: {};
 
-  constructor() {
+  constructor(private store: Store<fromRoot.ApplicationState>) {
     this.closeButtonStyles = {
       'border-left': '1px solid #e3e3e3',
       padding: '1rem',
@@ -48,9 +55,12 @@ export class MobileNoteListComponent implements OnInit {
       'font-size': '0.8rem',
       'justify-content': 'center',
     };
+    this.isNoteListOpen$ = store.pipe(select(fromRoot.isNoteListOpen));
   }
 
   ngOnInit() {}
 
-  onClickClose(): void {}
+  onClickClose(): void {
+    this.store.dispatch(NavigationsActions.closeNoteList());
+  }
 }

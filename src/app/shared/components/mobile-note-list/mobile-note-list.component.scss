@@ -12,6 +12,12 @@
 }
 
 .mn-MenuBar {
+  z-index: 2000;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
   width: 280px;
   background-color: white;
   display: flex;
