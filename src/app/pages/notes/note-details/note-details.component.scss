@@ -13,7 +13,6 @@
     -moz-box-shadow: none;
     box-shadow: none;
     resize: none;
-
     height: 100%;
   }
 
@@ -21,7 +20,6 @@
     padding: $layout_padding $container_left_right $layout_padding
       $layout_padding;
     line-height: 160%;
-    font-family: 'WeblySleek UI';
 
     h1,
     h2,
@@ -39,12 +37,16 @@
     p {
       margin: 1rem 0 0;
       word-wrap: break-word;
-      font-family: 'WeblySleek UI-SL';
       color: #171717;
     }
 
+    p,
+    li {
+      font-weight: 300;
+    }
+
     strong {
-      font-family: 'WeblySleek UI-SB';
+      font-weight: 600;
     }
 
     code {
