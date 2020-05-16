@@ -1,0 +1,20 @@
+<nav class="topbar d-flex align-items-center">
+  <div class="topbar__title mr-auto">
+    <app-button (buttonClick)="onClickOption()" [buttonStyles]="menuBarStyles">
+      <i aria-hidden="true" class="material-icons md-18">menu</i>
+    </app-button>
+    <a class="navbar-brand" routerLink="">
+      <i aria-hidden="true" class="material-icons">bubble_chart</i>
+      Marknotes
+    </a>
+  </div>
+
+  <div class="pl-2 d-flex">
+    <app-button
+      (buttonClick)="onClickOption()"
+      [buttonStyles]="optionButtonStyles"
+    >
+      <i aria-hidden="true" class="material-icons md-18">more_vert</i>
+    </app-button>
+  </div>
+</nav>

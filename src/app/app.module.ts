@@ -21,6 +21,7 @@ import { LocalStorageStrategy } from '@app/shared/services/storage-strategy/loca
 import { OverlayContainerComponent } from '@app/shared/components/overlay-container/overlay-container.component';
 import { OverlayContainerModule } from '@app/shared/components/overlay-container/overlay-container.module';
 import { NavigationsEffects } from '@app/shared/store/effects/navigations.effects';
+import { MobileEditorNavModule } from './shared/components/mobile-editor-nav/mobile-editor-nav.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +34,7 @@ import { NavigationsEffects } from '@app/shared/store/effects/navigations.effect
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([NotesEffects, NavigationsEffects]),
     StoreDevtoolsModule.instrument({}),
+    MobileEditorNavModule,
   ],
   providers: [
     markdownParserProvider,
