@@ -1,7 +1,5 @@
 import { EventEmitter, Type, ComponentRef } from '@angular/core';
 
-import { Click } from '../enums/ui-actions.enum';
-
 export interface DynamicComponent {
   data: any;
   actions: EventEmitter<any>;
@@ -23,5 +21,5 @@ export interface DynamicComponentRef {
 
 export interface ClickedItemData {
   id: string;
-  type: Click;
+  type: any;
 }

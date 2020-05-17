@@ -5,11 +5,13 @@ import { ContainerHostDirective } from '@app/shared/directives/container-host.di
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogModule } from '../dialog/dialog.module';
 import { OverlayContainerComponent } from './overlay-container.component';
+import { ToolbarDialogModule } from '../toolbar-dialog/toolbar-dialog.module';
+import { ToolbarDialogComponent } from '../toolbar-dialog/toolbar-dialog.component';
 
 @NgModule({
   declarations: [OverlayContainerComponent, ContainerHostDirective],
-  entryComponents: [DialogComponent],
-  imports: [CommonModule, DialogModule],
+  entryComponents: [DialogComponent, ToolbarDialogComponent],
+  imports: [CommonModule, DialogModule, ToolbarDialogModule],
   exports: [OverlayContainerComponent],
 })
 export class OverlayContainerModule {}
