@@ -19,46 +19,8 @@
     </app-button>
   </div>
   <div class="mn-MenuBar__Body">
-    <div *ngIf="loading$ | async">Loading...</div>
-    <app-button
-      type="button"
-      class="add-button-wrapper"
-      [buttonStyles]="addButtonStyles"
-      (click)="addNote()"
-    >
-      + Add Note
-    </app-button>
-    <div class="note-list d-flex flex-column">
-      <app-button
-        type="button"
-        [buttonStyles]="noteListButtonStyles"
-        class="note-list__body Active d-flex align-items-center"
-      >
-        <i aria-hidden="true" class="material-icons md-18 description-icon">
-          description
-        </i>
-        <div class="d-flex flex-column pl-2">
-          <div class="note-title">Angular Service Provider</div>
-          <span class="note-subtitle">
-            12/02/2020
-          </span>
-        </div>
-      </app-button>
-      <app-button
-        type="button"
-        [buttonStyles]="noteListButtonStyles"
-        class="note-list__body d-flex align-items-center"
-      >
-        <i aria-hidden="true" class="material-icons md-18 description-icon">
-          description
-        </i>
-        <div class="d-flex flex-column pl-2">
-          <div class="note-title">Angular Service Provider</div>
-          <span class="note-subtitle">
-            12/02/2020
-          </span>
-        </div>
-      </app-button>
-    </div>
+    <app-mobile-note-list
+      (clickNoteList)="closeDialog()"
+    ></app-mobile-note-list>
   </div>
 </aside>

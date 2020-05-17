@@ -5,7 +5,6 @@ import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '@app/shared/store/reducers';
 import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
-import { INote } from '@app/shared/models/markdown-state.model';
 
 @Component({
   selector: 'app-mobile-sidebar',
@@ -32,10 +31,6 @@ import { INote } from '@app/shared/models/markdown-state.model';
   ],
 })
 export class MobileSidebarComponent {
-  notes$: Observable<INote[]>;
-  loading$: Observable<boolean>;
-  activeNoteId$: Observable<string>;
-  hasNotesInStorage$: Observable<boolean>;
   isNoteListOpen$: Observable<boolean>;
   closeButtonStyles: {};
   noteListButtonStyles: {};
@@ -61,10 +56,6 @@ export class MobileSidebarComponent {
       'justify-content': 'center',
     };
     this.isNoteListOpen$ = store.pipe(select(fromRoot.isNoteListOpen));
-    this.notes$ = store.pipe(select(fromRoot.selectAllNotes));
-    this.loading$ = store.pipe(select(fromRoot.selectNotesPending));
-    this.activeNoteId$ = store.pipe(select(fromRoot.selectActiveNoteId));
-    this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
   }
 
   closeDialog(): void {

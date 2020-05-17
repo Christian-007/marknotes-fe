@@ -75,7 +75,7 @@
         }
       }
 
-      .Active:disabled {
+      .Active > :disabled {
         opacity: 1;
       }
     }
