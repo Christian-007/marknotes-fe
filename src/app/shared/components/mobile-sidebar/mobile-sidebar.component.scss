@@ -88,6 +88,23 @@
   flex-direction: column;
 }
 
+.empty-note-editor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .empty-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .empty-text {
+      font-size: 0.9rem;
+      color: rgba($color: #000000, $alpha: 0.25);
+    }
+  }
+}
+
 .description-icon {
   color: #000;
 }

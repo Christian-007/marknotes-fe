@@ -1,7 +1,3 @@
-<div *ngIf="loading$ | async">Loading...</div>
-<div *ngIf="(hasNotesInStorage$ | async) === false" class="empty-note-list">
-  Empty note list
-</div>
 <app-button
   type="button"
   class="add-button-wrapper"
@@ -10,7 +6,13 @@
 >
   + Add Note
 </app-button>
-<div class="note-list d-flex flex-column">
+
+<div *ngIf="loading$ | async">Loading...</div>
+
+<div
+  *ngIf="hasNotesInStorage$ | async; else emptyNoteEditor"
+  class="note-list d-flex flex-column"
+>
   <app-button
     *ngFor="let note of notes$ | async"
     type="button"
@@ -31,3 +33,18 @@
     </div>
   </app-button>
 </div>
+
+<ng-template #emptyNoteEditor>
+  <div
+    *ngIf="(hasNotesInStorage$ | async) === false; else"
+    class="empty-note-editor mt-3"
+  >
+    <div class="empty-message">
+      <img
+        alt="ant-design-no-data"
+        src="assets/images/ant-design-no-data.png"
+      />
+      <div class="empty-text">No note</div>
+    </div>
+  </div>
+</ng-template>
