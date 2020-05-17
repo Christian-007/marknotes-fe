@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MobileNoteListComponent } from './mobile-note-list.component';
+import { MobileSidebarComponent } from './mobile-sidebar.component';
 import { CustomButtonModule } from '../buttons/custom-button.module';
 
 @NgModule({
-  declarations: [MobileNoteListComponent],
+  declarations: [MobileSidebarComponent],
   imports: [CommonModule, CustomButtonModule],
-  exports: [MobileNoteListComponent],
+  exports: [MobileSidebarComponent],
 })
-export class MobileNoteListModule {}
+export class MobileSidebarModule {}

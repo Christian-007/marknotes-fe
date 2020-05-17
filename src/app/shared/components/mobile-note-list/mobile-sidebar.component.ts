@@ -4,12 +4,13 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '@app/shared/store/reducers';
-import { NavigationsActions } from '@app/shared/store/actions';
+import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
+import { INote } from '@app/shared/models/markdown-state.model';
 
 @Component({
-  selector: 'app-mobile-note-list',
-  templateUrl: './mobile-note-list.component.html',
-  styleUrls: ['./mobile-note-list.component.scss'],
+  selector: 'app-mobile-sidebar',
+  templateUrl: './mobile-sidebar.component.html',
+  styleUrls: ['./mobile-sidebar.component.scss'],
   animations: [
     trigger('fadeInOut', [
       transition(':enter', [
@@ -30,7 +31,11 @@ import { NavigationsActions } from '@app/shared/store/actions';
     ]),
   ],
 })
-export class MobileNoteListComponent {
+export class MobileSidebarComponent {
+  notes$: Observable<INote[]>;
+  loading$: Observable<boolean>;
+  activeNoteId$: Observable<string>;
+  hasNotesInStorage$: Observable<boolean>;
   isNoteListOpen$: Observable<boolean>;
   closeButtonStyles: {};
   noteListButtonStyles: {};
@@ -56,9 +61,21 @@ export class MobileNoteListComponent {
       'justify-content': 'center',
     };
     this.isNoteListOpen$ = store.pipe(select(fromRoot.isNoteListOpen));
+    this.notes$ = store.pipe(select(fromRoot.selectAllNotes));
+    this.loading$ = store.pipe(select(fromRoot.selectNotesPending));
+    this.activeNoteId$ = store.pipe(select(fromRoot.selectActiveNoteId));
+    this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
   }
 
   closeDialog(): void {
     this.store.dispatch(NavigationsActions.closeNoteList());
+  }
+
+  addNote(): void {
+    this.store.dispatch(NotesActions.addNote());
+  }
+
+  onClickNoteList(noteId: string): void {
+    this.store.dispatch(NavigationsActions.clickNote({ payload: noteId }));
   }
 }

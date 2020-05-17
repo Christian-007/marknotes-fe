@@ -19,10 +19,12 @@
     </app-button>
   </div>
   <div class="mn-MenuBar__Body">
+    <div *ngIf="loading$ | async">Loading...</div>
     <app-button
       type="button"
       class="add-button-wrapper"
       [buttonStyles]="addButtonStyles"
+      (click)="addNote()"
     >
       + Add Note
     </app-button>

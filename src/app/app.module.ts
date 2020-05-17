@@ -22,7 +22,7 @@ import { OverlayContainerComponent } from '@app/shared/components/overlay-contai
 import { OverlayContainerModule } from '@app/shared/components/overlay-container/overlay-container.module';
 import { NavigationsEffects } from '@app/shared/store/effects/navigations.effects';
 import { MobileEditorNavModule } from './shared/components/mobile-editor-nav/mobile-editor-nav.module';
-import { MobileNoteListModule } from './shared/components/mobile-note-list/mobile-note-list.module';
+import { MobileSidebarModule } from './shared/components/mobile-note-list/mobile-sidebar.module';
 import { ToolbarDialogModule } from './shared/components/toolbar-dialog/toolbar-dialog.module';
 
 @NgModule({
@@ -37,7 +37,7 @@ import { ToolbarDialogModule } from './shared/components/toolbar-dialog/toolbar-
     EffectsModule.forRoot([NotesEffects, NavigationsEffects]),
     StoreDevtoolsModule.instrument({}),
     MobileEditorNavModule,
-    MobileNoteListModule,
+    MobileSidebarModule,
     ToolbarDialogModule,
   ],
   providers: [
