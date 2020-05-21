@@ -16,6 +16,15 @@
     height: 100%;
   }
 
+  &__title {
+    padding: 1.2rem 4vw 0 1.2rem;
+    border: none;
+    font-size: 1.3em;
+    font-family: Inconsolata, monospace;
+    outline: none;
+    box-shadow: none;
+  }
+
   &__content {
     padding: $layout_padding $container_left_right $layout_padding
       $layout_padding;

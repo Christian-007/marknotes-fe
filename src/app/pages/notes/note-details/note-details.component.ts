@@ -30,6 +30,15 @@ export class NoteDetailsComponent implements OnInit {
     });
   }
 
+  onNoteTitleChange(): void {
+    const { title } = this.note;
+    const update: Partial<INote> = {
+      title,
+    };
+
+    this.store.dispatch(NotesActions.updateNote({ payload: update }));
+  }
+
   onMarkdownChange(): void {
     const { markdownText } = this.note;
     const update: Partial<INote> = {

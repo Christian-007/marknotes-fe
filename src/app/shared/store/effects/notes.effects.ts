@@ -12,6 +12,7 @@ import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-pa
 import { INote } from '@app/shared/models/markdown-state.model';
 import { createDefaultNote } from '@app/shared/constants/note.const';
 import { ComponentCreator } from '@app/shared/services/component-creator/component-creator';
+import { combineTitleWithBody } from '@app/shared/utils/transformation.util';
 
 @Injectable()
 export class NotesEffects {
@@ -131,12 +132,12 @@ export class NotesEffects {
       ),
       switchMap(([action, state]) => {
         const { isPreview, activeNote } = state;
-        const { id, markdownText } = activeNote;
 
         if (isPreview) {
-          const htmlText = this.markdownParser.convert(markdownText);
+          const combinedTitleWithBody = combineTitleWithBody(activeNote);
+          const htmlText = this.markdownParser.convert(combinedTitleWithBody);
           const payload: Update<INote> = {
-            id,
+            id: activeNote.id,
             changes: { htmlText },
           };
           return of(NavigationsActions.previewNote({ payload }));

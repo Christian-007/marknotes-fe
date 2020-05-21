@@ -7,10 +7,17 @@
   </ng-container>
 
   <ng-template #markdownTextArea>
+    <input
+      type="text"
+      placeholder="Page title"
+      class="note-details__title form-control"
+      [(ngModel)]="note.title"
+      (ngModelChange)="onNoteTitleChange()"
+    />
     <textarea
       class="note-details__markdownArea form-control"
       id="MarkdownContentTxtArea"
-      placeholder="Type something"
+      placeholder="Type your note contents."
       [(ngModel)]="note.markdownText"
       (ngModelChange)="onMarkdownChange()"
     ></textarea>
