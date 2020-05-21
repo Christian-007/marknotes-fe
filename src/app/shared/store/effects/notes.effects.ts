@@ -125,7 +125,7 @@ export class NotesEffects {
 
   togglePreview$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NavigationsActions.togglePreview),
+      ofType(NavigationsActions.togglePreview, NavigationsActions.clickNote),
       withLatestFrom(
         this.store.pipe(select(fromRoot.selectIsPreviewAndActiveNote)),
       ),
@@ -140,30 +140,6 @@ export class NotesEffects {
             changes: { htmlText },
           };
           return of(NavigationsActions.previewNote({ payload }));
-        }
-        return EMPTY;
-      }),
-    ),
-  );
-
-  convertNote$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(NavigationsActions.clickNote),
-      withLatestFrom(
-        this.store.pipe(select(fromRoot.selectIsPreviewAndActiveNote)),
-      ),
-      switchMap(([action, state]) => {
-        const { isPreview, activeNote } = state;
-        const { id, markdownText } = activeNote;
-
-        if (isPreview) {
-          const htmlText = this.markdownParser.convert(markdownText);
-          const payload: Update<INote> = {
-            id,
-            changes: { htmlText },
-          };
-
-          return of(NotesActions.updateNoteSuccess({ payload }));
         }
         return EMPTY;
       }),
