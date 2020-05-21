@@ -1,0 +1,118 @@
+@import './constants';
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+
+.note-details {
+  &__markdownArea {
+    padding: $layout_padding $container_left_right $layout_padding
+      $layout_padding;
+    border: none;
+    font-size: 0.875rem;
+    font-family: Inconsolata, monospace;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    resize: none;
+    height: 100%;
+  }
+
+  &__title {
+    padding: 1.2rem 4vw 0 1.2rem;
+    border: none;
+    font-size: 1.3em;
+    font-family: Inconsolata, monospace;
+    outline: none;
+    box-shadow: none;
+  }
+
+  &__content {
+    padding: $layout_padding $container_left_right $layout_padding
+      $layout_padding;
+    line-height: 160%;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 32px 0 12px;
+    }
+
+    h1 {
+      font-weight: 600;
+    }
+
+    p {
+      margin: 1rem 0 0;
+      word-wrap: break-word;
+      color: #171717;
+    }
+
+    p,
+    li {
+      font-weight: 300;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    code {
+      font-family: Consolas, monospace;
+      padding: 0.1em 0.2em;
+      background-color: $code_background_dark;
+      border-radius: 3px;
+      font-size: 85%;
+      word-wrap: break-word;
+      line-height: 19px;
+    }
+
+    blockquote {
+      padding: 0 0.8em;
+      border-width: 0 0 0 3px;
+      border-style: solid;
+      border-color: #e3e3e3;
+    }
+
+    .code-block {
+      font-family: Consolas, monospace;
+      overflow: auto;
+      padding: 1rem;
+      margin: 16px 0 0;
+      background-color: $code_background_light;
+      border: 1px solid $code_border_light;
+      border-radius: 0;
+      font-size: 0.875rem;
+      white-space: pre;
+      word-spacing: normal;
+      word-break: normal;
+      word-wrap: normal;
+      tab-size: 4;
+      hyphens: none;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  &__content > *:first-child {
+    margin-top: 0 !important;
+  }
+}
+
+.empty-note-editor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  .empty-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .empty-text {
+      font-size: 0.9rem;
+      color: rgba($color: #000000, $alpha: 0.25);
+    }
+  }
+}

@@ -1,5 +1,7 @@
 # MarknotesFe
 
+[![codecov](https://codecov.io/gh/Christian-007/marknotes-fe/branch/master/graph/badge.svg)](https://codecov.io/gh/Christian-007/marknotes-fe)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.26.
 
 ## Development server

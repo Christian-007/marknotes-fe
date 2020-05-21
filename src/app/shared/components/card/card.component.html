@@ -1,0 +1,39 @@
+<div class="card d-flex flex-column">
+  <div class="card__header pb-0">
+    <div class="mr-auto d-flex align-items-center">
+      NOTES
+    </div>
+    <app-button
+      [buttonStyles]="buttonStyles"
+      (buttonClick)="onClickAddNote($event)"
+    >
+      <i aria-hidden="true" class="material-icons md-18">add_circle_outline</i>
+    </app-button>
+  </div>
+  <p *ngIf="loading$ | async">Loading...</p>
+
+  <div *ngIf="(hasNotesInStorage$ | async) === false" class="empty-note-list">
+    Empty note list
+  </div>
+
+  <div class="note-list d-flex flex-column">
+    <button
+      *ngFor="let note of notes$ | async"
+      type="button"
+      class="card__body no-outline btn d-flex align-items-center"
+      [disabled]="note.id === (activeNoteId$ | async)"
+      [ngClass]="{ Active: note.id === (activeNoteId$ | async) }"
+      (click)="onClickNoteList(note.id)"
+    >
+      <i aria-hidden="true" class="material-icons md-18">description</i>
+      <div class="d-flex flex-column pl-2">
+        <div class="card__body__title">
+          {{ note.title | emptyNoteTitle: note.title }}
+        </div>
+        <span class="card__body__subtitle">
+          {{ note.dateCreated | date: 'dd/MM/yyyy' }}
+        </span>
+      </div>
+    </button>
+  </div>
+</div>

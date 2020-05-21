@@ -1,0 +1,50 @@
+<app-button
+  type="button"
+  class="add-button-wrapper"
+  [buttonStyles]="addButtonStyles"
+  (click)="addNote()"
+>
+  + Add Note
+</app-button>
+
+<div *ngIf="loading$ | async">Loading...</div>
+
+<div
+  *ngIf="hasNotesInStorage$ | async; else emptyNoteEditor"
+  class="note-list d-flex flex-column"
+>
+  <app-button
+    *ngFor="let note of notes$ | async"
+    type="button"
+    class="note-list__body d-flex align-items-center"
+    [buttonStyles]="noteListButtonStyles"
+    [disabled]="note.id === (activeNoteId$ | async)"
+    [ngClass]="{ Active: note.id === (activeNoteId$ | async) }"
+    (click)="onClickNoteList(note.id)"
+  >
+    <i aria-hidden="true" class="material-icons md-18 description-icon">
+      description
+    </i>
+    <div class="d-flex flex-column pl-2">
+      <div class="note-title">{{ note.title }}</div>
+      <span class="note-subtitle">
+        {{ note.dateCreated | date: 'dd/MM/yyyy' }}
+      </span>
+    </div>
+  </app-button>
+</div>
+
+<ng-template #emptyNoteEditor>
+  <div
+    *ngIf="(hasNotesInStorage$ | async) === false; else"
+    class="empty-note-editor mt-3"
+  >
+    <div class="empty-message">
+      <img
+        alt="ant-design-no-data"
+        src="assets/images/ant-design-no-data.png"
+      />
+      <div class="empty-text">No note</div>
+    </div>
+  </div>
+</ng-template>

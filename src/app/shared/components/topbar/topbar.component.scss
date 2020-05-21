@@ -1,0 +1,11 @@
+@import './constants';
+
+.topbar {
+  padding: $layout_padding $container_left_right $layout_padding $layout_padding;
+  border-bottom: 1px solid $border_color;
+  height: $navigation_height;
+
+  &__title {
+    letter-spacing: 0.2px;
+  }
+}

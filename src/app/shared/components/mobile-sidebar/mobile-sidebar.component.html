@@ -1,0 +1,26 @@
+<div
+  class="mn-Overlay"
+  *ngIf="isNoteListOpen$ | async"
+  @fadeInOut
+  (click)="closeDialog()"
+></div>
+
+<aside class="mn-MenuBar" *ngIf="isNoteListOpen$ | async" @slideInOut>
+  <div class="mn-MenuBar__Header">
+    <div class="menu-title mr-auto">
+      <i aria-hidden="true" class="material-icons">apps</i>
+      <span class="pl-2">NOTES</span>
+    </div>
+    <app-button
+      (buttonClick)="closeDialog()"
+      [buttonStyles]="closeButtonStyles"
+    >
+      <i aria-hidden="true" class="material-icons">close</i>
+    </app-button>
+  </div>
+  <div class="mn-MenuBar__Body">
+    <app-mobile-note-list
+      (clickNoteList)="closeDialog()"
+    ></app-mobile-note-list>
+  </div>
+</aside>

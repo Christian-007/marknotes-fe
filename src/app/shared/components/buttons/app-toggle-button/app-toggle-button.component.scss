@@ -1,0 +1,15 @@
+@import './constants';
+
+.BtnIcon {
+  color: $darker_gray;
+
+  /** Disable blue outline */
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.Active {
+  color: $active_state !important;
+}
