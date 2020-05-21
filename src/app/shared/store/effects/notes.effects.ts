@@ -54,7 +54,6 @@ export class NotesEffects {
     ),
   );
 
-  // * save htmlText to localStorage
   saveNote$ = createEffect(() =>
     this.actions$.pipe(
       ofType(NotesActions.saveNote),
