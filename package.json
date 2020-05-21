@@ -10,7 +10,8 @@
     "e2e": "ng e2e",
     "commit": "git-cz",
     "release": "standard-version",
-    "serve:build": "lite-server --baseDir='dist/marknotes-fe'"
+    "serve:build": "lite-server --baseDir='dist/marknotes-fe'",
+    "test-ci": "ng test --code-coverage --watch=false --progress=false --browsers=ChromeHeadlessCI"
   },
   "private": true,
   "dependencies": {
