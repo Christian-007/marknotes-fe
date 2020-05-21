@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { TopbarComponent } from './topbar.component';
 import { CustomButtonModule } from '../buttons/custom-button.module';
-import { NoteTitleComponent } from './note-title/note-title.component';
+import { PipeModule } from '@app/shared/pipes/pipe.module';
 
 @NgModule({
-  declarations: [TopbarComponent, NoteTitleComponent],
-  imports: [CommonModule, FormsModule, CustomButtonModule],
+  declarations: [TopbarComponent],
+  imports: [CommonModule, FormsModule, CustomButtonModule, PipeModule],
   exports: [TopbarComponent],
 })
 export class TopbarModule {}

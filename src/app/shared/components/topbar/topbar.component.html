@@ -1,12 +1,6 @@
 <nav class="topbar d-flex align-items-center">
   <div class="topbar__title mr-auto">
-    <app-note-title
-      *ngIf="hasNotesInStorage$ | async"
-      [title]="activeNote.title"
-      [isEditingTitle]="isEditingTitle$ | async"
-      (submitEdit)="onSubmitEdit($event)"
-      (editTitle)="onEditTitle($event)"
-    ></app-note-title>
+    {{ activeNote.title | emptyNoteTitle: activeNote.title }}
   </div>
 
   <div class="pl-2 d-flex">
