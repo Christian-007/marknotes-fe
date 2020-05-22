@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Update } from '@ngrx/entity';
 
@@ -6,7 +5,6 @@ import { INote } from '@app/shared/models/markdown-state.model';
 import { StorageStrategy } from '@app/shared/services/storage-strategy/storage-strategy';
 import { EStorageStrategy } from '@app/shared/enums/strategy.enum';
 
-@Injectable()
 export class NotesService {
   private storageStrategy: StorageStrategy;
 

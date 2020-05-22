@@ -3,10 +3,7 @@
     <div class="mr-auto d-flex align-items-center">
       NOTES
     </div>
-    <app-button
-      [buttonStyles]="buttonStyles"
-      (buttonClick)="onClickAddNote($event)"
-    >
+    <app-button [buttonStyles]="buttonStyles" (buttonClick)="onClickAddNote()">
       <i aria-hidden="true" class="material-icons md-18">add_circle_outline</i>
     </app-button>
   </div>

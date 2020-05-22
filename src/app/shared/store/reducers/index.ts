@@ -1,3 +1,4 @@
+import { InjectionToken } from '@angular/core';
 import {
   createFeatureSelector,
   createSelector,
@@ -12,6 +13,10 @@ export interface ApplicationState {
   [fromNotes.notesFeatureKey]: fromNotes.NotesState;
   [fromNavigation.navigationFeatureKey]: fromNavigation.NavigationState;
 }
+
+export const REDUCERS_TOKEN = new InjectionToken<
+  ActionReducerMap<ApplicationState>
+>('Registered Reducers');
 
 export const reducers: ActionReducerMap<ApplicationState> = {
   [fromNotes.notesFeatureKey]: fromNotes.notesReducer,

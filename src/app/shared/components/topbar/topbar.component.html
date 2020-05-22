@@ -12,7 +12,7 @@
     </app-button>
     <app-toggle-button
       [checked]="isPreview$ | async"
-      (buttonClick)="onClickPreview($event)"
+      (buttonClick)="onClickPreview()"
       [disabled]="(hasNotesInStorage$ | async) === false"
     >
       <i aria-hidden="true" class="material-icons md-18">visibility</i>
