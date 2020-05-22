@@ -25,7 +25,7 @@
       <i aria-hidden="true" class="material-icons md-18">description</i>
       <div class="d-flex flex-column pl-2">
         <div class="card__body__title">
-          {{ note.title | emptyNoteTitle: note.title }}
+          {{ note.title | emptyNoteTitle }}
         </div>
         <span class="card__body__subtitle">
           {{ note.dateCreated | date: 'dd/MM/yyyy' }}
