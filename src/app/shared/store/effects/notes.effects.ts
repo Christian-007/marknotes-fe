@@ -32,7 +32,7 @@ export class NotesEffects {
           map(notes => {
             return NotesActions.getNotesSuccess({ payload: notes });
           }),
-          catchError(() => of(NotesActions.getNotesError)),
+          catchError(() => of(NotesActions.getNotesError())),
         ),
       ),
     ),
