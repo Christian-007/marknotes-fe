@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class EmptyNoteTitlePipe implements PipeTransform {
   transform(noteTitle: string): string {
-    if (noteTitle && noteTitle.length === 0) {
+    if (noteTitle === '') {
       return 'Untitled Document';
     }
     return noteTitle;
