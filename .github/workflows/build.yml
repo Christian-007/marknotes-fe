@@ -1,4 +1,4 @@
-name: Marknotes FE Continuous Integration
+name: Build
 
 on:
   pull_request:
