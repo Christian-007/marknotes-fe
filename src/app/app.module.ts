@@ -16,7 +16,7 @@ import {
 import { SidebarModule } from '@app/shared/components/sidebar/sidebar.module';
 
 import { NotesEffects } from '@app/shared/store/effects/notes.effects';
-import { reducers } from '@app/shared/store/reducers';
+import { reducers, REDUCERS_TOKEN } from '@app/shared/store/reducers';
 import { LocalStorageStrategy } from '@app/shared/services/storage-strategy/local-storage-strategy';
 import { OverlayContainerComponent } from '@app/shared/components/overlay-container/overlay-container.component';
 import { OverlayContainerModule } from '@app/shared/components/overlay-container/overlay-container.module';
@@ -33,7 +33,7 @@ import { ToolbarDialogModule } from './shared/components/toolbar-dialog/toolbar-
     TopbarModule,
     SidebarModule,
     OverlayContainerModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(REDUCERS_TOKEN),
     EffectsModule.forRoot([NotesEffects, NavigationsEffects]),
     StoreDevtoolsModule.instrument({}),
     MobileEditorNavModule,
@@ -46,6 +46,10 @@ import { ToolbarDialogModule } from './shared/components/toolbar-dialog/toolbar-
     customSanitizerProvider,
     LocalStorageStrategy,
     notesServiceProvider,
+    {
+      provide: REDUCERS_TOKEN,
+      useValue: reducers,
+    },
   ],
   bootstrap: [AppComponent, OverlayContainerComponent],
 })
