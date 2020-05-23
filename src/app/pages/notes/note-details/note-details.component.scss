@@ -2,9 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
 
 .note-details {
+  position: relative;
+
   &__markdownArea {
-    padding: $layout_padding $container_left_right $layout_padding
-      $layout_padding;
+    // padding-top 70px to camouflage the scroll bar
+    padding: 70px $container_left_right $layout_padding $layout_padding;
     border: none;
     font-size: 0.875rem;
     font-family: Inconsolata, monospace;
@@ -17,7 +19,10 @@
   }
 
   &__title {
-    padding: 1.2rem 4vw 0 1.2rem;
+    position: absolute;
+    top: -1px; // hide small gap in between navbar and title
+    width: 95%;
+    padding: 1.2rem 1.2rem 0;
     border: none;
     font-size: 1.3em;
     font-family: Inconsolata, monospace;
