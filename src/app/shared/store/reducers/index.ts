@@ -29,11 +29,6 @@ export const selectNotesState = createFeatureSelector<
   fromNotes.NotesState
 >(fromNotes.notesFeatureKey);
 
-export const selectNoteEntitiesState = createSelector(
-  selectNotesState,
-  state => state,
-);
-
 const {
   selectAll,
   selectEntities,
@@ -41,13 +36,10 @@ const {
   selectTotal,
 } = fromNotes.adapter.getSelectors();
 
-export const selectAllNotes = createSelector(
-  selectNoteEntitiesState,
-  selectAll,
-);
+export const selectAllNotes = createSelector(selectNotesState, selectAll);
 
 export const selectNotesPending = createSelector(
-  selectNoteEntitiesState,
+  selectNotesState,
   fromNotes.getPending,
 );
 
@@ -57,28 +49,23 @@ export const selectNavigationState = createFeatureSelector<
   fromNavigation.NavigationState
 >(fromNavigation.navigationFeatureKey);
 
-export const selectNavigationEntitiesState = createSelector(
-  selectNavigationState,
-  state => state,
-);
-
 export const selectActiveNoteId = createSelector(
-  selectNavigationEntitiesState,
+  selectNavigationState,
   fromNavigation.getActiveNoteId,
 );
 
 export const selectIsPreview = createSelector(
-  selectNavigationEntitiesState,
+  selectNavigationState,
   fromNavigation.getIsPreview,
 );
 
 export const isEditingTitle = createSelector(
-  selectNavigationEntitiesState,
+  selectNavigationState,
   fromNavigation.getisEditingTitle,
 );
 
 export const isNoteListOpen = createSelector(
-  selectNavigationEntitiesState,
+  selectNavigationState,
   fromNavigation.getIsNoteListOpen,
 );
 
