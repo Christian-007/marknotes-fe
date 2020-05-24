@@ -24,12 +24,12 @@ export const reducers: ActionReducerMap<ApplicationState> = {
 };
 
 // Notes Selectors
-const selectNotesState = createFeatureSelector<
+export const selectNotesState = createFeatureSelector<
   ApplicationState,
   fromNotes.NotesState
 >(fromNotes.notesFeatureKey);
 
-const selectNoteEntitiesState = createSelector(
+export const selectNoteEntitiesState = createSelector(
   selectNotesState,
   state => state,
 );
@@ -52,12 +52,12 @@ export const selectNotesPending = createSelector(
 );
 
 // Navigation Selectors
-const selectNavigationState = createFeatureSelector<
+export const selectNavigationState = createFeatureSelector<
   ApplicationState,
   fromNavigation.NavigationState
 >(fromNavigation.navigationFeatureKey);
 
-const selectNavigationEntitiesState = createSelector(
+export const selectNavigationEntitiesState = createSelector(
   selectNavigationState,
   state => state,
 );
