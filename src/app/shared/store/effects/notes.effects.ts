@@ -61,7 +61,7 @@ export class NotesEffects {
       switchMap(([action, activeNoteId]) => {
         const payload: Update<INote> = {
           id: activeNoteId,
-          changes: { ...action.payload },
+          changes: action.payload,
         };
 
         return this.notesService.updateNote(payload).pipe(
