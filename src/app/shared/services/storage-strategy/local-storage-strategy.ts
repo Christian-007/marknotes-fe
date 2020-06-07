@@ -1,5 +1,5 @@
 import { Observable, throwError } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, catchError } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
 
 import { StorageStrategy } from './storage-strategy';
@@ -15,11 +15,8 @@ export class LocalStorageStrategy extends StorageStrategy {
   create(payload: INote): Observable<any> {
     return this.load().pipe(
       switchMap((loadedNotes: INote[]) => {
-        if (loadedNotes) {
-          const updatedNotes = [...loadedNotes, payload];
-          return this.setItem(updatedNotes);
-        }
-        return this.setItem([payload]);
+        const updatedNotes = [...loadedNotes, payload];
+        return this.setItem(updatedNotes);
       }),
     );
   }
@@ -44,7 +41,7 @@ export class LocalStorageStrategy extends StorageStrategy {
           const filteredNotes = loadedNotes.filter(note => note.id !== id);
           return this.setItem(filteredNotes);
         }
-        throwError(null);
+        throw new Error('Unable to perform delete when there is no data!');
       }),
     );
   }
@@ -56,7 +53,7 @@ export class LocalStorageStrategy extends StorageStrategy {
           const updatedNotes = this.getUpdatedData(loadedNotes, payload);
           return this.setItem(updatedNotes);
         }
-        throwError(null);
+        throw new Error('Unable to perform update when there is no data!');
       }),
     );
   }
