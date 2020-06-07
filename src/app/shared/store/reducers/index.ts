@@ -24,15 +24,10 @@ export const reducers: ActionReducerMap<ApplicationState> = {
 };
 
 // Notes Selectors
-const selectNotesState = createFeatureSelector<
+export const selectNotesState = createFeatureSelector<
   ApplicationState,
   fromNotes.NotesState
 >(fromNotes.notesFeatureKey);
-
-const selectNoteEntitiesState = createSelector(
-  selectNotesState,
-  state => state,
-);
 
 const {
   selectAll,
@@ -41,44 +36,36 @@ const {
   selectTotal,
 } = fromNotes.adapter.getSelectors();
 
-export const selectAllNotes = createSelector(
-  selectNoteEntitiesState,
-  selectAll,
-);
+export const selectAllNotes = createSelector(selectNotesState, selectAll);
 
 export const selectNotesPending = createSelector(
-  selectNoteEntitiesState,
+  selectNotesState,
   fromNotes.getPending,
 );
 
 // Navigation Selectors
-const selectNavigationState = createFeatureSelector<
+export const selectNavigationState = createFeatureSelector<
   ApplicationState,
   fromNavigation.NavigationState
 >(fromNavigation.navigationFeatureKey);
 
-const selectNavigationEntitiesState = createSelector(
-  selectNavigationState,
-  state => state,
-);
-
 export const selectActiveNoteId = createSelector(
-  selectNavigationEntitiesState,
+  selectNavigationState,
   fromNavigation.getActiveNoteId,
 );
 
 export const selectIsPreview = createSelector(
-  selectNavigationEntitiesState,
+  selectNavigationState,
   fromNavigation.getIsPreview,
 );
 
 export const isEditingTitle = createSelector(
-  selectNavigationEntitiesState,
+  selectNavigationState,
   fromNavigation.getisEditingTitle,
 );
 
 export const isNoteListOpen = createSelector(
-  selectNavigationEntitiesState,
+  selectNavigationState,
   fromNavigation.getIsNoteListOpen,
 );
 

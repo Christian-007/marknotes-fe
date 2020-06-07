@@ -16,6 +16,10 @@ export class NotesService {
     );
   }
 
+  getStorageStrategy(): StorageStrategy {
+    return this.storageStrategy;
+  }
+
   getNotes(): Observable<INote[]> {
     return this.storageStrategy.load();
   }

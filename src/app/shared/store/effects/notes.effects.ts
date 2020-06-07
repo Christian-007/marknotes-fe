@@ -61,7 +61,7 @@ export class NotesEffects {
       switchMap(([action, activeNoteId]) => {
         const payload: Update<INote> = {
           id: activeNoteId,
-          changes: { ...action.payload },
+          changes: action.payload,
         };
 
         return this.notesService.updateNote(payload).pipe(
@@ -113,9 +113,9 @@ export class NotesEffects {
         NotesActions.deleteNoteSuccess,
       ),
       withLatestFrom(this.store.pipe(select(fromRoot.selectAllNotes))),
-      switchMap(([action, orderedNotes]) => {
-        if (orderedNotes.length > 0) {
-          const firstNoteId = orderedNotes[0].id;
+      switchMap(([action, notes]) => {
+        if (notes.length > 0) {
+          const firstNoteId = notes[0].id;
           return of(NavigationsActions.clickNote({ payload: firstNoteId }));
         }
         return EMPTY;
