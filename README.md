@@ -1,8 +1,8 @@
 # Marknotes Front-end
 
-[![build](https://github.com/Christian-007/marknotes-fe/workflows/Build/badge.svg)](https://github.com/Christian-007/marknotes-fe/actions) [![codecov](https://codecov.io/gh/Christian-007/marknotes-fe/branch/master/graph/badge.svg)](https://codecov.io/gh/Christian-007/marknotes-fe)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3effcdd0-a94c-493a-a3b6-1b2a125f41af/deploy-status)](https://app.netlify.com/sites/app-marknotes/deploys) [![build](https://github.com/Christian-007/marknotes-fe/workflows/Build/badge.svg)](https://github.com/Christian-007/marknotes-fe/actions) [![codecov](https://codecov.io/gh/Christian-007/marknotes-fe/branch/master/graph/badge.svg)](https://codecov.io/gh/Christian-007/marknotes-fe)
 
-Marknotes is a note-taking app that lets you write using a markdown format. This app is built upon `Angular v8.x`, `Bootstrap`, `Ngrx`, and many more.
+Marknotes is a note-taking app that lets you write using a markdown format. This app is built upon `Angular v8.x`, `Bootstrap`, `Ngrx`, and many more. To access this web app, please visit the url https://app-marknotes.netlify.app.
 
 ## Core Technology
 
