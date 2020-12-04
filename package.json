@@ -34,7 +34,7 @@
     "@types/marked": "^0.7.3",
     "bootstrap": "^4.4.1",
     "dompurify": "^2.0.8",
-    "highlight.js": "^9.18.1",
+    "highlight.js": "^10.4.1",
     "marked": "^1.1.0",
     "material-design-icons": "^3.0.1",
     "rxjs": "~6.4.0",
