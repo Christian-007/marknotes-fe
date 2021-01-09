@@ -1,5 +1,6 @@
-import { Observable, throwError } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
 
 import { StorageStrategy } from './storage-strategy';
@@ -7,6 +8,7 @@ import { LOCAL_STORAGE } from '@app/shared/constants/storage-name.const';
 import { INote } from '@app/shared/models/markdown-state.model';
 import { EStorageStrategy } from '@app/shared/enums/strategy.enum';
 
+@Injectable()
 export class LocalStorageStrategy extends StorageStrategy {
   get name(): EStorageStrategy {
     return EStorageStrategy.LocalStorage;
