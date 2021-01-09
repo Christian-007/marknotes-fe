@@ -17,7 +17,7 @@ describe('LocalStorageStrategy', () => {
       providers: [LocalStorageStrategy],
     });
 
-    localStorageStrategy = TestBed.get(LocalStorageStrategy);
+    localStorageStrategy = TestBed.inject(LocalStorageStrategy);
     mockNote = {
       id: '1',
       dateCreated: 1590045443715,

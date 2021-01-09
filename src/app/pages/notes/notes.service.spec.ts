@@ -44,8 +44,8 @@ describe('NotesService', () => {
       ],
     });
 
-    notesService = TestBed.get(NotesService);
-    localStorageStrategy = TestBed.get(LocalStorageStrategy);
+    notesService = TestBed.inject(NotesService);
+    localStorageStrategy = TestBed.inject(LocalStorageStrategy);
 
     // Set LocalStorage as Strategy by default
     notesService.setStorageStrategy(EStorageStrategy.LocalStorage);

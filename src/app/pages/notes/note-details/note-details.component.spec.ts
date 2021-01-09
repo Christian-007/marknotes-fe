@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { Store, MemoizedSelector } from '@ngrx/store';
+import { MemoizedSelector } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 import { NoteDetailsComponent } from './note-details.component';
+
 import * as fromRoot from '@app/shared/store/reducers';
 import { INote } from '@app/shared/models/markdown-state.model';
 import { NotesActions } from '@app/shared/store/actions';
@@ -16,7 +17,7 @@ describe('NoteDetailsComponent', () => {
   let fixture: ComponentFixture<NoteDetailsComponent>;
   let de: DebugElement;
   let mockActiveNote: INote;
-  let mockStore: MockStore<fromRoot.ApplicationState>;
+  let mockStore: MockStore;
   let mockActiveNoteSelector: MemoizedSelector<
     fromRoot.ApplicationState,
     INote
@@ -50,7 +51,7 @@ describe('NoteDetailsComponent', () => {
       markdownText: '## Test',
       title: 'Testing Note',
     };
-    mockStore = TestBed.get(Store);
+    mockStore = TestBed.inject(MockStore);
     mockActiveNoteSelector = mockStore.overrideSelector(
       fromRoot.selectActiveNote,
       mockActiveNote,
