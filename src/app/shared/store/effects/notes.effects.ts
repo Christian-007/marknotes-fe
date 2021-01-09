@@ -10,9 +10,9 @@ import { NotesActions, NavigationsActions } from '@app/shared/store/actions';
 import * as fromRoot from '../reducers';
 import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
 import { INote } from '@app/shared/models/markdown-state.model';
-import { createDefaultNote } from '@app/shared/constants/note.const';
+import { NoteUtil } from '@app/shared/utils/note.util';
 import { ComponentCreator } from '@app/shared/services/component-creator/component-creator';
-import { combineTitleWithBody } from '@app/shared/utils/transformation.util';
+import { TransformationUtil } from '@app/shared/utils/transformation.util';
 
 @Injectable()
 export class NotesEffects {
@@ -76,7 +76,7 @@ export class NotesEffects {
     this.actions$.pipe(
       ofType(NotesActions.addNote),
       switchMap(() => {
-        const defaultNote = createDefaultNote();
+        const defaultNote = NoteUtil.createDefault();
         return this.notesService
           .createNote(defaultNote)
           .pipe(
@@ -133,7 +133,9 @@ export class NotesEffects {
         const { isPreview, activeNote } = state;
 
         if (isPreview) {
-          const combinedTitleWithBody = combineTitleWithBody(activeNote);
+          const combinedTitleWithBody = TransformationUtil.combineTitleWithBody(
+            activeNote,
+          );
           const htmlText = this.markdownParser.convert(combinedTitleWithBody);
           const payload: Update<INote> = {
             id: activeNote.id,
