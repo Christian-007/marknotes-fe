@@ -1,29 +1,28 @@
 import { TestBed } from '@angular/core/testing';
-import { Store, MemoizedSelector } from '@ngrx/store';
+import { MemoizedSelector } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { Actions } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { cold, hot } from 'jasmine-marbles';
-import { Observable, EMPTY } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { NotesEffects } from '@app/shared/store/effects/notes.effects';
 import { NotesService } from '@app/pages/notes/notes.service';
 import { NotesActions, NavigationsActions } from '@app/shared/store/actions';
 import * as fromRoot from '@app/shared/store/reducers';
 import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
-import { Marked } from '@app/shared/services/markdown-parser/marked';
 import { ComponentCreator } from '@app/shared/services/component-creator/component-creator';
 import { INote } from '@app/shared/models/markdown-state.model';
-import * as UtilFn from '@app/shared/constants/note.const';
-import * as TransformFn from '@app/shared/utils/transformation.util';
+import { NoteUtil } from '@app/shared/utils/note.util';
+import { TransformationUtil } from '@app/shared/utils/transformation.util';
 
 describe('NotesEffects', () => {
   let effects: NotesEffects;
   let notesService: NotesService;
-  let markdownParser: Marked;
+  let markdownParser: MarkdownParser;
   let componentCreator: ComponentCreator;
-  let mockStore: MockStore<fromRoot.ApplicationState>;
+  let mockStore: MockStore;
   let mockSelectActiveNoteIdSelector: MemoizedSelector<
     fromRoot.ApplicationState,
     string
@@ -71,12 +70,12 @@ describe('NotesEffects', () => {
       ],
     });
 
-    effects = TestBed.get(NotesEffects);
-    notesService = TestBed.get(NotesService);
-    markdownParser = TestBed.get(MarkdownParser);
-    componentCreator = TestBed.get(ComponentCreator);
-    mockStore = TestBed.get(Store);
-    actions$ = TestBed.get(Actions);
+    effects = TestBed.inject(NotesEffects);
+    notesService = TestBed.inject(NotesService);
+    markdownParser = TestBed.inject(MarkdownParser);
+    componentCreator = TestBed.inject(ComponentCreator);
+    mockStore = TestBed.inject(MockStore);
+    actions$ = TestBed.inject(Actions);
     mockSelectActiveNoteIdSelector = mockStore.overrideSelector(
       fromRoot.selectActiveNoteId,
       '1', // mock activeNoteId
@@ -235,11 +234,7 @@ describe('NotesEffects', () => {
   });
 
   it('should call createDefaultNote() when addNote$ is dispatched', () => {
-    // Spy on regular function
-    const createDefaultNoteSpy = jasmine.createSpy('createDefaultNoteSpy');
-    spyOnProperty(UtilFn, 'createDefaultNote').and.returnValue(
-      createDefaultNoteSpy,
-    );
+    const createDefaultNoteSpy = spyOn(NoteUtil, 'createDefault');
 
     const action = NotesActions.addNote();
     actions$ = hot('-a', { a: action });
@@ -261,13 +256,7 @@ describe('NotesEffects', () => {
       markdownText: '## Second',
       title: 'Testing Note 2',
     };
-
-    // Spy on regular function
-    const createDefaultNoteSpy = jasmine.createSpy('createDefaultNoteSpy');
-    createDefaultNoteSpy.and.returnValue(mockNoteData);
-    spyOnProperty(UtilFn, 'createDefaultNote').and.returnValue(
-      createDefaultNoteSpy,
-    );
+    spyOn(NoteUtil, 'createDefault').and.returnValue(mockNoteData);
 
     const action = NotesActions.addNote();
     actions$ = hot('-a', { a: action });
@@ -437,13 +426,11 @@ describe('NotesEffects', () => {
     };
 
     // Spy on regular function
-    const combineTitleWithBodySpy = jasmine.createSpy(
-      'combineTitleWithBodySpy',
+    const combineTitleWithBodySpy = spyOn(
+      TransformationUtil,
+      'combineTitleWithBody',
     );
     combineTitleWithBodySpy.and.returnValue(stubTitleAndBody);
-    spyOnProperty(TransformFn, 'combineTitleWithBody').and.returnValue(
-      combineTitleWithBodySpy,
-    );
     const convertNoteSpy = markdownParser.convert as jasmine.Spy;
     convertNoteSpy.and.returnValue(stubHtml);
 
