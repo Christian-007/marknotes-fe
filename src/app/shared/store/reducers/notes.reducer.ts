@@ -3,6 +3,7 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 import { NotesActions } from '../actions';
 import { NavigationsActions } from '../actions';
+
 import { INote } from '@app/shared/models/markdown-state.model';
 import { sortDescendingByDateCreated } from '@app/shared/utils/entity-adapter.util';
 
@@ -29,7 +30,7 @@ export const notesReducer = createReducer(
     error: null,
   })),
   on(NotesActions.getNotesSuccess, (state, { payload }) =>
-    adapter.addAll(payload, { ...state, pending: false }),
+    adapter.setAll(payload, { ...state, pending: false }),
   ),
   on(NotesActions.getNotesError, state => ({
     ...state,
