@@ -26,7 +26,7 @@ export class NoteDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.note$.subscribe((noteValue: INote) => {
-      this.note = noteValue;
+      this.note = { ...noteValue };
     });
   }
 
@@ -44,6 +44,7 @@ export class NoteDetailsComponent implements OnInit {
     const update: Partial<INote> = {
       markdownText,
     };
+
     this.store.dispatch(NotesActions.updateNote({ payload: update }));
   }
 }
