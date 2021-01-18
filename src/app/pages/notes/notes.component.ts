@@ -3,7 +3,22 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-notes',
   template: `
-    <router-outlet></router-outlet>
+    <div class="h-100 d-flex">
+      <div class="left-section d-none d-sm-block">
+        <app-sidebar></app-sidebar>
+      </div>
+      <div class="right-section">
+        <app-topbar class="d-none d-sm-block"></app-topbar>
+        <app-mobile-editor-nav
+          class="d-block d-sm-none"
+        ></app-mobile-editor-nav>
+        <div class="main-content overflow-auto">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+    <app-mobile-sidebar></app-mobile-sidebar>
   `,
+  styleUrls: ['./notes.component.scss'],
 })
 export class NotesComponent {}
