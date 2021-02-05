@@ -1,12 +1,12 @@
 <div
   *ngIf="hasNotesInStorage$ | async; else emptyNoteEditor"
   id="NoteContainer"
-  class="note-details d-flex flex-column h-100"
+  class="flex flex-col"
 >
   <ng-container *ngIf="isPreview$ | async; else markdownTextArea">
     <div
       id="NotePreview"
-      class="note-details__content"
+      class="leading-relaxed"
       [innerHTML]="note.htmlText"
     ></div>
   </ng-container>
@@ -16,28 +16,26 @@
       id="NoteTitleTxt"
       type="text"
       placeholder="Page title"
-      class="note-details__title form-control"
+      class="mb-3 outline-none text-lg font-mono"
       [(ngModel)]="note.title"
       (ngModelChange)="onNoteTitleChange()"
     />
-    <textarea
-      class="note-details__markdownArea form-control"
-      id="MarkdownContentTxtArea"
+    <app-text-editor
       placeholder="Type your note contents."
       [(ngModel)]="note.markdownText"
       (ngModelChange)="onMarkdownChange()"
-    ></textarea>
+    ></app-text-editor>
   </ng-template>
 </div>
 
 <ng-template #emptyNoteEditor>
-  <div id="EmptyNote" class="empty-note-editor">
-    <div class="empty-message">
+  <div id="EmptyNote" class="flex items-center justify-center h-full">
+    <div class="flex flex-col items-center">
       <img
         alt="ant-design-no-data"
         src="assets/images/ant-design-no-data.png"
       />
-      <div class="empty-text">No note</div>
+      <div class="text-base text-gray-400">No note</div>
     </div>
   </div>
 </ng-template>

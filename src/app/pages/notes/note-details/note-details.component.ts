@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -24,7 +24,7 @@ export class NoteDetailsComponent implements OnInit {
     this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.note$.subscribe((noteValue: INote) => {
       this.note = { ...noteValue };
     });

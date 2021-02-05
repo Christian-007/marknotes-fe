@@ -11,6 +11,7 @@ import { TopbarModule } from '@app/shared/components/topbar/topbar.module';
 import { SidebarModule } from '@app/shared/components/sidebar/sidebar.module';
 import { MobileEditorNavModule } from '@app/shared/components/mobile-editor-nav/mobile-editor-nav.module';
 import { MobileSidebarModule } from '@app/shared/components/mobile-sidebar/mobile-sidebar.module';
+import { TextEditorModule } from '@app/shared/components/text-editor/text-editor.module';
 
 @NgModule({
   declarations: [NotesComponent, NoteDetailsComponent],
@@ -22,6 +23,7 @@ import { MobileSidebarModule } from '@app/shared/components/mobile-sidebar/mobil
     SidebarModule,
     MobileEditorNavModule,
     MobileSidebarModule,
+    TextEditorModule,
   ],
 })
 export class NotesModule {}
