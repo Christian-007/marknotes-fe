@@ -6,13 +6,13 @@ import { Click } from '@app/shared/enums/ui-actions.enum';
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent implements DynamicComponent {
-  buttonStyles: {};
-  Click: typeof Click;
   @Input() data: any;
   @Output() actions: EventEmitter<any>;
+
+  buttonStyles: {};
+  Click: typeof Click;
 
   constructor() {
     this.buttonStyles = {

@@ -1,26 +1,33 @@
-<div class="mn-Overlay" role="dialog">
-  <div class="mn-Dialog-main">
-    <div class="mn-Dialog-header">
+<div
+  class="z-10 flex items-center justify-center absolute inset-0 p-4 bg-black bg-opacity-25"
+  role="dialog"
+>
+  <div class="bg-white flex flex-col p-4 rounded shadow-2xl">
+    <div class="flex justify-between mb-2 text-xl font-semibold">
       <span>Delete Note</span>
       <app-button
         (click)="onActions(Click.Cancel)"
         [buttonStyles]="buttonStyles"
       >
-        <i aria-hidden="true" class="material-icons">
-          clear
-        </i>
+        <i aria-hidden="true" class="material-icons">clear</i>
       </app-button>
     </div>
-    <div class="mn-Dialog-body">
+    <div class="mb-6 max-w-sm text-sm">
       Are you sure you want to delete
       <em>{{ data.title }}</em>
       ? If you delete your note, you will permanently lose it.
     </div>
-    <div class="mn-Dialog-footer">
-      <button (click)="onActions(Click.Cancel)" class="btn btn-outline-dark">
+    <div class="flex justify-between">
+      <button
+        (click)="onActions(Click.Cancel)"
+        class="mr-1 w-full bg-transparent hover:bg-gray-800 hover:text-white py-1 px-2 border border-black hover:border-transparent rounded"
+      >
         Cancel
       </button>
-      <button (click)="onActions(Click.Success)" class="btn btn-danger">
+      <button
+        (click)="onActions(Click.Success)"
+        class="w-full bg-red-600 text-white hover:bg-red-700 py-1 px-2 rounded"
+      >
         Delete
       </button>
     </div>
