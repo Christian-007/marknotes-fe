@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import * as fromRoot from '@app/shared/store/reducers';
 
 @Component({
   selector: 'app-notes',
@@ -9,12 +13,20 @@ import { Component } from '@angular/core';
         <div class="w-1/5 h-full p-4 overflow-auto">
           <app-sidebar></app-sidebar>
         </div>
-        <div class="w-4/5 h-full p-4 overflow-auto">
+        <div
+          class="w-4/5 h-full p-4 overflow-auto"
+          [ngClass]="{ 'bg-gray-200': (isPreview$ | async) === false }"
+        >
           <router-outlet></router-outlet>
         </div>
       </div>
     </div>
   `,
-  styleUrls: ['./notes.component.scss'],
 })
-export class NotesComponent {}
+export class NotesComponent {
+  isPreview$: Observable<boolean>;
+
+  constructor(private store: Store<fromRoot.ApplicationState>) {
+    this.isPreview$ = this.store.pipe(select(fromRoot.selectIsPreview));
+  }
+}
