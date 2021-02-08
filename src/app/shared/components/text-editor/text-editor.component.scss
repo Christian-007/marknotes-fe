@@ -1,4 +1,4 @@
 [data-placeholder]:empty:before {
   content: attr(data-placeholder);
-  @apply text-gray-400;
+  @apply text-gray-500;
 }

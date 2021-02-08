@@ -14,7 +14,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   template: `
     <div
       #textEditor
-      class="outline-none font-mono text-xs pb-4"
+      class="outline-none font-mono text-xs text-gray-700 pb-4"
       contenteditable="true"
       tabindex="1"
       role="textarea"
