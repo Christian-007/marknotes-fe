@@ -10,11 +10,11 @@ import * as fromRoot from '@app/shared/store/reducers';
     <div class="flex flex-col w-full h-full">
       <app-topbar></app-topbar>
       <div class="flex flex-row w-full h-full overflow-hidden">
-        <div class="w-1/5 h-full p-4 overflow-auto">
+        <div class="w-1/4 xl:w-1/5 h-full pl-6 pr-4 py-4 overflow-auto">
           <app-sidebar></app-sidebar>
         </div>
         <div
-          class="w-4/5 h-full p-4 overflow-auto"
+          class="w-3/4 xl:w-4/5 h-full pr-6 pl-4 py-4 overflow-auto"
           [ngClass]="{ 'bg-gray-200': (isPreview$ | async) === false }"
         >
           <router-outlet></router-outlet>
