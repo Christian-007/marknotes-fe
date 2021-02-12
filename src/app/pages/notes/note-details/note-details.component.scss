@@ -36,6 +36,14 @@ li {
   @apply font-light;
 }
 
+ul {
+  @apply list-disc list-inside pl-5;
+}
+
+ol {
+  @apply list-decimal list-inside pl-5;
+}
+
 strong {
   @apply font-semibold;
 }
