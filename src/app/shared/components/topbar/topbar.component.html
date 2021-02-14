@@ -15,14 +15,14 @@
     </div>
     <div class="flex justify-end w-1/4 pr-6 pl-4 py-3">
       <button
-        class="flex items-center text-gray-500 hover:text-blue-600 ml-6"
+        class="flex items-center text-gray-400 hover:text-blue-600 ml-6"
         (click)="onClickDelete()"
         [disabled]="(hasNotesInStorage$ | async) === false"
       >
         <i aria-hidden="true" class="material-icons md-18">delete</i>
       </button>
       <button
-        class="flex items-center text-gray-500 hover:text-blue-600 ml-6"
+        class="flex items-center text-gray-400 hover:text-blue-600 ml-6"
         (click)="onClickPreview()"
         [disabled]="(hasNotesInStorage$ | async) === false"
         [ngClass]="{ 'text-blue-600': isPreview$ | async }"
@@ -30,7 +30,7 @@
         <i aria-hidden="true" class="material-icons md-18">visibility</i>
       </button>
       <button
-        class="flex items-center text-gray-500 hover:text-blue-600 ml-6"
+        class="flex items-center text-gray-400 hover:text-blue-600 ml-6"
         (click)="onClickSave()"
         [disabled]="(hasNotesInStorage$ | async) === false"
       >

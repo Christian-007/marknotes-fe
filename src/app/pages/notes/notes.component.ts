@@ -15,7 +15,7 @@ import * as fromRoot from '@app/shared/store/reducers';
         </div>
         <div
           class="w-3/4 xl:w-4/5 h-full pr-6 pl-4 py-4 overflow-auto"
-          [ngClass]="{ 'bg-gray-200': (isPreview$ | async) === false }"
+          [ngClass]="{ 'bg-gray-100': (isPreview$ | async) === false }"
         >
           <router-outlet></router-outlet>
         </div>

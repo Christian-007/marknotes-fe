@@ -1,10 +1,10 @@
 <div class="flex flex-col w-full">
   <div class="flex justify-between mb-2">
-    <div class="uppercase tracking-wide text-xs font-bold text-gray-500">
+    <div class="uppercase tracking-wide text-xs font-bold text-gray-400">
       Notes
     </div>
     <button
-      class="flex items-center text-gray-500 hover:text-gray-700"
+      class="flex items-center text-gray-400 hover:text-gray-600"
       (click)="onClickAddNote()"
     >
       <i aria-hidden="true" class="material-icons md-18">add_circle_outline</i>
@@ -17,7 +17,7 @@
   <!-- Empty note -->
   <div
     *ngIf="(hasNotesInStorage$ | async) === false"
-    class="bg-gray-200 text-gray-500 p-2 text-center text-sm font-bold rounded"
+    class="bg-gray-100 text-gray-400 p-2 text-center text-sm font-bold rounded"
   >
     Empty note list
   </div>
@@ -28,7 +28,7 @@
     href="javascript: void(0);"
     *ngFor="let note of notes$ | async"
     [ngClass]="{
-      'bg-gray-200': note.id === (activeNoteId$ | async)
+      'bg-gray-100': note.id === (activeNoteId$ | async)
     }"
     (click)="onClickNoteList(note.id)"
   >
@@ -37,7 +37,7 @@
       <div class="text-xs font-semibold">
         {{ note.title | emptyNoteTitle }}
       </div>
-      <div class="text-xs text-gray-500">
+      <div class="text-xs text-gray-400">
         {{ note.dateCreated | date: 'dd/MM/yyyy' }}
       </div>
     </div>
