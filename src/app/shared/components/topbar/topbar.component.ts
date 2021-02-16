@@ -19,7 +19,6 @@ import { ComponentCreator } from '@app/shared/services/component-creator/compone
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss'],
 })
 export class TopbarComponent implements OnInit, OnDestroy {
   isPreview$: Observable<boolean>;
