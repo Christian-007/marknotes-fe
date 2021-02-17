@@ -1,8 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+  forwardRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import { MemoizedSelector } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
@@ -11,6 +20,24 @@ import { NoteDetailsComponent } from './note-details.component';
 import * as fromRoot from '@app/shared/store/reducers';
 import { INote } from '@app/shared/models/markdown-state.model';
 import { NotesActions } from '@app/shared/store/actions';
+
+@Component({
+  selector: 'app-text-editor',
+  template: ``,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => TextEditorStubComponent),
+      multi: true,
+    },
+  ],
+})
+class TextEditorStubComponent implements ControlValueAccessor {
+  writeValue(obj: any): void {}
+  registerOnChange(fn: any): void {}
+  registerOnTouched(fn: any): void {}
+  setDisabledState?(isDisabled: boolean): void {}
+}
 
 describe('NoteDetailsComponent', () => {
   let component: NoteDetailsComponent;
@@ -32,13 +59,16 @@ describe('NoteDetailsComponent', () => {
     boolean
   >;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [NoteDetailsComponent],
-      imports: [CommonModule, FormsModule],
-      providers: [provideMockStore()],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [NoteDetailsComponent, TextEditorStubComponent],
+        imports: [CommonModule, FormsModule],
+        providers: [provideMockStore()],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).compileComponents();
+    }),
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NoteDetailsComponent);
@@ -110,80 +140,67 @@ describe('NoteDetailsComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should show Note Title and Body editor elements', () => {
+    it('should show Note Title editor elements', () => {
       const queryNoteTitleInput = de.query(By.css('#NoteTitleTxt'));
-      const queryMarkdownContentTxtArea = de.query(
-        By.css('#MarkdownContentTxtArea'),
-      );
 
       expect(queryNoteTitleInput).toBeTruthy('Note title should show');
-      expect(queryMarkdownContentTxtArea).toBeTruthy('Note body should show');
     });
 
-    it('should display "Testing Note" in the title editor when title is "Testing Note"', async(() => {
-      fixture.whenStable().then(() => {
-        const expected = 'Testing Note';
-        const queryNoteTitleInput = de.query(By.css('#NoteTitleTxt'));
-        const noteTitleElement = queryNoteTitleInput.nativeElement;
+    it(
+      'should display "Testing Note" in the title editor when title is "Testing Note"',
+      waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          const expected = 'Testing Note';
+          const queryNoteTitleInput = de.query(By.css('#NoteTitleTxt'));
+          const noteTitleElement = queryNoteTitleInput.nativeElement;
 
-        expect(noteTitleElement.value).toBe(expected);
-      });
-    }));
-
-    it('should display "## Test" in the markdown editor when markdown is "## Test"', async(() => {
-      fixture.whenStable().then(() => {
-        const expected = '## Test';
-        const queryMarkdownContentTxtArea = de.query(
-          By.css('#MarkdownContentTxtArea'),
-        );
-        const markdownTxtAreaElement =
-          queryMarkdownContentTxtArea.nativeElement;
-
-        expect(markdownTxtAreaElement.value).toBe(expected);
-      });
-    }));
-
-    it('should dispatch NotesActions.updateNote when note title changes', async(() => {
-      fixture.whenStable().then(() => {
-        const queryNoteTitleInput = de.query(By.css('#NoteTitleTxt'));
-        const noteTitleElement = queryNoteTitleInput.nativeElement;
-        const dispatchSpy = spyOn(mockStore, 'dispatch');
-        const newInputValue = 'Testing Notes';
-
-        noteTitleElement.value = newInputValue;
-        noteTitleElement.dispatchEvent(new Event('input'));
-
-        const expectedAction = NotesActions.updateNote({
-          payload: {
-            title: newInputValue,
-          },
+          expect(noteTitleElement.value).toBe(expected);
         });
+      }),
+    );
 
-        expect(dispatchSpy).toHaveBeenCalledWith(expectedAction);
-      });
-    }));
+    it(
+      'should dispatch NotesActions.updateNote when note title changes',
+      waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          const queryNoteTitleInput = de.query(By.css('#NoteTitleTxt'));
+          const noteTitleElement = queryNoteTitleInput.nativeElement;
+          const dispatchSpy = spyOn(mockStore, 'dispatch');
+          const newInputValue = 'Testing Notes';
 
-    it('should dispatch NotesActions.updateNote when markdown changes', async(() => {
-      fixture.whenStable().then(() => {
-        const queryMarkdownContentTxtArea = de.query(
-          By.css('#MarkdownContentTxtArea'),
-        );
-        const markdownTxtAreaElement =
-          queryMarkdownContentTxtArea.nativeElement;
-        const dispatchSpy = spyOn(mockStore, 'dispatch');
-        const newInputValue = '## Tests';
+          noteTitleElement.value = newInputValue;
+          noteTitleElement.dispatchEvent(new Event('input'));
 
-        markdownTxtAreaElement.value = newInputValue;
-        markdownTxtAreaElement.dispatchEvent(new Event('input'));
+          const expectedAction = NotesActions.updateNote({
+            payload: {
+              title: newInputValue,
+            },
+          });
 
-        const expectedAction = NotesActions.updateNote({
-          payload: {
-            markdownText: newInputValue,
-          },
+          expect(dispatchSpy).toHaveBeenCalledWith(expectedAction);
         });
+      }),
+    );
 
-        expect(dispatchSpy).toHaveBeenCalledWith(expectedAction);
-      });
-    }));
+    it(
+      'should dispatch NotesActions.updateNote when markdown changes',
+      waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          const dispatchSpy = spyOn(mockStore, 'dispatch');
+          const newInputValue = '## Tests';
+
+          component.note.markdownText = newInputValue;
+          component.onMarkdownChange();
+
+          const expectedAction = NotesActions.updateNote({
+            payload: {
+              markdownText: newInputValue,
+            },
+          });
+
+          expect(dispatchSpy).toHaveBeenCalledWith(expectedAction);
+        });
+      }),
+    );
   });
 });
