@@ -41,7 +41,7 @@ describe('NotesEffects', () => {
     'setStorageStrategy',
     'fetchAll',
     'updateOne',
-    'createNote',
+    'addOne',
     'deleteNote',
   ]);
   const markdownParserSpy = jasmine.createSpyObj('Marked', ['convert']);
@@ -233,22 +233,22 @@ describe('NotesEffects', () => {
     });
   });
 
-  it('should call createDefaultNote() when addNote$ is dispatched', () => {
+  it('should call createDefaultNote() when addOneNote$ is dispatched', () => {
     const createDefaultNoteSpy = spyOn(NoteUtil, 'createDefault');
 
-    const action = NotesActions.addNote();
+    const action = NotesActions.addOneNote();
     actions$ = hot('-a', { a: action });
     const response$ = cold('-p|', { p: 'whatever' });
 
-    const spy = notesService.createNote as jasmine.Spy;
+    const spy = notesService.addOne as jasmine.Spy;
     spy.and.returnValue(response$);
 
-    effects.addNote$.subscribe(() => {
+    effects.addOneNote$.subscribe(() => {
       expect(createDefaultNoteSpy).toHaveBeenCalled();
     });
   });
 
-  it('should return NotesActions.addNoteSuccess, with note, on success', () => {
+  it('should call notesService.addOne() when adding one note', () => {
     const mockNoteData: INote = {
       id: '1',
       dateCreated: 1590045443715,
@@ -258,14 +258,14 @@ describe('NotesEffects', () => {
     };
     spyOn(NoteUtil, 'createDefault').and.returnValue(mockNoteData);
 
-    const action = NotesActions.addNote();
+    const action = NotesActions.addOneNote();
     actions$ = hot('-a', { a: action });
     const response$ = cold('-p|', { p: 'whatever' });
 
-    const spy = notesService.createNote as jasmine.Spy;
+    const spy = notesService.addOne as jasmine.Spy;
     spy.and.returnValue(response$);
 
-    effects.addNote$.subscribe(() => {
+    effects.addOneNote$.subscribe(() => {
       expect(spy).toHaveBeenCalledWith(mockNoteData);
     });
   });

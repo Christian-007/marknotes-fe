@@ -28,7 +28,7 @@ export class NotesService {
     return this.storageStrategy.update(payload);
   }
 
-  createNote(defaultNote: INote): Observable<any> {
+  addOne(defaultNote: INote): Observable<any> {
     return this.storageStrategy.create(defaultNote);
   }
 

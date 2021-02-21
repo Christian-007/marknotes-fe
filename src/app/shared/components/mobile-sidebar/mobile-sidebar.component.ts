@@ -63,7 +63,7 @@ export class MobileSidebarComponent {
   }
 
   addNote(): void {
-    this.store.dispatch(NotesActions.addNote());
+    this.store.dispatch(NotesActions.addOneNote());
   }
 
   onClickNoteList(noteId: string): void {

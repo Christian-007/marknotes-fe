@@ -34,7 +34,7 @@ export class CardComponent implements OnInit {
   }
 
   onClickAddNote(): void {
-    this.store.dispatch(NotesActions.addNote());
+    this.store.dispatch(NotesActions.addOneNote());
   }
 
   onClickNoteList(noteId: string): void {

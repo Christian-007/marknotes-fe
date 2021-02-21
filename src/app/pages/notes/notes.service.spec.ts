@@ -79,7 +79,7 @@ describe('NotesService', () => {
     expect(spy).toHaveBeenCalledWith(mockNotePayload);
   });
 
-  it('should call strategy.create(note) when createNote(note) is called', () => {
+  it('should call strategy.create(note) when addOne(note) is called', () => {
     const spy = localStorageStrategy.create as jasmine.Spy;
     const mockNote: INote = {
       id: '1',
@@ -89,7 +89,7 @@ describe('NotesService', () => {
       title: 'Testing Note',
     };
 
-    notesService.createNote(mockNote);
+    notesService.addOne(mockNote);
 
     expect(spy).toHaveBeenCalledWith(mockNote);
   });

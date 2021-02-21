@@ -73,15 +73,15 @@ export class NotesEffects {
     ),
   );
 
-  addNote$ = createEffect(() =>
+  addOneNote$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NotesActions.addNote),
+      ofType(NotesActions.addOneNote),
       switchMap(() => {
         const defaultNote = NoteUtil.createDefault();
         return this.notesService
-          .createNote(defaultNote)
+          .addOne(defaultNote)
           .pipe(
-            map(() => NotesActions.addNoteSuccess({ payload: defaultNote })),
+            map(() => NotesActions.addOneNoteSuccess({ payload: defaultNote })),
           );
       }),
     ),
@@ -110,7 +110,7 @@ export class NotesEffects {
     this.actions$.pipe(
       ofType(
         NotesActions.fetchAllNotesSuccess,
-        NotesActions.addNoteSuccess,
+        NotesActions.addOneNoteSuccess,
         NotesActions.deleteNoteSuccess,
       ),
       withLatestFrom(this.store.pipe(select(fromRoot.selectAllNotes))),

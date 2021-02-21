@@ -25,9 +25,9 @@ export const saveOneNote = createAction(
 );
 export const saveOneNoteSuccess = createAction('SAVE_NOTE_SUCCESS');
 
-export const addNote = createAction('ADD_NOTE');
-export const addNoteSuccess = createAction(
-  'ADD_NOTE_SUCCESS',
+export const addOneNote = createAction('ADD_ONE_NOTE');
+export const addOneNoteSuccess = createAction(
+  'ADD_ONE_NOTE_SUCCESS',
   props<{ payload: INote }>(),
 );
 
