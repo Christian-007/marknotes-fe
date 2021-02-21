@@ -20,7 +20,7 @@ export class NotesService {
     return this.storageStrategy;
   }
 
-  getNotes(): Observable<INote[]> {
+  getAll(): Observable<INote[]> {
     return this.storageStrategy.load();
   }
 

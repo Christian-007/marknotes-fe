@@ -57,10 +57,10 @@ describe('NotesService', () => {
     expect(result).toEqual(localStorageStrategy);
   });
 
-  it('should call strategy.load() when getNotes() is called', () => {
+  it('should call strategy.load() when notesService.getAll() is called', () => {
     const spy = localStorageStrategy.load as jasmine.Spy;
 
-    notesService.getNotes();
+    notesService.getAll();
 
     expect(spy.calls.any()).toBeTruthy();
   });

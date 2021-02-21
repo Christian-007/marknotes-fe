@@ -32,7 +32,7 @@ export const notesReducer = createReducer(
   on(NotesActions.getAllNotesSuccess, (state, { payload }) =>
     adapter.setAll(payload, { ...state, pending: false }),
   ),
-  on(NotesActions.getNotesError, state => ({
+  on(NotesActions.getAllNotesError, state => ({
     ...state,
     pending: false,
     error: 'Error',

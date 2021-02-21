@@ -29,11 +29,11 @@ export class NotesEffects {
     this.actions$.pipe(
       ofType(NotesActions.getAllNotes),
       switchMap(() =>
-        this.notesService.getNotes().pipe(
+        this.notesService.getAll().pipe(
           map(notes => {
             return NotesActions.getAllNotesSuccess({ payload: notes });
           }),
-          catchError(() => of(NotesActions.getNotesError())),
+          catchError(() => of(NotesActions.getAllNotesError())),
         ),
       ),
     ),

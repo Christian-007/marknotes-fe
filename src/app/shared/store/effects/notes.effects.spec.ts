@@ -39,7 +39,7 @@ describe('NotesEffects', () => {
 
   const notesServiceSpy = jasmine.createSpyObj('NotesService', [
     'setStorageStrategy',
-    'getNotes',
+    'getAll',
     'updateNote',
     'createNote',
     'deleteNote',
@@ -99,7 +99,7 @@ describe('NotesEffects', () => {
     );
   });
 
-  it('should return NotesActions.getNotesSuccess, with the notes, on success', () => {
+  it('should return NotesActions.getAllNotesSuccess, with the notes, on success', () => {
     const action = NotesActions.getAllNotes();
     const note1 = {
       id: '1',
@@ -124,22 +124,22 @@ describe('NotesEffects', () => {
     const response$ = cold('-p|', { p: [note1, note2] });
     const expected$ = cold('--c', { c: completion });
 
-    const spy = notesService.getNotes as jasmine.Spy;
+    const spy = notesService.getAll as jasmine.Spy;
     spy.and.returnValue(response$);
 
     expect(effects.getAllNotes$).toBeObservable(expected$);
   });
 
-  it('should return NotesActions.getNotesError, on fail', () => {
+  it('should return NotesActions.getAllNotesError, on fail', () => {
     const action = NotesActions.getAllNotes();
     const stubError = 'Error!';
-    const completion = NotesActions.getNotesError();
+    const completion = NotesActions.getAllNotesError();
 
     actions$ = hot('-a', { a: action });
     const response$ = cold('-#', {}, stubError);
     const expected$ = cold('--c', { c: completion });
 
-    const spy = notesService.getNotes as jasmine.Spy;
+    const spy = notesService.getAll as jasmine.Spy;
     spy.and.returnValue(response$);
 
     expect(effects.getAllNotes$).toBeObservable(expected$);

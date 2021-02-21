@@ -25,7 +25,7 @@ describe('NotesReducer', () => {
     expect(result).toEqual(initialState);
   });
 
-  it('should handle GET_NOTES', () => {
+  it('should handle GET_ALL_NOTES', () => {
     const createAction = NotesActions.getAllNotes();
     const result = fromNotes.notesReducer(initialState, createAction);
 
@@ -38,7 +38,7 @@ describe('NotesReducer', () => {
     expect(result).toEqual(expectedResult);
   });
 
-  it('should handle GET_NOTES_SUCCESS', () => {
+  it('should handle GET_ALL_NOTES_SUCCESS', () => {
     const stubNotes = [note];
     const createAction = NotesActions.getAllNotesSuccess({
       payload: stubNotes,
@@ -57,8 +57,8 @@ describe('NotesReducer', () => {
     expect(result).toEqual(expectedResult);
   });
 
-  it('should handle GET_NOTES_ERROR', () => {
-    const createAction = NotesActions.getNotesError();
+  it('should handle GET_ALL_NOTES_ERROR', () => {
+    const createAction = NotesActions.getAllNotesError();
     const result = fromNotes.notesReducer(initialState, createAction);
 
     const expectedResult = {

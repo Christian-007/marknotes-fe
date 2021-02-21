@@ -8,7 +8,8 @@ export const getAllNotesSuccess = createAction(
   'GET_ALL_NOTES_SUCCESS',
   props<{ payload: INote[] }>(),
 );
-export const getNotesError = createAction('GET_NOTES_ERROR');
+export const getAllNotesError = createAction('GET_ALL_NOTES_ERROR');
+
 export const updateNote = createAction(
   'UPDATE_NOTE',
   props<{ payload: Partial<INote> }>(),
