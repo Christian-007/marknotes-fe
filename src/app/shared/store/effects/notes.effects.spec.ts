@@ -204,7 +204,7 @@ describe('NotesEffects', () => {
     expect(effects.updateOneNote$).toBeObservable(expected$);
   });
 
-  it('should call NotesService.updateOneNote when saveNote$ is dispatched', () => {
+  it('should call NotesService.updateOneNote when saveOneNote$ is dispatched', () => {
     // Mock data
     const stubActiveNoteId = '1';
     const stubNoteChanges: Partial<INote> = {
@@ -216,7 +216,7 @@ describe('NotesEffects', () => {
     };
 
     // Mock action Observable and response from NoteService
-    const action = NotesActions.saveNote({
+    const action = NotesActions.saveOneNote({
       payload: stubNoteChanges,
     });
     actions$ = hot('-a', { a: action });
@@ -228,7 +228,7 @@ describe('NotesEffects', () => {
     mockSelectActiveNoteIdSelector.setResult(stubActiveNoteId);
     mockStore.refreshState();
 
-    effects.saveNote$.subscribe(() => {
+    effects.saveOneNote$.subscribe(() => {
       expect(spy).toHaveBeenCalledWith(mockNotePayload);
     });
   });

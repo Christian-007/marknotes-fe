@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Update } from '@ngrx/entity';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { Update } from '@ngrx/entity';
+
+import { DialogComponent } from '../dialog/dialog.component';
 
 import * as fromRoot from '@app/shared/store/reducers';
 import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
@@ -11,7 +13,6 @@ import {
   ClickedItemData,
 } from '@app/shared/models/dynamic-component.model';
 import { generateRandomId } from '@app/shared/utils/generator.util';
-import { DialogComponent } from '../dialog/dialog.component';
 import { Click } from '@app/shared/enums/ui-actions.enum';
 import { ComponentCreator } from '@app/shared/services/component-creator/component-creator';
 
@@ -65,7 +66,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
   }
 
   onClickSave(): void {
-    this.store.dispatch(NotesActions.saveNote({ payload: this.activeNote }));
+    this.store.dispatch(NotesActions.saveOneNote({ payload: this.activeNote }));
   }
 
   onClickDelete(): void {

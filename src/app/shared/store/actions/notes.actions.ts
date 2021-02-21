@@ -19,11 +19,11 @@ export const updateOneNoteSuccess = createAction(
   props<{ payload: Update<INote> }>(),
 );
 
-export const saveNote = createAction(
+export const saveOneNote = createAction(
   'SAVE_NOTE',
   props<{ payload: Partial<INote> }>(),
 );
-export const saveNoteSuccess = createAction('SAVE_NOTE_SUCCESS');
+export const saveOneNoteSuccess = createAction('SAVE_NOTE_SUCCESS');
 
 export const addNote = createAction('ADD_NOTE');
 export const addNoteSuccess = createAction(

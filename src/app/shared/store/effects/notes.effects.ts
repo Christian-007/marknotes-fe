@@ -55,9 +55,9 @@ export class NotesEffects {
     ),
   );
 
-  saveNote$ = createEffect(() =>
+  saveOneNote$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NotesActions.saveNote),
+      ofType(NotesActions.saveOneNote),
       withLatestFrom(this.store.pipe(select(fromRoot.selectActiveNoteId))),
       switchMap(([action, activeNoteId]) => {
         const payload: Update<INote> = {
@@ -66,7 +66,7 @@ export class NotesEffects {
         };
 
         return this.notesService.updateOne(payload).pipe(
-          map(() => NotesActions.saveNoteSuccess()),
+          map(() => NotesActions.saveOneNoteSuccess()),
           catchError(() => EMPTY),
         );
       }),

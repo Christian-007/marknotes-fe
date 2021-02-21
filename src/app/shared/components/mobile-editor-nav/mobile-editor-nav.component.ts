@@ -82,7 +82,7 @@ export class MobileEditorNavComponent implements OnInit {
 
       case Toolbar.Save:
         this.store.dispatch(
-          NotesActions.saveNote({ payload: this.activeNote }),
+          NotesActions.saveOneNote({ payload: this.activeNote }),
         );
         this.componentCreator.destroy(id);
         break;
