@@ -15,7 +15,7 @@ export class NavigationsEffects {
       switchMap(action => {
         const { payload } = action;
         return this.notesService
-          .updateNote(payload)
+          .updateOne(payload)
           .pipe(
             map(_ => NavigationsActions.submitNoteTitleSuccess({ payload })),
           );

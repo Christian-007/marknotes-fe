@@ -10,11 +10,11 @@ export const fetchAllNotesSuccess = createAction(
 );
 export const fetchAllNotesError = createAction('FETCH_ALL_NOTES_ERROR');
 
-export const updateNote = createAction(
+export const updateOneNote = createAction(
   'UPDATE_NOTE',
   props<{ payload: Partial<INote> }>(),
 );
-export const updateNoteSuccess = createAction(
+export const updateOneNoteSuccess = createAction(
   'UPDATE_NOTE_SUCCESS',
   props<{ payload: Update<INote> }>(),
 );

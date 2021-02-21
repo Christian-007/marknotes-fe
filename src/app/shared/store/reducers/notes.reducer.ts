@@ -39,7 +39,7 @@ export const notesReducer = createReducer(
   })),
   on(
     NavigationsActions.previewNote,
-    NotesActions.updateNoteSuccess,
+    NotesActions.updateOneNoteSuccess,
     NavigationsActions.submitNoteTitleSuccess,
     (state, { payload }) => adapter.updateOne(payload, state),
   ),

@@ -160,7 +160,7 @@ describe('NoteDetailsComponent', () => {
     );
 
     it(
-      'should dispatch NotesActions.updateNote when note title changes',
+      'should dispatch NotesActions.updateOneNote when note title changes',
       waitForAsync(() => {
         fixture.whenStable().then(() => {
           const queryNoteTitleInput = de.query(By.css('#NoteTitleTxt'));
@@ -171,7 +171,7 @@ describe('NoteDetailsComponent', () => {
           noteTitleElement.value = newInputValue;
           noteTitleElement.dispatchEvent(new Event('input'));
 
-          const expectedAction = NotesActions.updateNote({
+          const expectedAction = NotesActions.updateOneNote({
             payload: {
               title: newInputValue,
             },
@@ -183,7 +183,7 @@ describe('NoteDetailsComponent', () => {
     );
 
     it(
-      'should dispatch NotesActions.updateNote when markdown changes',
+      'should dispatch NotesActions.updateOneNote when markdown changes',
       waitForAsync(() => {
         fixture.whenStable().then(() => {
           const dispatchSpy = spyOn(mockStore, 'dispatch');
@@ -192,7 +192,7 @@ describe('NoteDetailsComponent', () => {
           component.note.markdownText = newInputValue;
           component.onMarkdownChange();
 
-          const expectedAction = NotesActions.updateNote({
+          const expectedAction = NotesActions.updateOneNote({
             payload: {
               markdownText: newInputValue,
             },

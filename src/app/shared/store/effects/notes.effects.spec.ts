@@ -40,7 +40,7 @@ describe('NotesEffects', () => {
   const notesServiceSpy = jasmine.createSpyObj('NotesService', [
     'setStorageStrategy',
     'fetchAll',
-    'updateNote',
+    'updateOne',
     'createNote',
     'deleteNote',
   ]);
@@ -145,7 +145,7 @@ describe('NotesEffects', () => {
     expect(effects.fetchAllNotes$).toBeObservable(expected$);
   });
 
-  it('should call NotesService.updateNote when updateNote$ is dispatched', () => {
+  it('should call NotesService.updateOne when updateOneNote$ is dispatched', () => {
     // Mock data
     const stubActiveNoteId = '1';
     const stubNoteChanges: Partial<INote> = {
@@ -157,24 +157,24 @@ describe('NotesEffects', () => {
     };
 
     // Mock action Observable and response from NoteService
-    const action = NotesActions.updateNote({
+    const action = NotesActions.updateOneNote({
       payload: stubNoteChanges,
     });
     actions$ = hot('-a', { a: action });
     const response$ = cold('-p|', { p: 'whatever' });
 
-    const spy = notesService.updateNote as jasmine.Spy;
+    const spy = notesService.updateOne as jasmine.Spy;
     spy.and.returnValue(response$);
 
     mockSelectActiveNoteIdSelector.setResult(stubActiveNoteId);
     mockStore.refreshState();
 
-    effects.updateNote$.subscribe(() => {
+    effects.updateOneNote$.subscribe(() => {
       expect(spy).toHaveBeenCalledWith(mockNotePayload);
     });
   });
 
-  it('should return NotesActions.updateNoteSuccess, with note changes, on success', () => {
+  it('should return NotesActions.updateOneNoteSuccess, with note changes, on success', () => {
     // Mock data
     const mockNoteChanges: Partial<INote> = {
       title: 'Test Title',
@@ -185,26 +185,26 @@ describe('NotesEffects', () => {
     };
 
     // Mock action Observable and response from NoteService
-    const action = NotesActions.updateNote({
+    const action = NotesActions.updateOneNote({
       payload: mockNoteChanges,
     });
-    const completion = NotesActions.updateNoteSuccess({
+    const completion = NotesActions.updateOneNoteSuccess({
       payload: mockNotePayload,
     });
     actions$ = hot('-a', { a: action });
     const response$ = cold('-p|', { p: 'whatever' });
     const expected$ = cold('--c', { c: completion });
 
-    const spy = notesService.updateNote as jasmine.Spy;
+    const spy = notesService.updateOne as jasmine.Spy;
     spy.and.returnValue(response$);
 
     mockSelectActiveNoteIdSelector.setResult('1');
     mockStore.refreshState();
 
-    expect(effects.updateNote$).toBeObservable(expected$);
+    expect(effects.updateOneNote$).toBeObservable(expected$);
   });
 
-  it('should call NotesService.updateNote when saveNote$ is dispatched', () => {
+  it('should call NotesService.updateOneNote when saveNote$ is dispatched', () => {
     // Mock data
     const stubActiveNoteId = '1';
     const stubNoteChanges: Partial<INote> = {
@@ -222,7 +222,7 @@ describe('NotesEffects', () => {
     actions$ = hot('-a', { a: action });
     const response$ = cold('-p|', { p: 'whatever' });
 
-    const spy = notesService.updateNote as jasmine.Spy;
+    const spy = notesService.updateOne as jasmine.Spy;
     spy.and.returnValue(response$);
 
     mockSelectActiveNoteIdSelector.setResult(stubActiveNoteId);

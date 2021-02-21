@@ -36,7 +36,7 @@ export class NoteDetailsComponent implements OnInit {
       title,
     };
 
-    this.store.dispatch(NotesActions.updateNote({ payload: update }));
+    this.store.dispatch(NotesActions.updateOneNote({ payload: update }));
   }
 
   onMarkdownChange(): void {
@@ -45,6 +45,6 @@ export class NoteDetailsComponent implements OnInit {
       markdownText,
     };
 
-    this.store.dispatch(NotesActions.updateNote({ payload: update }));
+    this.store.dispatch(NotesActions.updateOneNote({ payload: update }));
   }
 }

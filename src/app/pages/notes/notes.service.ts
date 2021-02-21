@@ -24,7 +24,7 @@ export class NotesService {
     return this.storageStrategy.load();
   }
 
-  updateNote(payload: Update<INote>): Observable<any> {
+  updateOne(payload: Update<INote>): Observable<any> {
     return this.storageStrategy.update(payload);
   }
 

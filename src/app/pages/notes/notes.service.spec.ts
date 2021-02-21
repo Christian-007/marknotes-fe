@@ -65,7 +65,7 @@ describe('NotesService', () => {
     expect(spy.calls.any()).toBeTruthy();
   });
 
-  it('should call strategy.update(payload) when updateNote(payload) is called', () => {
+  it('should call strategy.update(payload) when updateOne(payload) is called', () => {
     const spy = localStorageStrategy.update as jasmine.Spy;
     const mockNotePayload: Update<INote> = {
       id: '1',
@@ -74,7 +74,7 @@ describe('NotesService', () => {
       },
     };
 
-    notesService.updateNote(mockNotePayload);
+    notesService.updateOne(mockNotePayload);
 
     expect(spy).toHaveBeenCalledWith(mockNotePayload);
   });
