@@ -29,8 +29,8 @@ export class CardComponent implements OnInit {
     this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
   }
 
-  ngOnInit() {
-    this.store.dispatch(NotesActions.getNotes());
+  ngOnInit(): void {
+    this.store.dispatch(NotesActions.getAllNotes());
   }
 
   onClickAddNote(): void {

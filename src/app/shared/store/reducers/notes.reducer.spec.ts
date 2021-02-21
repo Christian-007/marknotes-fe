@@ -26,7 +26,7 @@ describe('NotesReducer', () => {
   });
 
   it('should handle GET_NOTES', () => {
-    const createAction = NotesActions.getNotes();
+    const createAction = NotesActions.getAllNotes();
     const result = fromNotes.notesReducer(initialState, createAction);
 
     const expectedResult = {
@@ -40,7 +40,9 @@ describe('NotesReducer', () => {
 
   it('should handle GET_NOTES_SUCCESS', () => {
     const stubNotes = [note];
-    const createAction = NotesActions.getNotesSuccess({ payload: stubNotes });
+    const createAction = NotesActions.getAllNotesSuccess({
+      payload: stubNotes,
+    });
     const result = fromNotes.notesReducer(initialState, createAction);
 
     const expectedResult = {

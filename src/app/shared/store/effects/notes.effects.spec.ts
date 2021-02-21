@@ -100,7 +100,7 @@ describe('NotesEffects', () => {
   });
 
   it('should return NotesActions.getNotesSuccess, with the notes, on success', () => {
-    const action = NotesActions.getNotes();
+    const action = NotesActions.getAllNotes();
     const note1 = {
       id: '1',
       dateCreated: 1590045443713,
@@ -116,7 +116,7 @@ describe('NotesEffects', () => {
       markdownText: '## Second',
       title: 'Testing Note 2',
     };
-    const completion = NotesActions.getNotesSuccess({
+    const completion = NotesActions.getAllNotesSuccess({
       payload: [note1, note2],
     });
 
@@ -127,11 +127,11 @@ describe('NotesEffects', () => {
     const spy = notesService.getNotes as jasmine.Spy;
     spy.and.returnValue(response$);
 
-    expect(effects.getNotes$).toBeObservable(expected$);
+    expect(effects.getAllNotes$).toBeObservable(expected$);
   });
 
   it('should return NotesActions.getNotesError, on fail', () => {
-    const action = NotesActions.getNotes();
+    const action = NotesActions.getAllNotes();
     const stubError = 'Error!';
     const completion = NotesActions.getNotesError();
 
@@ -142,7 +142,7 @@ describe('NotesEffects', () => {
     const spy = notesService.getNotes as jasmine.Spy;
     spy.and.returnValue(response$);
 
-    expect(effects.getNotes$).toBeObservable(expected$);
+    expect(effects.getAllNotes$).toBeObservable(expected$);
   });
 
   it('should call NotesService.updateNote when updateNote$ is dispatched', () => {

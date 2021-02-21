@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
-import { of, EMPTY } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
+import { of, EMPTY } from 'rxjs';
+import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
 
-import { NotesService } from '@app/pages/notes/notes.service';
-import { NotesActions, NavigationsActions } from '@app/shared/store/actions';
 import * as fromRoot from '../reducers';
-import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
+
+import { NotesActions, NavigationsActions } from '@app/shared/store/actions';
 import { INote } from '@app/shared/models/markdown-state.model';
-import { NoteUtil } from '@app/shared/utils/note.util';
+import { NotesService } from '@app/pages/notes/notes.service';
+import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
 import { ComponentCreator } from '@app/shared/services/component-creator/component-creator';
+import { NoteUtil } from '@app/shared/utils/note.util';
 import { TransformationUtil } from '@app/shared/utils/transformation.util';
 
 @Injectable()
@@ -24,13 +25,13 @@ export class NotesEffects {
     private componentCreator: ComponentCreator,
   ) {}
 
-  getNotes$ = createEffect(() =>
+  getAllNotes$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NotesActions.getNotes),
+      ofType(NotesActions.getAllNotes),
       switchMap(() =>
         this.notesService.getNotes().pipe(
           map(notes => {
-            return NotesActions.getNotesSuccess({ payload: notes });
+            return NotesActions.getAllNotesSuccess({ payload: notes });
           }),
           catchError(() => of(NotesActions.getNotesError())),
         ),
@@ -108,7 +109,7 @@ export class NotesEffects {
   setActiveNoteId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
-        NotesActions.getNotesSuccess,
+        NotesActions.getAllNotesSuccess,
         NotesActions.addNoteSuccess,
         NotesActions.deleteNoteSuccess,
       ),
