@@ -11,19 +11,19 @@ export const fetchAllNotesSuccess = createAction(
 export const fetchAllNotesError = createAction('FETCH_ALL_NOTES_ERROR');
 
 export const updateOneNote = createAction(
-  'UPDATE_NOTE',
+  'UPDATE_ONE_NOTE',
   props<{ payload: Partial<INote> }>(),
 );
 export const updateOneNoteSuccess = createAction(
-  'UPDATE_NOTE_SUCCESS',
+  'UPDATE_ONE_NOTE_SUCCESS',
   props<{ payload: Update<INote> }>(),
 );
 
 export const saveOneNote = createAction(
-  'SAVE_NOTE',
+  'SAVE_ONE_NOTE',
   props<{ payload: Partial<INote> }>(),
 );
-export const saveOneNoteSuccess = createAction('SAVE_NOTE_SUCCESS');
+export const saveOneNoteSuccess = createAction('SAVE_ONE_NOTE_SUCCESS');
 
 export const addOneNote = createAction('ADD_ONE_NOTE');
 export const addOneNoteSuccess = createAction(
