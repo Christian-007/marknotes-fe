@@ -39,7 +39,7 @@ describe('NotesEffects', () => {
 
   const notesServiceSpy = jasmine.createSpyObj('NotesService', [
     'setStorageStrategy',
-    'getAll',
+    'fetchAll',
     'updateNote',
     'createNote',
     'deleteNote',
@@ -99,8 +99,8 @@ describe('NotesEffects', () => {
     );
   });
 
-  it('should return NotesActions.getAllNotesSuccess, with the notes, on success', () => {
-    const action = NotesActions.getAllNotes();
+  it('should return NotesActions.fetchAllNotesSuccess, with the notes, on success', () => {
+    const action = NotesActions.fetchAllNotes();
     const note1 = {
       id: '1',
       dateCreated: 1590045443713,
@@ -116,7 +116,7 @@ describe('NotesEffects', () => {
       markdownText: '## Second',
       title: 'Testing Note 2',
     };
-    const completion = NotesActions.getAllNotesSuccess({
+    const completion = NotesActions.fetchAllNotesSuccess({
       payload: [note1, note2],
     });
 
@@ -124,25 +124,25 @@ describe('NotesEffects', () => {
     const response$ = cold('-p|', { p: [note1, note2] });
     const expected$ = cold('--c', { c: completion });
 
-    const spy = notesService.getAll as jasmine.Spy;
+    const spy = notesService.fetchAll as jasmine.Spy;
     spy.and.returnValue(response$);
 
-    expect(effects.getAllNotes$).toBeObservable(expected$);
+    expect(effects.fetchAllNotes$).toBeObservable(expected$);
   });
 
-  it('should return NotesActions.getAllNotesError, on fail', () => {
-    const action = NotesActions.getAllNotes();
+  it('should return NotesActions.fetchAllNotesError, on fail', () => {
+    const action = NotesActions.fetchAllNotes();
     const stubError = 'Error!';
-    const completion = NotesActions.getAllNotesError();
+    const completion = NotesActions.fetchAllNotesError();
 
     actions$ = hot('-a', { a: action });
     const response$ = cold('-#', {}, stubError);
     const expected$ = cold('--c', { c: completion });
 
-    const spy = notesService.getAll as jasmine.Spy;
+    const spy = notesService.fetchAll as jasmine.Spy;
     spy.and.returnValue(response$);
 
-    expect(effects.getAllNotes$).toBeObservable(expected$);
+    expect(effects.fetchAllNotes$).toBeObservable(expected$);
   });
 
   it('should call NotesService.updateNote when updateNote$ is dispatched', () => {

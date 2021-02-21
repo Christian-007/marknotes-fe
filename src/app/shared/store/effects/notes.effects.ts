@@ -25,15 +25,15 @@ export class NotesEffects {
     private componentCreator: ComponentCreator,
   ) {}
 
-  getAllNotes$ = createEffect(() =>
+  fetchAllNotes$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NotesActions.getAllNotes),
+      ofType(NotesActions.fetchAllNotes),
       switchMap(() =>
-        this.notesService.getAll().pipe(
+        this.notesService.fetchAll().pipe(
           map(notes => {
-            return NotesActions.getAllNotesSuccess({ payload: notes });
+            return NotesActions.fetchAllNotesSuccess({ payload: notes });
           }),
-          catchError(() => of(NotesActions.getAllNotesError())),
+          catchError(() => of(NotesActions.fetchAllNotesError())),
         ),
       ),
     ),
@@ -109,7 +109,7 @@ export class NotesEffects {
   setActiveNoteId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
-        NotesActions.getAllNotesSuccess,
+        NotesActions.fetchAllNotesSuccess,
         NotesActions.addNoteSuccess,
         NotesActions.deleteNoteSuccess,
       ),

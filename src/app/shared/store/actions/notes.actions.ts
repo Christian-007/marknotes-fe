@@ -3,12 +3,12 @@ import { Update } from '@ngrx/entity';
 
 import { INote } from '@app/shared/models/markdown-state.model';
 
-export const getAllNotes = createAction('GET_ALL_NOTES');
-export const getAllNotesSuccess = createAction(
-  'GET_ALL_NOTES_SUCCESS',
+export const fetchAllNotes = createAction('FETCH_ALL_NOTES');
+export const fetchAllNotesSuccess = createAction(
+  'FETCH_ALL_NOTES_SUCCESS',
   props<{ payload: INote[] }>(),
 );
-export const getAllNotesError = createAction('GET_ALL_NOTES_ERROR');
+export const fetchAllNotesError = createAction('FETCH_ALL_NOTES_ERROR');
 
 export const updateNote = createAction(
   'UPDATE_NOTE',

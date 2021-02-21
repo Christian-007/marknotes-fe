@@ -30,7 +30,7 @@ export class CardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(NotesActions.getAllNotes());
+    this.store.dispatch(NotesActions.fetchAllNotes());
   }
 
   onClickAddNote(): void {

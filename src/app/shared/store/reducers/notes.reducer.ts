@@ -24,15 +24,15 @@ const initialNotesState: NotesState = adapter.getInitialState({
 
 export const notesReducer = createReducer(
   initialNotesState,
-  on(NotesActions.getAllNotes, NotesActions.addNote, state => ({
+  on(NotesActions.fetchAllNotes, NotesActions.addNote, state => ({
     ...state,
     pending: true,
     error: null,
   })),
-  on(NotesActions.getAllNotesSuccess, (state, { payload }) =>
+  on(NotesActions.fetchAllNotesSuccess, (state, { payload }) =>
     adapter.setAll(payload, { ...state, pending: false }),
   ),
-  on(NotesActions.getAllNotesError, state => ({
+  on(NotesActions.fetchAllNotesError, state => ({
     ...state,
     pending: false,
     error: 'Error',
