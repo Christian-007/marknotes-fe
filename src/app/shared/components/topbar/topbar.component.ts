@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Update } from '@ngrx/entity';
@@ -31,7 +30,6 @@ export class TopbarComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<fromRoot.ApplicationState>,
     private componentCreator: ComponentCreator,
-    private router: Router,
   ) {
     this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
     this.activeNote$ = store.pipe(select(fromRoot.selectActiveNote));
@@ -64,10 +62,6 @@ export class TopbarComponent implements OnInit, OnDestroy {
       },
     };
     this.store.dispatch(NavigationsActions.submitNoteTitle({ payload }));
-  }
-
-  onClickLogo(): void {
-    this.router.navigateByUrl('/');
   }
 
   onClickSave(): void {
