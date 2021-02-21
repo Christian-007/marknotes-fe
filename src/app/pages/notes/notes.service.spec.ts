@@ -94,11 +94,11 @@ describe('NotesService', () => {
     expect(spy).toHaveBeenCalledWith(mockNote);
   });
 
-  it('should call strategy.delete(id) when deleteNote(id) is called', () => {
+  it('should call strategy.delete(id) when deleteOne(id) is called', () => {
     const spy = localStorageStrategy.delete as jasmine.Spy;
     const mockId = '1';
 
-    notesService.deleteNote(mockId);
+    notesService.deleteOne(mockId);
 
     expect(spy).toHaveBeenCalledWith(mockId);
   });

@@ -39,7 +39,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.subscription = new Subscription();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscription.add(
       this.activeNote$.subscribe(note => {
         this.activeNote = note;
@@ -47,7 +47,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
@@ -92,7 +92,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
           this.componentCreator.destroy(id);
         } else {
           this.store.dispatch(
-            NotesActions.deleteNote({
+            NotesActions.deleteOneNote({
               noteId: this.activeNote.id,
               componentId: id,
             }),

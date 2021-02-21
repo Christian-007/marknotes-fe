@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 
+import { DialogComponent } from '../dialog/dialog.component';
+import { ToolbarDialogComponent } from '../toolbar-dialog/toolbar-dialog.component';
+
 import * as fromRoot from '@app/shared/store/reducers';
 import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
 import { ComponentCreator } from '@app/shared/services/component-creator/component-creator';
@@ -9,11 +12,9 @@ import {
   DynamicItemRef,
   ClickedItemData,
 } from '@app/shared/models/dynamic-component.model';
-import { ToolbarDialogComponent } from '../toolbar-dialog/toolbar-dialog.component';
 import { generateRandomId } from '@app/shared/utils/generator.util';
 import { Click, Toolbar } from '@app/shared/enums/ui-actions.enum';
 import { INote } from '@app/shared/models/markdown-state.model';
-import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-mobile-editor-nav',
@@ -42,7 +43,7 @@ export class MobileEditorNavComponent implements OnInit {
     this.subscription = new Subscription();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscription.add(
       this.activeNote$.subscribe(note => {
         this.activeNote = note;
@@ -115,7 +116,7 @@ export class MobileEditorNavComponent implements OnInit {
     const { id, type } = emittedValues;
     if (type === Click.Success) {
       this.store.dispatch(
-        NotesActions.deleteNote({
+        NotesActions.deleteOneNote({
           noteId: this.activeNote.id,
           componentId: id,
         }),

@@ -42,7 +42,7 @@ describe('NotesEffects', () => {
     'fetchAll',
     'updateOne',
     'addOne',
-    'deleteNote',
+    'deleteOne',
   ]);
   const markdownParserSpy = jasmine.createSpyObj('Marked', ['convert']);
   const componentCreatorSpy = jasmine.createSpyObj('ComponentCreator', [
@@ -270,10 +270,10 @@ describe('NotesEffects', () => {
     });
   });
 
-  it('should call NotesService.deleteNote when deleteNote$ is dispatched', () => {
+  it('should call NotesService.deleteOne when deleteOneNote$ is dispatched', () => {
     const mockActiveNoteId = '1';
     const stubComponentId = '1';
-    const action = NotesActions.deleteNote({
+    const action = NotesActions.deleteOneNote({
       noteId: mockActiveNoteId,
       componentId: stubComponentId,
     });
@@ -281,18 +281,18 @@ describe('NotesEffects', () => {
     actions$ = hot('-a', { a: action });
     const response$ = cold('-p|', { p: 'whatever' });
 
-    const spy = notesService.deleteNote as jasmine.Spy;
+    const spy = notesService.deleteOne as jasmine.Spy;
     spy.and.returnValue(response$);
 
-    effects.deleteNote$.subscribe(() => {
+    effects.deleteOneNote$.subscribe(() => {
       expect(spy).toHaveBeenCalledWith(mockActiveNoteId);
     });
   });
 
-  it('should call ComponentCreator.destroy when deleteNote$ is dispatched', () => {
+  it('should call ComponentCreator.destroy when deleteOneNote$ is dispatched', () => {
     const mockActiveNoteId = '1';
     const stubComponentId = '1';
-    const action = NotesActions.deleteNote({
+    const action = NotesActions.deleteOneNote({
       noteId: mockActiveNoteId,
       componentId: stubComponentId,
     });
@@ -300,24 +300,24 @@ describe('NotesEffects', () => {
     actions$ = hot('-a', { a: action });
     const response$ = cold('-p|', { p: 'whatever' });
 
-    const spyNoteService = notesService.deleteNote as jasmine.Spy;
+    const spyNoteService = notesService.deleteOne as jasmine.Spy;
     spyNoteService.and.returnValue(response$);
 
     const spyComponentCreator = componentCreator.destroy as jasmine.Spy;
 
-    effects.deleteNote$.subscribe(() => {
+    effects.deleteOneNote$.subscribe(() => {
       expect(spyComponentCreator).toHaveBeenCalledWith(stubComponentId);
     });
   });
 
-  it('should return NotesActions.deleteNoteSuccess, when deleteNote$, on success', () => {
+  it('should return NotesActions.deleteOneNoteSuccess, when deleteOneNote$, on success', () => {
     const mockActiveNoteId = '1';
     const stubComponentId = '1';
-    const action = NotesActions.deleteNote({
+    const action = NotesActions.deleteOneNote({
       noteId: mockActiveNoteId,
       componentId: stubComponentId,
     });
-    const completion = NotesActions.deleteNoteSuccess({
+    const completion = NotesActions.deleteOneNoteSuccess({
       noteId: mockActiveNoteId,
     });
 
@@ -325,17 +325,17 @@ describe('NotesEffects', () => {
     const response$ = cold('-p|', { p: 'whatever' });
     const expected$ = cold('--c', { c: completion });
 
-    const spy = notesService.deleteNote as jasmine.Spy;
+    const spy = notesService.deleteOne as jasmine.Spy;
     spy.and.returnValue(response$);
 
-    expect(effects.deleteNote$).toBeObservable(expected$);
+    expect(effects.deleteOneNote$).toBeObservable(expected$);
   });
 
-  it('should call ComponentCreator.destroy and return EMPTY, when deleteNote$, on fail', () => {
+  it('should call ComponentCreator.destroy and return EMPTY, when deleteOneNote$, on fail', () => {
     const mockActiveNoteId = '1';
     const stubComponentId = '1';
     const stubError = 'Error!';
-    const action = NotesActions.deleteNote({
+    const action = NotesActions.deleteOneNote({
       noteId: mockActiveNoteId,
       componentId: stubComponentId,
     });
@@ -344,12 +344,12 @@ describe('NotesEffects', () => {
     const response$ = cold('-#', {}, stubError);
     const expected$ = cold(''); // equivalent of EMPTY
 
-    const spyNoteService = notesService.deleteNote as jasmine.Spy;
+    const spyNoteService = notesService.deleteOne as jasmine.Spy;
     spyNoteService.and.returnValue(response$);
 
     const spyComponentCreator = componentCreator.destroy as jasmine.Spy;
 
-    effects.deleteNote$.subscribe(
+    effects.deleteOneNote$.subscribe(
       () => {},
       () => {
         expect(spyComponentCreator).toHaveBeenCalledWith(
@@ -359,13 +359,13 @@ describe('NotesEffects', () => {
       },
     );
 
-    expect(effects.deleteNote$).toBeObservable(
+    expect(effects.deleteOneNote$).toBeObservable(
       expected$,
       'should return EMPTY',
     );
   });
 
-  it('should return NavigationsActions.clickNote, on deleteNoteSuccess, when setActiveNote$ is dispatched', () => {
+  it('should return NavigationsActions.clickNote, on deleteOneNoteSuccess, when setActiveNote$ is dispatched', () => {
     const mockActiveNoteId = '1';
     const stubNotes: INote[] = [
       {
@@ -384,7 +384,7 @@ describe('NotesEffects', () => {
       },
     ];
     const mockFirstNoteId = stubNotes[0].id;
-    const action = NotesActions.deleteNoteSuccess({
+    const action = NotesActions.deleteOneNoteSuccess({
       noteId: mockActiveNoteId,
     });
     const completion = NavigationsActions.clickNote({
@@ -402,7 +402,7 @@ describe('NotesEffects', () => {
 
   it('should return EMPTY, if there is no notes left, when setActiveNote$ is dispatched', () => {
     const mockActiveNoteId = '1';
-    const action = NotesActions.deleteNoteSuccess({
+    const action = NotesActions.deleteOneNoteSuccess({
       noteId: mockActiveNoteId,
     });
 

@@ -31,11 +31,11 @@ export const addOneNoteSuccess = createAction(
   props<{ payload: INote }>(),
 );
 
-export const deleteNote = createAction(
-  'DELETE_NOTE',
+export const deleteOneNote = createAction(
+  'DELETE_ONE_NOTE',
   props<{ noteId: string; componentId: string }>(),
 );
-export const deleteNoteSuccess = createAction(
-  'DELETE_NOTE_SUCCESS',
+export const deleteOneNoteSuccess = createAction(
+  'DELETE_ONE_NOTE_SUCCESS',
   props<{ noteId: string }>(),
 );

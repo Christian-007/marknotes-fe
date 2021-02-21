@@ -87,15 +87,15 @@ export class NotesEffects {
     ),
   );
 
-  deleteNote$ = createEffect(() =>
+  deleteOneNote$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NotesActions.deleteNote),
+      ofType(NotesActions.deleteOneNote),
       switchMap(actions => {
         const { noteId, componentId } = actions;
-        return this.notesService.deleteNote(noteId).pipe(
+        return this.notesService.deleteOne(noteId).pipe(
           map(() => {
             this.componentCreator.destroy(componentId);
-            return NotesActions.deleteNoteSuccess({ noteId });
+            return NotesActions.deleteOneNoteSuccess({ noteId });
           }),
           catchError(() => {
             this.componentCreator.destroy(componentId);
@@ -111,7 +111,7 @@ export class NotesEffects {
       ofType(
         NotesActions.fetchAllNotesSuccess,
         NotesActions.addOneNoteSuccess,
-        NotesActions.deleteNoteSuccess,
+        NotesActions.deleteOneNoteSuccess,
       ),
       withLatestFrom(this.store.pipe(select(fromRoot.selectAllNotes))),
       switchMap(([action, notes]) => {

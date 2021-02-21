@@ -46,7 +46,7 @@ export const notesReducer = createReducer(
   on(NotesActions.addOneNoteSuccess, (state, { payload }) =>
     adapter.addOne(payload, { ...state, pending: false }),
   ),
-  on(NotesActions.deleteNoteSuccess, (state, { noteId }) =>
+  on(NotesActions.deleteOneNoteSuccess, (state, { noteId }) =>
     adapter.removeOne(noteId, state),
   ),
   on(NotesActions.saveOneNote, state => ({

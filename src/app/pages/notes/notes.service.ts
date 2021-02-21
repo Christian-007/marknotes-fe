@@ -32,7 +32,7 @@ export class NotesService {
     return this.storageStrategy.create(defaultNote);
   }
 
-  deleteNote(id: string): Observable<any> {
+  deleteOne(id: string): Observable<any> {
     return this.storageStrategy.delete(id);
   }
 }
