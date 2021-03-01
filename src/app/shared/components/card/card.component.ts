@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 import { INote } from '@app/shared/models/markdown-state.model';
 import { NotesActions } from '@app/shared/store/actions';
-import { NavigationsActions } from '@app/shared/store/actions';
 import * as fromRoot from '@app/shared/store/reducers';
 
 @Component({
@@ -35,9 +34,5 @@ export class CardComponent implements OnInit {
 
   onClickAddNote(): void {
     this.store.dispatch(NotesActions.addOneNote());
-  }
-
-  onClickNoteList(noteId: string): void {
-    this.store.dispatch(NavigationsActions.clickNote({ payload: noteId }));
   }
 }

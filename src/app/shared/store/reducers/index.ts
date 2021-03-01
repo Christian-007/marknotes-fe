@@ -71,12 +71,8 @@ export const isNoteListOpen = createSelector(
 
 // Mix Selectors
 export const selectActiveNote = createSelector(
-  selectActiveNoteId,
-  selectAllNotes,
-  (activeNoteId: string, allNotes: INote[]) => {
-    const foundNote = allNotes.find(note => note.id === activeNoteId);
-    return foundNote;
-  },
+  selectNotesState,
+  fromNotes.getActiveNote,
 );
 
 export const selectIsPreviewAndActiveNote = createSelector(

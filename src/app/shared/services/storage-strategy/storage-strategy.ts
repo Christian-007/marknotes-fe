@@ -7,6 +7,7 @@ import { EStorageStrategy } from '@app/shared/enums/strategy.enum';
 export abstract class StorageStrategy {
   abstract get name(): EStorageStrategy;
   abstract create(payload: INote): Observable<any>;
+  abstract findOne(id: string): Observable<any>;
   abstract load(): Observable<any>;
   abstract delete(id: string): Observable<any>;
   abstract update(payload: Update<INote>): Observable<any>;

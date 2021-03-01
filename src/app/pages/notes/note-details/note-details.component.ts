@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { INote } from '@app/shared/models/markdown-state.model';
 import * as fromRoot from '@app/shared/store/reducers';
-import { NotesActions } from '@app/shared/store/actions';
+import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
 
 @Component({
   selector: 'app-note-details',
@@ -13,19 +14,23 @@ import { NotesActions } from '@app/shared/store/actions';
   encapsulation: ViewEncapsulation.None,
 })
 export class NoteDetailsComponent implements OnInit {
-  note$: Observable<INote>;
+  activeNote$: Observable<INote>;
   note: INote;
   isPreview$: Observable<boolean>;
   hasNotesInStorage$: Observable<boolean>;
 
-  constructor(private store: Store<fromRoot.ApplicationState>) {
-    this.note$ = store.pipe(select(fromRoot.selectActiveNote));
+  constructor(
+    private store: Store<fromRoot.ApplicationState>,
+    private route: ActivatedRoute,
+  ) {
+    this.activeNote$ = store.pipe(select(fromRoot.selectActiveNote));
     this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
     this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
   }
 
   ngOnInit(): void {
-    this.note$.subscribe((noteValue: INote) => {
+    this.subscribeToRouteParameters();
+    this.activeNote$.subscribe((noteValue: INote) => {
       this.note = { ...noteValue };
     });
   }
@@ -46,5 +51,14 @@ export class NoteDetailsComponent implements OnInit {
     };
 
     this.store.dispatch(NotesActions.updateOneNote({ payload: update }));
+  }
+
+  private subscribeToRouteParameters(): void {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      const noteId = params.get('id');
+
+      this.store.dispatch(NavigationsActions.clickNote({ payload: noteId }));
+      this.store.dispatch(NotesActions.fetchOneNote({ noteId }));
+    });
   }
 }

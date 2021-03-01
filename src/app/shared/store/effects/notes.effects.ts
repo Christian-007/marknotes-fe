@@ -39,6 +39,20 @@ export class NotesEffects {
     ),
   );
 
+  fetchOneNote$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(NotesActions.fetchOneNote),
+      switchMap(actions => {
+        const { noteId } = actions;
+        return this.notesService.fetchOne(noteId).pipe(
+          map((note: INote) => {
+            return NotesActions.fetchOneNoteSuccess({ payload: note });
+          }),
+        );
+      }),
+    ),
+  );
+
   updateOneNote$ = createEffect(() =>
     this.actions$.pipe(
       ofType(NotesActions.updateOneNote),

@@ -24,6 +24,10 @@ export class NotesService {
     return this.storageStrategy.load();
   }
 
+  fetchOne(id: string): Observable<INote> {
+    return this.storageStrategy.findOne(id);
+  }
+
   updateOne(payload: Update<INote>): Observable<any> {
     return this.storageStrategy.update(payload);
   }

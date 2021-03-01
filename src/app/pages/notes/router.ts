@@ -7,12 +7,7 @@ export const routes = [
     component: NotesComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'note',
-        pathMatch: 'full',
-      },
-      {
-        path: 'note',
+        path: ':id',
         component: NoteDetailsComponent,
       },
     ],

@@ -1,9 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { Update } from '@ngrx/entity';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Update } from '@ngrx/entity';
 
 import { StorageStrategy } from './storage-strategy';
+
 import { LOCAL_STORAGE } from '@app/shared/constants/storage-name.const';
 import { INote } from '@app/shared/models/markdown-state.model';
 import { EStorageStrategy } from '@app/shared/enums/strategy.enum';
@@ -19,6 +20,21 @@ export class LocalStorageStrategy extends StorageStrategy {
       switchMap((loadedNotes: INote[]) => {
         const updatedNotes = [...loadedNotes, payload];
         return this.setItem(updatedNotes);
+      }),
+    );
+  }
+
+  findOne(id: string): Observable<INote> {
+    return this.load().pipe(
+      switchMap((notes: INote[]) => {
+        const hasNotes = notes.length > 0;
+
+        if (hasNotes) {
+          const findNote = notes.filter((note: INote) => note.id === id);
+          return findNote;
+        }
+
+        throw new Error('Unable to perform delete when there is no data!');
       }),
     );
   }

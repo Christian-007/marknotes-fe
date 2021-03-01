@@ -1,17 +1,9 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import {
-  ControlValueAccessor,
-  FormsModule,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import {
-  Component,
-  DebugElement,
-  forwardRef,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MemoizedSelector } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
@@ -19,30 +11,15 @@ import { NoteDetailsComponent } from './note-details.component';
 
 import * as fromRoot from '@app/shared/store/reducers';
 import { INote } from '@app/shared/models/markdown-state.model';
-import { NotesActions } from '@app/shared/store/actions';
-
-@Component({
-  selector: 'app-text-editor',
-  template: ``,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TextEditorStubComponent),
-      multi: true,
-    },
-  ],
-})
-class TextEditorStubComponent implements ControlValueAccessor {
-  writeValue(obj: any): void {}
-  registerOnChange(fn: any): void {}
-  registerOnTouched(fn: any): void {}
-  setDisabledState?(isDisabled: boolean): void {}
-}
+import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
+import { ActivatedRouteStub } from '@app/shared/testing/activated-route.stub';
+import { TextEditorStubComponent } from '@app/shared/testing/text-editor.stub';
 
 describe('NoteDetailsComponent', () => {
   let component: NoteDetailsComponent;
   let fixture: ComponentFixture<NoteDetailsComponent>;
   let de: DebugElement;
+  let activatedRouteStub: ActivatedRouteStub;
   let mockActiveNote: INote;
   let mockStore: MockStore;
   let mockActiveNoteSelector: MemoizedSelector<
@@ -53,7 +30,6 @@ describe('NoteDetailsComponent', () => {
     fromRoot.ApplicationState,
     boolean
   >;
-
   let mockHasNotesInStorageSelector: MemoizedSelector<
     fromRoot.ApplicationState,
     boolean
@@ -64,7 +40,19 @@ describe('NoteDetailsComponent', () => {
       TestBed.configureTestingModule({
         declarations: [NoteDetailsComponent, TextEditorStubComponent],
         imports: [CommonModule, FormsModule],
-        providers: [provideMockStore()],
+        providers: [
+          provideMockStore(),
+          {
+            provide: ActivatedRoute,
+            useExisting: ActivatedRouteStub,
+          },
+          {
+            provide: ActivatedRouteStub,
+            useFactory: () => {
+              return new ActivatedRouteStub();
+            },
+          },
+        ],
         schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
     }),
@@ -74,6 +62,8 @@ describe('NoteDetailsComponent', () => {
     fixture = TestBed.createComponent(NoteDetailsComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
+    activatedRouteStub = TestBed.inject(ActivatedRouteStub);
+    activatedRouteStub.setParamMap({ id: 'someMockId' });
     mockActiveNote = {
       id: '1',
       dateCreated: 1590045443713,
@@ -99,6 +89,18 @@ describe('NoteDetailsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should dispatch NavigationsActions.clickNote when the router parameter changes', () => {
+    const dispatchSpy = spyOn(mockStore, 'dispatch');
+    const mockRouteParameter = 'noteId1';
+    const expectedAction = NavigationsActions.clickNote({
+      payload: mockRouteParameter,
+    });
+
+    activatedRouteStub.setParamMap({ id: mockRouteParameter });
+
+    expect(dispatchSpy).toHaveBeenCalledWith(expectedAction);
   });
 
   it('should show Empty Note div if there is NO note', () => {
