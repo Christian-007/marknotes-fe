@@ -29,6 +29,7 @@ describe('Selectors', () => {
         [mockNotes2.id]: mockNotes2,
       },
       ids: [mockNotes1.id, mockNotes2.id],
+      activeNote: mockNotes2,
       error: null,
       pending: false,
     };
@@ -55,17 +56,6 @@ describe('Selectors', () => {
     const expected = [mockNotes1, mockNotes2];
 
     expect(result).toEqual(expected);
-  });
-
-  it('should select active note "mockNote2" when activeNoteId is "2"', () => {
-    const stubActiveNoteId = '2';
-    const stubNotesArray = [mockNotes1, mockNotes2];
-    const result = fromRoot.selectActiveNote.projector(
-      stubActiveNoteId,
-      stubNotesArray,
-    );
-
-    expect(result).toEqual(mockNotes2);
   });
 
   it('should select undefined when activeNoteId does not exist', () => {
@@ -100,6 +90,16 @@ describe('Selectors', () => {
     it('should select pending state from NotesState', () => {
       const result = fromRoot.selectNotesPending.projector(mockNotesState);
       expect(result).toBe(mockNotesState.pending);
+    });
+
+    it('should get active note value from NotesState', () => {
+      const result = fromNotes.getActiveNote(mockNotesState);
+      expect(result).toBe(mockNotes2);
+    });
+
+    it('should select activeNote state from NotesState', () => {
+      const result = fromRoot.selectActiveNote.projector(mockNotesState);
+      expect(result).toBe(mockNotes2);
     });
   });
 });

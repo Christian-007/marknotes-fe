@@ -43,6 +43,11 @@ export const selectNotesPending = createSelector(
   fromNotes.getPending,
 );
 
+export const selectActiveNote = createSelector(
+  selectNotesState,
+  fromNotes.getActiveNote,
+);
+
 // Navigation Selectors
 export const selectNavigationState = createFeatureSelector<
   ApplicationState,
@@ -70,11 +75,6 @@ export const isNoteListOpen = createSelector(
 );
 
 // Mix Selectors
-export const selectActiveNote = createSelector(
-  selectNotesState,
-  fromNotes.getActiveNote,
-);
-
 export const selectIsPreviewAndActiveNote = createSelector(
   selectIsPreview,
   selectActiveNote,

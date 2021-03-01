@@ -15,6 +15,7 @@ describe('NotesReducer', () => {
   const initialState: fromNotes.NotesState = {
     ids: [],
     entities: {},
+    activeNote: null,
     pending: false,
     error: null,
   };
