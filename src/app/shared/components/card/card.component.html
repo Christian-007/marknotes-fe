@@ -26,10 +26,8 @@
   <a
     class="flex items-center w-full my-1 px-3 py-1 border border-transparent rounded"
     *ngFor="let note of notes$ | async"
-    [ngClass]="{
-      'bg-gray-100': note.id === (activeNoteId$ | async)
-    }"
     [routerLink]="['/note', note.id]"
+    routerLinkActive="bg-gray-100"
   >
     <i aria-hidden="true" class="material-icons md-14">description</i>
     <div class="flex flex-col pl-2">

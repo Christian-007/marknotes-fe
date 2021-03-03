@@ -13,7 +13,6 @@ import * as fromRoot from '@app/shared/store/reducers';
 export class CardComponent implements OnInit {
   notes$: Observable<INote[]>;
   loading$: Observable<boolean>;
-  activeNoteId$: Observable<string>;
   hasNotesInStorage$: Observable<boolean>;
   buttonStyles: {};
 
@@ -21,10 +20,8 @@ export class CardComponent implements OnInit {
     this.buttonStyles = {
       padding: 0,
     };
-
     this.notes$ = store.pipe(select(fromRoot.selectAllNotes));
     this.loading$ = store.pipe(select(fromRoot.selectNotesPending));
-    this.activeNoteId$ = store.pipe(select(fromRoot.selectActiveNoteId));
     this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
   }
 
