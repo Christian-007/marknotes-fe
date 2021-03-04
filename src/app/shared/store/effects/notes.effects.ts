@@ -122,17 +122,16 @@ export class NotesEffects {
 
   setActiveNoteId$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(
-        NotesActions.fetchAllNotesSuccess,
-        NotesActions.addOneNoteSuccess,
-        NotesActions.deleteOneNoteSuccess,
-      ),
+      ofType(NotesActions.addOneNoteSuccess, NotesActions.deleteOneNoteSuccess),
       withLatestFrom(this.store.pipe(select(fromRoot.selectAllNotes))),
-      switchMap(([action, notes]) => {
-        if (notes.length > 0) {
+      switchMap(([_, notes]) => {
+        const hasNotes = notes.length > 0;
+
+        if (hasNotes) {
           const firstNoteId = notes[0].id;
           return of(NavigationsActions.clickNote({ payload: firstNoteId }));
         }
+
         return EMPTY;
       }),
     ),
@@ -144,7 +143,7 @@ export class NotesEffects {
       withLatestFrom(
         this.store.pipe(select(fromRoot.selectIsPreviewAndActiveNote)),
       ),
-      switchMap(([action, state]) => {
+      switchMap(([_, state]) => {
         const { isPreview, activeNote } = state;
 
         if (isPreview) {

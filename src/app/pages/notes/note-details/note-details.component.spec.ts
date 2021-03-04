@@ -11,7 +11,7 @@ import { NoteDetailsComponent } from './note-details.component';
 
 import * as fromRoot from '@app/shared/store/reducers';
 import { INote } from '@app/shared/models/markdown-state.model';
-import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
+import { NotesActions } from '@app/shared/store/actions';
 import { ActivatedRouteStub } from '@app/shared/testing/activated-route.stub';
 import { TextEditorStubComponent } from '@app/shared/testing/text-editor.stub';
 
@@ -91,11 +91,11 @@ describe('NoteDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should dispatch NavigationsActions.clickNote when the router parameter changes', () => {
+  it('should dispatch NotesActions.fetchOneNote when the router parameter changes', () => {
     const dispatchSpy = spyOn(mockStore, 'dispatch');
     const mockRouteParameter = 'noteId1';
-    const expectedAction = NavigationsActions.clickNote({
-      payload: mockRouteParameter,
+    const expectedAction = NotesActions.fetchOneNote({
+      noteId: mockRouteParameter,
     });
 
     activatedRouteStub.setParamMap({ id: mockRouteParameter });

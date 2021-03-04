@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { INote } from '@app/shared/models/markdown-state.model';
 import * as fromRoot from '@app/shared/store/reducers';
-import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
+import { NotesActions } from '@app/shared/store/actions';
 
 @Component({
   selector: 'app-note-details',
@@ -56,8 +56,6 @@ export class NoteDetailsComponent implements OnInit {
   private subscribeToRouteParameters(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       const noteId = params.get('id');
-
-      this.store.dispatch(NavigationsActions.clickNote({ payload: noteId }));
       this.store.dispatch(NotesActions.fetchOneNote({ noteId }));
     });
   }

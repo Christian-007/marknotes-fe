@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
-import { switchMap, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { switchMap, map, tap } from 'rxjs/operators';
+
+import { NavigationsActions } from '../actions';
 
 import { NotesService } from '@app/pages/notes/notes.service';
-import { NavigationsActions } from '../actions';
 
 @Injectable()
 export class NavigationsEffects {
-  constructor(private actions$: Actions, private notesService: NotesService) {}
+  constructor(
+    private actions$: Actions,
+    private notesService: NotesService,
+    private router: Router,
+  ) {}
 
   submitNoteTitle$ = createEffect(() =>
     this.actions$.pipe(
@@ -21,5 +27,17 @@ export class NavigationsEffects {
           );
       }),
     ),
+  );
+
+  navigateToNoteDetail$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(NavigationsActions.clickNote),
+        tap(actions => {
+          const { payload } = actions;
+          return this.router.navigate(['/note', payload]);
+        }),
+      ),
+    { dispatch: false },
   );
 }
