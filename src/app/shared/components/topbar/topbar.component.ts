@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Update } from '@ngrx/entity';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 
 import { DialogComponent } from '../dialog/dialog.component';
 
 import * as fromRoot from '@app/shared/store/reducers';
+import { NoteDetailSelectors } from '@app/shared/store/selectors';
 import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
 import { INote } from '@app/shared/models/markdown-state.model';
 import {
@@ -33,9 +33,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
     private componentCreator: ComponentCreator,
   ) {
     this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
-    this.activeNote$ = store.pipe(select(fromRoot.selectActiveNote));
+    this.activeNote$ = store.pipe(select(NoteDetailSelectors.selectOne));
     this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
-    this.isEditingTitle$ = store.pipe(select(fromRoot.isEditingTitle));
     this.subscription = new Subscription();
   }
 
@@ -55,16 +54,6 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.store.dispatch(NavigationsActions.togglePreview());
   }
 
-  onSubmitEdit(updatedNoteTitle: string): void {
-    const payload: Update<INote> = {
-      id: this.activeNote.id,
-      changes: {
-        title: updatedNoteTitle,
-      },
-    };
-    this.store.dispatch(NavigationsActions.submitNoteTitle({ payload }));
-  }
-
   onClickSave(): void {
     this.store.dispatch(NotesActions.saveOneNote({ payload: this.activeNote }));
   }
@@ -73,10 +62,6 @@ export class TopbarComponent implements OnInit, OnDestroy {
     const payload = this.createDynamicItem();
     const createdComponent = this.componentCreator.build(payload);
     this.componentCreator.insert(createdComponent);
-  }
-
-  onEditTitle(isEditingTitle: boolean): void {
-    this.store.dispatch(NavigationsActions.clickEditTitle({ isEditingTitle }));
   }
 
   private createDynamicItem(): DynamicItemRef {

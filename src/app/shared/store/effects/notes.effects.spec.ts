@@ -9,7 +9,11 @@ import { Observable } from 'rxjs';
 
 import { NotesEffects } from '@app/shared/store/effects/notes.effects';
 import { NotesService } from '@app/pages/notes/notes.service';
-import { NotesActions, NavigationsActions } from '@app/shared/store/actions';
+import {
+  NotesActions,
+  NavigationsActions,
+  NoteDetailActions,
+} from '@app/shared/store/actions';
 import * as fromRoot from '@app/shared/store/reducers';
 import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
 import { ComponentCreator } from '@app/shared/services/component-creator/component-creator';
@@ -149,6 +153,7 @@ describe('NotesEffects', () => {
     // Mock data
     const stubActiveNoteId = '1';
     const stubNoteChanges: Partial<INote> = {
+      id: stubActiveNoteId,
       title: 'Test Title',
     };
     const mockNotePayload: Update<INote> = {
@@ -157,7 +162,7 @@ describe('NotesEffects', () => {
     };
 
     // Mock action Observable and response from NoteService
-    const action = NotesActions.updateOneNote({
+    const action = NoteDetailActions.updateOneNote({
       payload: stubNoteChanges,
     });
     actions$ = hot('-a', { a: action });
@@ -174,9 +179,10 @@ describe('NotesEffects', () => {
     });
   });
 
-  it('should return NotesActions.updateOneNoteSuccess, with note changes, on success', () => {
+  it('should return NoteDetailActions.updateOneNoteSuccess, with note changes, on success', () => {
     // Mock data
     const mockNoteChanges: Partial<INote> = {
+      id: '1',
       title: 'Test Title',
     };
     const mockNotePayload: Update<INote> = {
@@ -185,10 +191,10 @@ describe('NotesEffects', () => {
     };
 
     // Mock action Observable and response from NoteService
-    const action = NotesActions.updateOneNote({
+    const action = NoteDetailActions.updateOneNote({
       payload: mockNoteChanges,
     });
-    const completion = NotesActions.updateOneNoteSuccess({
+    const completion = NoteDetailActions.updateOneNoteSuccess({
       payload: mockNotePayload,
     });
     actions$ = hot('-a', { a: action });

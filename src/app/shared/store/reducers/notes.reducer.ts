@@ -1,15 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
-import { NotesActions } from '../actions';
-import { NavigationsActions } from '../actions';
+import {
+  NavigationsActions,
+  NoteDetailActions,
+  NotesActions,
+} from '../actions';
 
 import { INote } from '@app/shared/models/markdown-state.model';
 import { sortDescendingByDateCreated } from '@app/shared/utils/entity-adapter.util';
 
 export const notesFeatureKey = 'notes';
 export interface NotesState extends EntityState<INote> {
-  activeNote: INote;
   pending: boolean;
   error: string;
 }
@@ -19,7 +21,6 @@ export const adapter: EntityAdapter<INote> = createEntityAdapter<INote>({
 });
 
 const initialNotesState: NotesState = adapter.getInitialState({
-  activeNote: null,
   pending: false,
   error: null,
 });
@@ -39,20 +40,10 @@ export const notesReducer = createReducer(
     pending: false,
     error: 'Error',
   })),
-  on(NotesActions.fetchOneNote, state => ({
-    ...state,
-    pending: true,
-    error: null,
-  })),
-  on(NotesActions.fetchOneNoteSuccess, (state, { payload }) => ({
-    ...state,
-    activeNote: payload,
-    pending: false,
-  })),
   on(
     NavigationsActions.previewNote,
-    NotesActions.updateOneNoteSuccess,
     NavigationsActions.submitNoteTitleSuccess,
+    NoteDetailActions.updateOneNoteSuccess,
     (state, { payload }) => adapter.updateOne(payload, state),
   ),
   on(NotesActions.addOneNoteSuccess, (state, { payload }) =>
@@ -72,4 +63,3 @@ export const notesReducer = createReducer(
 );
 
 export const getPending = (state: NotesState) => state.pending;
-export const getActiveNote = (state: NotesState) => state.activeNote;

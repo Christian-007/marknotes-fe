@@ -1,4 +1,5 @@
-import * as NotesActions from './notes.actions';
 import * as NavigationsActions from './navigations.actions';
+import * as NotesActions from './notes.actions';
+import * as NoteDetailActions from './note-detail.actions';
 
-export { NotesActions, NavigationsActions };
+export { NavigationsActions, NotesActions, NoteDetailActions };

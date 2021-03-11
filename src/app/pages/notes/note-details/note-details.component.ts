@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 
 import { INote } from '@app/shared/models/markdown-state.model';
 import * as fromRoot from '@app/shared/store/reducers';
-import { NotesActions } from '@app/shared/store/actions';
+import { NoteDetailSelectors } from '@app/shared/store/selectors';
+import { NoteDetailActions } from '@app/shared/store/actions';
 
 @Component({
   selector: 'app-note-details',
@@ -23,7 +24,7 @@ export class NoteDetailsComponent implements OnInit {
     private store: Store<fromRoot.ApplicationState>,
     private route: ActivatedRoute,
   ) {
-    this.activeNote$ = store.pipe(select(fromRoot.selectActiveNote));
+    this.activeNote$ = store.pipe(select(NoteDetailSelectors.selectOne));
     this.isPreview$ = store.pipe(select(fromRoot.selectIsPreview));
     this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
   }
@@ -36,27 +37,29 @@ export class NoteDetailsComponent implements OnInit {
   }
 
   onNoteTitleChange(): void {
-    const { title } = this.note;
+    const { id, title } = this.note;
     const update: Partial<INote> = {
+      id,
       title,
     };
 
-    this.store.dispatch(NotesActions.updateOneNote({ payload: update }));
+    this.store.dispatch(NoteDetailActions.updateOneNote({ payload: update }));
   }
 
   onMarkdownChange(): void {
-    const { markdownText } = this.note;
+    const { id, markdownText } = this.note;
     const update: Partial<INote> = {
+      id,
       markdownText,
     };
 
-    this.store.dispatch(NotesActions.updateOneNote({ payload: update }));
+    this.store.dispatch(NoteDetailActions.updateOneNote({ payload: update }));
   }
 
   private subscribeToRouteParameters(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       const noteId = params.get('id');
-      this.store.dispatch(NotesActions.fetchOneNote({ noteId }));
+      this.store.dispatch(NoteDetailActions.fetchOneNote({ noteId }));
     });
   }
 }

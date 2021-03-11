@@ -1,12 +1,16 @@
-import * as fromRoot from '@app/shared/store/reducers';
+import { NoteDetailSelectors } from './';
+import * as fromRoot from '../reducers';
+import * as fromNotes from '../reducers/notes.reducer';
+import * as fromNoteDetail from '../reducers/note-detail.reducer';
+
 import { INote } from '@app/shared/models/markdown-state.model';
-import * as fromNotes from '@app/shared/store/reducers/notes.reducer';
 
 describe('Selectors', () => {
   let mockNotes1: INote;
   let mockNotes2: INote;
   let mockNotesState: fromNotes.NotesState;
   let mockAppState: fromRoot.ApplicationState;
+  let mockNoteDetailState: fromNoteDetail.State;
 
   beforeEach(() => {
     mockNotes1 = {
@@ -29,9 +33,16 @@ describe('Selectors', () => {
         [mockNotes2.id]: mockNotes2,
       },
       ids: [mockNotes1.id, mockNotes2.id],
-      activeNote: mockNotes2,
       error: null,
       pending: false,
+    };
+    mockNoteDetailState = {
+      entities: {
+        [mockNotes1.id]: mockNotes1,
+      },
+      ids: [mockNotes1.id],
+      loading: false,
+      error: null,
     };
 
     mockAppState = {
@@ -42,6 +53,7 @@ describe('Selectors', () => {
         isPreview: false,
       },
       notes: mockNotesState,
+      noteDetail: mockNoteDetailState,
     };
   });
 
@@ -50,23 +62,36 @@ describe('Selectors', () => {
     expect(result).toBe(mockNotesState);
   });
 
+  it('should select NoteDetailState only from ApplicationState', () => {
+    const result = NoteDetailSelectors.selectFeatureState(mockAppState);
+    expect(result).toBe(mockNoteDetailState);
+  });
+
+  it('should select all entities of fromNoteDetail.State in a denormalized shape', () => {
+    const result = NoteDetailSelectors.selectAllEntities.projector(
+      mockNoteDetailState,
+    );
+    const expected = [mockNotes1];
+
+    expect(result).toEqual(expected);
+  });
+
+  it('should select a single note detail in a denormalized-shape fromNoteDetail.State', () => {
+    const denormalized = NoteDetailSelectors.selectAllEntities.projector(
+      mockNoteDetailState,
+    );
+    const result = NoteDetailSelectors.selectOne.projector(denormalized);
+    const expected = mockNotes1;
+
+    expect(result).toEqual(expected);
+  });
+
   it('should select all notes in a denormalized shape', () => {
     // mockNotesState is in a normalized shape
     const result = fromRoot.selectAllNotes.projector(mockNotesState);
     const expected = [mockNotes1, mockNotes2];
 
     expect(result).toEqual(expected);
-  });
-
-  it('should select undefined when activeNoteId does not exist', () => {
-    const stubNoteId = '3';
-    const stubNotesArray = [mockNotes1, mockNotes2];
-    const result = fromRoot.selectActiveNote.projector(
-      stubNoteId,
-      stubNotesArray,
-    );
-
-    expect(result).toBe(undefined);
   });
 
   it('should select isPreview and activeNote states', () => {
@@ -90,16 +115,6 @@ describe('Selectors', () => {
     it('should select pending state from NotesState', () => {
       const result = fromRoot.selectNotesPending.projector(mockNotesState);
       expect(result).toBe(mockNotesState.pending);
-    });
-
-    it('should get active note value from NotesState', () => {
-      const result = fromNotes.getActiveNote(mockNotesState);
-      expect(result).toBe(mockNotes2);
-    });
-
-    it('should select activeNote state from NotesState', () => {
-      const result = fromRoot.selectActiveNote.projector(mockNotesState);
-      expect(result).toBe(mockNotes2);
     });
   });
 });

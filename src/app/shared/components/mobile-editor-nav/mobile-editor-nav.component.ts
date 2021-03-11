@@ -6,6 +6,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { ToolbarDialogComponent } from '../toolbar-dialog/toolbar-dialog.component';
 
 import * as fromRoot from '@app/shared/store/reducers';
+import { NoteDetailSelectors } from '@app/shared/store/selectors';
 import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
 import { ComponentCreator } from '@app/shared/services/component-creator/component-creator';
 import {
@@ -39,7 +40,7 @@ export class MobileEditorNavComponent implements OnInit {
     this.menuBarStyles = {
       padding: '0 0.3rem 0 0',
     };
-    this.activeNote$ = store.pipe(select(fromRoot.selectActiveNote));
+    this.activeNote$ = store.pipe(select(NoteDetailSelectors.selectOne));
     this.subscription = new Subscription();
   }
 

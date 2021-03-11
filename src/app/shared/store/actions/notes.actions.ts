@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
 
 import { INote } from '@app/shared/models/markdown-state.model';
 
@@ -9,24 +8,6 @@ export const fetchAllNotesSuccess = createAction(
   props<{ payload: INote[] }>(),
 );
 export const fetchAllNotesError = createAction('FETCH_ALL_NOTES_ERROR');
-
-export const fetchOneNote = createAction(
-  'FETCH_ONE_NOTE',
-  props<{ noteId: string }>(),
-);
-export const fetchOneNoteSuccess = createAction(
-  'FETCH_ONE_NOTE_SUCCESS',
-  props<{ payload: INote }>(),
-);
-
-export const updateOneNote = createAction(
-  'UPDATE_ONE_NOTE',
-  props<{ payload: Partial<INote> }>(),
-);
-export const updateOneNoteSuccess = createAction(
-  'UPDATE_ONE_NOTE_SUCCESS',
-  props<{ payload: Update<INote> }>(),
-);
 
 export const saveOneNote = createAction(
   'SAVE_ONE_NOTE',

@@ -5,13 +5,16 @@ import {
   ActionReducerMap,
 } from '@ngrx/store';
 
-import * as fromNotes from '@app/shared/store/reducers/notes.reducer';
 import * as fromNavigation from '@app/shared/store/reducers/navigations.reducer';
+import * as fromNotes from '@app/shared/store/reducers/notes.reducer';
+import * as fromNoteDetail from '@app/shared/store/reducers/note-detail.reducer';
+import { NoteDetailSelectors } from '../selectors';
 import { INote } from '@app/shared/models/markdown-state.model';
 
 export interface ApplicationState {
-  [fromNotes.notesFeatureKey]: fromNotes.NotesState;
   [fromNavigation.navigationFeatureKey]: fromNavigation.NavigationState;
+  [fromNotes.notesFeatureKey]: fromNotes.NotesState;
+  [fromNoteDetail.featureKey]: fromNoteDetail.State;
 }
 
 export const REDUCERS_TOKEN = new InjectionToken<
@@ -19,8 +22,9 @@ export const REDUCERS_TOKEN = new InjectionToken<
 >('Registered Reducers');
 
 export const reducers: ActionReducerMap<ApplicationState> = {
-  [fromNotes.notesFeatureKey]: fromNotes.notesReducer,
   [fromNavigation.navigationFeatureKey]: fromNavigation.navigationReducer,
+  [fromNotes.notesFeatureKey]: fromNotes.notesReducer,
+  [fromNoteDetail.featureKey]: fromNoteDetail.reducer,
 };
 
 // Notes Selectors
@@ -43,10 +47,10 @@ export const selectNotesPending = createSelector(
   fromNotes.getPending,
 );
 
-export const selectActiveNote = createSelector(
-  selectNotesState,
-  fromNotes.getActiveNote,
-);
+// export const selectActiveNote = createSelector(
+//   selectNotesState,
+//   fromNotes.getActiveNote,
+// );
 
 // Navigation Selectors
 export const selectNavigationState = createFeatureSelector<
@@ -77,7 +81,7 @@ export const isNoteListOpen = createSelector(
 // Mix Selectors
 export const selectIsPreviewAndActiveNote = createSelector(
   selectIsPreview,
-  selectActiveNote,
+  NoteDetailSelectors.selectOne,
   (isPreview: boolean, activeNote: INote) => ({ isPreview, activeNote }),
 );
 

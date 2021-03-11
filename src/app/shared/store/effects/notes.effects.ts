@@ -7,7 +7,11 @@ import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
 
 import * as fromRoot from '../reducers';
 
-import { NotesActions, NavigationsActions } from '@app/shared/store/actions';
+import {
+  NotesActions,
+  NavigationsActions,
+  NoteDetailActions,
+} from '@app/shared/store/actions';
 import { INote } from '@app/shared/models/markdown-state.model';
 import { NotesService } from '@app/pages/notes/notes.service';
 import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
@@ -41,12 +45,12 @@ export class NotesEffects {
 
   fetchOneNote$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NotesActions.fetchOneNote),
+      ofType(NoteDetailActions.fetchOneNote),
       switchMap(actions => {
         const { noteId } = actions;
         return this.notesService.fetchOne(noteId).pipe(
           map((note: INote) => {
-            return NotesActions.fetchOneNoteSuccess({ payload: note });
+            return NoteDetailActions.fetchOneNoteSuccess({ payload: note });
           }),
         );
       }),
@@ -55,16 +59,15 @@ export class NotesEffects {
 
   updateOneNote$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NotesActions.updateOneNote),
-      withLatestFrom(this.store.pipe(select(fromRoot.selectActiveNoteId))),
-      switchMap(([action, activeNoteId]) => {
+      ofType(NoteDetailActions.updateOneNote),
+      switchMap(actions => {
         const payload: Update<INote> = {
-          id: activeNoteId,
-          changes: action.payload,
+          id: actions.payload.id,
+          changes: actions.payload,
         };
         return this.notesService
           .updateOne(payload)
-          .pipe(map(() => NotesActions.updateOneNoteSuccess({ payload })));
+          .pipe(map(() => NoteDetailActions.updateOneNoteSuccess({ payload })));
       }),
     ),
   );
@@ -145,6 +148,8 @@ export class NotesEffects {
       ),
       switchMap(([_, state]) => {
         const { isPreview, activeNote } = state;
+
+        console.log('state: ', state);
 
         if (isPreview) {
           const combinedTitleWithBody = TransformationUtil.combineTitleWithBody(

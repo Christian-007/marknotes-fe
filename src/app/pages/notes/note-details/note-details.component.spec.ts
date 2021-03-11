@@ -10,8 +10,9 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { NoteDetailsComponent } from './note-details.component';
 
 import * as fromRoot from '@app/shared/store/reducers';
+import { NoteDetailSelectors } from '@app/shared/store/selectors';
 import { INote } from '@app/shared/models/markdown-state.model';
-import { NotesActions } from '@app/shared/store/actions';
+import { NoteDetailActions } from '@app/shared/store/actions';
 import { ActivatedRouteStub } from '@app/shared/testing/activated-route.stub';
 import { TextEditorStubComponent } from '@app/shared/testing/text-editor.stub';
 
@@ -73,7 +74,7 @@ describe('NoteDetailsComponent', () => {
     };
     mockStore = TestBed.inject(MockStore);
     mockActiveNoteSelector = mockStore.overrideSelector(
-      fromRoot.selectActiveNote,
+      NoteDetailSelectors.selectOne,
       mockActiveNote,
     );
     mockIsPreviewSelector = mockStore.overrideSelector(
@@ -94,7 +95,7 @@ describe('NoteDetailsComponent', () => {
   it('should dispatch NotesActions.fetchOneNote when the router parameter changes', () => {
     const dispatchSpy = spyOn(mockStore, 'dispatch');
     const mockRouteParameter = 'noteId1';
-    const expectedAction = NotesActions.fetchOneNote({
+    const expectedAction = NoteDetailActions.fetchOneNote({
       noteId: mockRouteParameter,
     });
 
@@ -162,19 +163,21 @@ describe('NoteDetailsComponent', () => {
     );
 
     it(
-      'should dispatch NotesActions.updateOneNote when note title changes',
+      'should dispatch NoteDetailActions.updateOneNote when note title changes',
       waitForAsync(() => {
         fixture.whenStable().then(() => {
           const queryNoteTitleInput = de.query(By.css('#NoteTitleTxt'));
           const noteTitleElement = queryNoteTitleInput.nativeElement;
           const dispatchSpy = spyOn(mockStore, 'dispatch');
+          const mockNoteId = '1';
           const newInputValue = 'Testing Notes';
 
           noteTitleElement.value = newInputValue;
           noteTitleElement.dispatchEvent(new Event('input'));
 
-          const expectedAction = NotesActions.updateOneNote({
+          const expectedAction = NoteDetailActions.updateOneNote({
             payload: {
+              id: mockNoteId,
               title: newInputValue,
             },
           });
@@ -185,17 +188,19 @@ describe('NoteDetailsComponent', () => {
     );
 
     it(
-      'should dispatch NotesActions.updateOneNote when markdown changes',
+      'should dispatch NoteDetailActions.updateOneNote when markdown changes',
       waitForAsync(() => {
         fixture.whenStable().then(() => {
           const dispatchSpy = spyOn(mockStore, 'dispatch');
+          const mockNoteId = '1';
           const newInputValue = '## Tests';
 
           component.note.markdownText = newInputValue;
           component.onMarkdownChange();
 
-          const expectedAction = NotesActions.updateOneNote({
+          const expectedAction = NoteDetailActions.updateOneNote({
             payload: {
+              id: mockNoteId,
               markdownText: newInputValue,
             },
           });
