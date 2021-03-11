@@ -1,7 +1,11 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 
-import { NavigationsActions, NoteDetailActions } from '../actions';
+import {
+  NavigationsActions,
+  NoteDetailActions,
+  NotesActions,
+} from '../actions';
 
 import { INote } from '@app/shared/models/markdown-state.model';
 
@@ -27,7 +31,10 @@ export const reducer = createReducer(
     error: null,
   })),
   on(NoteDetailActions.fetchOneNoteSuccess, (state, { payload }) =>
-    adapter.setOne(payload, { ...state, loading: false }),
+    adapter.setAll([payload], { ...state, loading: false }),
+  ),
+  on(NotesActions.deleteOneNoteSuccess, (state, { noteId }) =>
+    adapter.removeOne(noteId, state),
   ),
   on(
     NavigationsActions.previewNote,

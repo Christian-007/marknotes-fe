@@ -149,8 +149,6 @@ export class NotesEffects {
       switchMap(([_, state]) => {
         const { isPreview, activeNote } = state;
 
-        console.log('state: ', state);
-
         if (isPreview) {
           const combinedTitleWithBody = TransformationUtil.combineTitleWithBody(
             activeNote,
