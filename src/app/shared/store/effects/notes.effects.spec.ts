@@ -15,6 +15,7 @@ import {
   NoteDetailActions,
 } from '@app/shared/store/actions';
 import * as fromRoot from '@app/shared/store/reducers';
+import { NotesSelector } from '@app/shared/store/selectors';
 import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
 import { ComponentCreator } from '@app/shared/services/component-creator/component-creator';
 import { INote } from '@app/shared/models/markdown-state.model';
@@ -85,7 +86,7 @@ describe('NotesEffects', () => {
       '1', // mock activeNoteId
     );
     mockSelectAllNotesSelector = mockStore.overrideSelector(
-      fromRoot.selectAllNotes,
+      NotesSelector.selectAllNotes,
       [],
     );
     mockSelectIsPreviewAndActiveNoteSelector = mockStore.overrideSelector(

@@ -12,6 +12,7 @@ import {
   NavigationsActions,
   NoteDetailActions,
 } from '@app/shared/store/actions';
+import { NotesSelector } from '@app/shared/store/selectors';
 import { INote } from '@app/shared/models/markdown-state.model';
 import { NotesService } from '@app/pages/notes/notes.service';
 import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
@@ -126,7 +127,7 @@ export class NotesEffects {
   setActiveNoteId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(NotesActions.addOneNoteSuccess, NotesActions.deleteOneNoteSuccess),
-      withLatestFrom(this.store.pipe(select(fromRoot.selectAllNotes))),
+      withLatestFrom(this.store.pipe(select(NotesSelector.selectAllNotes))),
       switchMap(([_, notes]) => {
         const hasNotes = notes.length > 0;
 

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { INote } from '@app/shared/models/markdown-state.model';
 import { NotesActions } from '@app/shared/store/actions';
 import * as fromRoot from '@app/shared/store/reducers';
+import { NotesSelector } from '@app/shared/store/selectors';
 
 @Component({
   selector: 'app-card',
@@ -20,8 +21,8 @@ export class CardComponent implements OnInit {
     this.buttonStyles = {
       padding: 0,
     };
-    this.notes$ = store.pipe(select(fromRoot.selectAllNotes));
-    this.loading$ = store.pipe(select(fromRoot.selectNotesPending));
+    this.notes$ = store.pipe(select(NotesSelector.selectAllNotes));
+    this.loading$ = store.pipe(select(NotesSelector.selectNotesPending));
     this.hasNotesInStorage$ = store.pipe(select(fromRoot.hasNotesInStorage));
   }
 

@@ -5,10 +5,11 @@ import {
   ActionReducerMap,
 } from '@ngrx/store';
 
+import { NoteDetailSelectors, NotesSelector } from '../selectors';
+
 import * as fromNavigation from '@app/shared/store/reducers/navigations.reducer';
 import * as fromNotes from '@app/shared/store/reducers/notes.reducer';
 import * as fromNoteDetail from '@app/shared/store/reducers/note-detail.reducer';
-import { NoteDetailSelectors } from '../selectors';
 import { INote } from '@app/shared/models/markdown-state.model';
 
 export interface ApplicationState {
@@ -26,31 +27,6 @@ export const reducers: ActionReducerMap<ApplicationState> = {
   [fromNotes.notesFeatureKey]: fromNotes.notesReducer,
   [fromNoteDetail.featureKey]: fromNoteDetail.reducer,
 };
-
-// Notes Selectors
-export const selectNotesState = createFeatureSelector<
-  ApplicationState,
-  fromNotes.NotesState
->(fromNotes.notesFeatureKey);
-
-const {
-  selectAll,
-  selectEntities,
-  selectIds,
-  selectTotal,
-} = fromNotes.adapter.getSelectors();
-
-export const selectAllNotes = createSelector(selectNotesState, selectAll);
-
-export const selectNotesPending = createSelector(
-  selectNotesState,
-  fromNotes.getPending,
-);
-
-// export const selectActiveNote = createSelector(
-//   selectNotesState,
-//   fromNotes.getActiveNote,
-// );
 
 // Navigation Selectors
 export const selectNavigationState = createFeatureSelector<
@@ -86,7 +62,7 @@ export const selectIsPreviewAndActiveNote = createSelector(
 );
 
 export const hasNotesInStorage = createSelector(
-  selectAllNotes,
+  NotesSelector.selectAllNotes,
   (notes: INote[]) => {
     return notes.length > 0;
   },

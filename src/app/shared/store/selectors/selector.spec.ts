@@ -1,4 +1,4 @@
-import { NoteDetailSelectors } from './';
+import { NoteDetailSelectors, NotesSelector } from './';
 import * as fromRoot from '../reducers';
 import * as fromNotes from '../reducers/notes.reducer';
 import * as fromNoteDetail from '../reducers/note-detail.reducer';
@@ -58,7 +58,7 @@ describe('Selectors', () => {
   });
 
   it('should select NotesState only from ApplicationState', () => {
-    const result = fromRoot.selectNotesState(mockAppState);
+    const result = NotesSelector.selectFeatureState(mockAppState);
     expect(result).toBe(mockNotesState);
   });
 
@@ -88,7 +88,7 @@ describe('Selectors', () => {
 
   it('should select all notes in a denormalized shape', () => {
     // mockNotesState is in a normalized shape
-    const result = fromRoot.selectAllNotes.projector(mockNotesState);
+    const result = NotesSelector.selectAllNotes.projector(mockNotesState);
     const expected = [mockNotes1, mockNotes2];
 
     expect(result).toEqual(expected);
@@ -113,7 +113,7 @@ describe('Selectors', () => {
     });
 
     it('should select pending state from NotesState', () => {
-      const result = fromRoot.selectNotesPending.projector(mockNotesState);
+      const result = NotesSelector.selectNotesPending.projector(mockNotesState);
       expect(result).toBe(mockNotesState.pending);
     });
   });
