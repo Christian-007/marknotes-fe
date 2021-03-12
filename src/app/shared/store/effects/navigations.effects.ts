@@ -35,7 +35,7 @@ export class NavigationsEffects {
         ofType(NavigationsActions.clickNote),
         tap(actions => {
           const { payload } = actions;
-          return this.router.navigate(['/note', payload]);
+          return this.router.navigate(['/notes', payload]);
         }),
       ),
     { dispatch: false },

@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MemoizedSelector } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
-import { NoteDetailsComponent } from './note-details.component';
+import { NoteDetailComponent } from './note-detail.component';
 
 import * as fromRoot from '@app/shared/store/reducers';
 import { NoteDetailSelectors } from '@app/shared/store/selectors';
@@ -17,8 +17,8 @@ import { ActivatedRouteStub } from '@app/shared/testing/activated-route.stub';
 import { TextEditorStubComponent } from '@app/shared/testing/text-editor.stub';
 
 describe('NoteDetailsComponent', () => {
-  let component: NoteDetailsComponent;
-  let fixture: ComponentFixture<NoteDetailsComponent>;
+  let component: NoteDetailComponent;
+  let fixture: ComponentFixture<NoteDetailComponent>;
   let de: DebugElement;
   let activatedRouteStub: ActivatedRouteStub;
   let mockActiveNote: INote;
@@ -39,7 +39,7 @@ describe('NoteDetailsComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [NoteDetailsComponent, TextEditorStubComponent],
+        declarations: [NoteDetailComponent, TextEditorStubComponent],
         imports: [CommonModule, FormsModule],
         providers: [
           provideMockStore(),
@@ -60,7 +60,7 @@ describe('NoteDetailsComponent', () => {
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NoteDetailsComponent);
+    fixture = TestBed.createComponent(NoteDetailComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
     activatedRouteStub = TestBed.inject(ActivatedRouteStub);

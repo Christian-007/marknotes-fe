@@ -9,12 +9,12 @@ import { NoteDetailSelectors } from '@app/shared/store/selectors';
 import { NoteDetailActions } from '@app/shared/store/actions';
 
 @Component({
-  selector: 'app-note-details',
-  templateUrl: './note-details.component.html',
-  styleUrls: ['./note-details.component.scss'],
+  selector: 'app-note-detail',
+  templateUrl: './note-detail.component.html',
+  styleUrls: ['./note-detail.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class NoteDetailsComponent implements OnInit {
+export class NoteDetailComponent implements OnInit {
   activeNote$: Observable<INote>;
   note: INote;
   isPreview$: Observable<boolean>;

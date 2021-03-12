@@ -8,7 +8,7 @@ const routes: Routes = [
       import('./pages/home/home.module').then(m => m.HomeModule),
   },
   {
-    path: 'note',
+    path: 'notes',
     loadChildren: () =>
       import('./pages/notes/notes.module').then(m => m.NotesModule),
   },

@@ -1,5 +1,5 @@
 import { NotesComponent } from './notes.component';
-import { NoteDetailsComponent } from './note-details/note-details.component';
+import { NoteDetailComponent } from './detail/note-detail.component';
 
 export const routes = [
   {
@@ -8,7 +8,7 @@ export const routes = [
     children: [
       {
         path: ':id',
-        component: NoteDetailsComponent,
+        component: NoteDetailComponent,
       },
     ],
   },
