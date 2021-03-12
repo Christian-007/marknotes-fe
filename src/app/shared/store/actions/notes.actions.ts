@@ -2,30 +2,30 @@ import { createAction, props } from '@ngrx/store';
 
 import { INote } from '@app/shared/models/markdown-state.model';
 
-export const fetchAllNotes = createAction('FETCH_ALL_NOTES');
+export const fetchAllNotes = createAction('[Notes] Fetch All Notes');
 export const fetchAllNotesSuccess = createAction(
-  'FETCH_ALL_NOTES_SUCCESS',
+  '[Notes] Fetch All Notes Success',
   props<{ payload: INote[] }>(),
 );
-export const fetchAllNotesError = createAction('FETCH_ALL_NOTES_ERROR');
+export const fetchAllNotesError = createAction('[Notes] Fetch All Notes Error');
 
 export const saveOneNote = createAction(
-  'SAVE_ONE_NOTE',
+  '[Notes] Save One Note',
   props<{ payload: Partial<INote> }>(),
 );
-export const saveOneNoteSuccess = createAction('SAVE_ONE_NOTE_SUCCESS');
+export const saveOneNoteSuccess = createAction('[Notes] Save One Note Success');
 
-export const addOneNote = createAction('ADD_ONE_NOTE');
+export const addOneNote = createAction('[Notes] Add One Note');
 export const addOneNoteSuccess = createAction(
-  'ADD_ONE_NOTE_SUCCESS',
+  '[Notes] Add One Note Success',
   props<{ payload: INote }>(),
 );
 
 export const deleteOneNote = createAction(
-  'DELETE_ONE_NOTE',
+  '[Notes] Delete One Note',
   props<{ noteId: string; componentId: string }>(),
 );
 export const deleteOneNoteSuccess = createAction(
-  'DELETE_ONE_NOTE_SUCCESS',
+  '[Notes] Delete One Note Success',
   props<{ noteId: string }>(),
 );

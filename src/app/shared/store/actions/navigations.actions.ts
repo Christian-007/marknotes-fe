@@ -4,28 +4,28 @@ import { Update } from '@ngrx/entity';
 import { INote } from '@app/shared/models/markdown-state.model';
 
 export const clickNote = createAction(
-  'CLICK_NOTE',
+  '[Navigations] Click Note',
   props<{ payload: string }>(),
 );
 
 export const previewNote = createAction(
-  'PREVIEW_NOTE',
+  '[Navigations] Preview Note',
   props<{ payload: Update<INote> }>(),
 );
 
-export const togglePreview = createAction('TOGGLE_PREVIEW');
+export const togglePreview = createAction('[Navigations] Toggle Preview');
 
 export const clickEditTitle = createAction(
-  'CLICK_EDIT_TITLE',
+  '[Navigations] Click Edit Title',
   props<{ isEditingTitle: boolean }>(),
 );
 
 export const submitNoteTitle = createAction(
-  'SUBMIT_NOTE_TITLE',
+  '[Navigations] Submit Note Title',
   props<{ payload: Update<INote> }>(),
 );
 export const submitNoteTitleSuccess = createAction(
-  'SUBMIT_NOTE_TITLE_SUCCESS',
+  '[Navigations] Submit Note Title Success',
   props<{ payload: Update<INote> }>(),
 );
 
