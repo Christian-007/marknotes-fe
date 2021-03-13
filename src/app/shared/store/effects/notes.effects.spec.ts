@@ -464,6 +464,55 @@ describe('NotesEffects', () => {
     expect(effects.togglePreview$).toBeObservable(expected$);
   });
 
+  it('should return NavigationsActions.previewNote on NoteDetailActions.fetchOneNoteSuccess', () => {
+    const mockNoteData = {
+      title: 'Test Title',
+      body: 'Some body',
+    };
+    const mockFetchedNote: INote = {
+      id: '1',
+      dateCreated: 1590045443715,
+      htmlText: '',
+      markdownText: `## ${mockNoteData.body}`,
+      title: mockNoteData.title,
+    };
+    const stubTitleAndBody = `# ${mockNoteData.title}\n ## ${mockNoteData.body}`;
+    const stubHtml = `<h1>${mockNoteData.title}</h1><h2>${mockNoteData.body}</h2>`;
+    const mockPayload: Update<INote> = {
+      id: '1',
+      changes: {
+        htmlText: stubHtml,
+      },
+    };
+
+    // Spy on regular function
+    const combineTitleWithBodySpy = spyOn(
+      TransformationUtil,
+      'combineTitleWithBody',
+    );
+    combineTitleWithBodySpy.and.returnValue(stubTitleAndBody);
+    const convertNoteSpy = markdownParser.convert as jasmine.Spy;
+    convertNoteSpy.and.returnValue(stubHtml);
+
+    const action = NoteDetailActions.fetchOneNoteSuccess({
+      payload: mockFetchedNote,
+    });
+    const completion = NavigationsActions.previewNote({
+      payload: mockPayload,
+    });
+
+    actions$ = hot('-a', { a: action });
+    const expected$ = cold('-c', { c: completion });
+
+    mockSelectIsPreviewAndActiveNoteSelector.setResult({
+      isPreview: true,
+      activeNote: mockFetchedNote,
+    });
+    mockStore.refreshState();
+
+    expect(effects.togglePreview$).toBeObservable(expected$);
+  });
+
   it('should return EMPTY if NOT in Preview Mode, when togglePreview$', () => {
     const action = NavigationsActions.togglePreview();
 
