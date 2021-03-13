@@ -143,7 +143,10 @@ export class NotesEffects {
 
   togglePreview$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NavigationsActions.togglePreview, NavigationsActions.clickNote),
+      ofType(
+        NavigationsActions.togglePreview,
+        NoteDetailActions.fetchOneNoteSuccess,
+      ),
       withLatestFrom(
         this.store.pipe(select(fromRoot.selectIsPreviewAndActiveNote)),
       ),
@@ -151,18 +154,24 @@ export class NotesEffects {
         const { isPreview, activeNote } = state;
 
         if (isPreview) {
-          const combinedTitleWithBody = TransformationUtil.combineTitleWithBody(
-            activeNote,
-          );
-          const htmlText = this.markdownParser.convert(combinedTitleWithBody);
-          const payload: Update<INote> = {
-            id: activeNote.id,
-            changes: { htmlText },
-          };
+          const payload = this.transformMarkdownToHtml(activeNote);
           return of(NavigationsActions.previewNote({ payload }));
         }
+
         return EMPTY;
       }),
     ),
   );
+
+  private transformMarkdownToHtml(activeNote: INote): Update<INote> {
+    const combinedTitleWithBody = TransformationUtil.combineTitleWithBody(
+      activeNote,
+    );
+    const htmlText = this.markdownParser.convert(combinedTitleWithBody);
+
+    return {
+      id: activeNote.id,
+      changes: { htmlText },
+    };
+  }
 }
