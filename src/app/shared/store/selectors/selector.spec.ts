@@ -94,6 +94,14 @@ describe('Selectors', () => {
     expect(result).toEqual(expected);
   });
 
+  it('should select one latest note if there are some notes', () => {
+    const denormalized = NotesSelector.selectAllNotes.projector(mockNotesState);
+    const result = NotesSelector.selectOneLatestNote.projector(denormalized);
+    const expected = mockNotes1;
+
+    expect(result).toBe(expected);
+  });
+
   it('should select isPreview and activeNote states', () => {
     const stubIsPreview = false;
     const stubActiveNote = mockNotes1;
