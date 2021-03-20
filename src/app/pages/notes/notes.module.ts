@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { EmptyNoteComponent } from './shared/components/empty-note.component';
 import { NoteDetailComponent } from './detail/note-detail.component';
 import { NotesComponent } from './notes.component';
 import { routes } from './router';
@@ -14,7 +15,7 @@ import { MobileSidebarModule } from '@app/shared/components/mobile-sidebar/mobil
 import { TextEditorModule } from '@app/shared/components/text-editor/text-editor.module';
 
 @NgModule({
-  declarations: [NotesComponent, NoteDetailComponent],
+  declarations: [EmptyNoteComponent, NotesComponent, NoteDetailComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
