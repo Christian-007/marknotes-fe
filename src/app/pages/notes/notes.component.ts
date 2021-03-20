@@ -1,5 +1,5 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -36,7 +36,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromRoot.ApplicationState>,
-    private route: ActivatedRoute,
+    private location: Location,
   ) {
     this.isPreview$ = this.store.pipe(select(fromRoot.selectIsPreview));
     this.latestNote$ = this.store.pipe(
@@ -60,17 +60,18 @@ export class NotesComponent implements OnInit, OnDestroy {
         .pipe(filter((latestNote: INote) => !!latestNote))
         .subscribe({
           next: (latestNote: INote) => {
-            this.handleRouterRedirection(latestNote);
+            this.redirectToNoteDetailIfInNotesPath(latestNote);
           },
         }),
     );
   }
 
-  private handleRouterRedirection(latestNote: INote): void {
-    const noteDetailRoute: ActivatedRoute = this.route.firstChild;
-    const isInNoteDetailRoute = !!noteDetailRoute;
+  private redirectToNoteDetailIfInNotesPath(latestNote: INote): void {
+    const notesPath = '/notes';
+    const currentPath = this.location.path();
+    const isInNotesPath = currentPath === notesPath;
 
-    if (!isInNoteDetailRoute) {
+    if (isInNotesPath) {
       this.store.dispatch(
         NavigationsActions.clickNote({ payload: latestNote.id }),
       );
