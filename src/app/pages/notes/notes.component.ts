@@ -11,22 +11,7 @@ import { INote } from '@app/shared/models/markdown-state.model';
 
 @Component({
   selector: 'app-notes',
-  template: `
-    <div class="flex flex-col w-full h-full">
-      <app-topbar></app-topbar>
-      <div class="flex flex-row w-full h-full overflow-hidden">
-        <div class="w-1/4 xl:w-1/5 h-full pl-6 pr-4 py-4 overflow-auto">
-          <app-sidebar></app-sidebar>
-        </div>
-        <div
-          class="w-3/4 xl:w-4/5 h-full pr-6 pl-4 py-4 overflow-auto"
-          [ngClass]="{ 'bg-gray-100': (isPreview$ | async) === false }"
-        >
-          <router-outlet></router-outlet>
-        </div>
-      </div>
-    </div>
-  `,
+  templateUrl: './notes.component.html',
 })
 export class NotesComponent implements OnInit, OnDestroy {
   isPreview$: Observable<boolean>;
