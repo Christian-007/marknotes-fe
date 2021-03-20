@@ -1,6 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule, Location } from '@angular/common';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { MemoizedSelector } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -29,13 +30,17 @@ describe('NotesComponent', () => {
     fromRoot.ApplicationState,
     INote
   >;
+  let mockHasNotesInStorageSelector: MemoizedSelector<
+    fromRoot.ApplicationState,
+    boolean
+  >;
 
   beforeEach(
     waitForAsync(() => {
       const locationSpy = jasmine.createSpyObj('Location', ['path']);
 
       TestBed.configureTestingModule({
-        declarations: [NotesComponent],
+        declarations: [NotesComponent, EmptyNoteStubComponent],
         imports: [CommonModule],
         providers: [
           provideMockStore(),
@@ -81,6 +86,10 @@ describe('NotesComponent', () => {
       NotesSelector.selectOneLatestNote,
       mockActiveNote,
     );
+    mockHasNotesInStorageSelector = mockStore.overrideSelector(
+      fromRoot.hasNotesInStorage,
+      true,
+    );
     fixture.detectChanges();
   });
 
@@ -112,4 +121,30 @@ describe('NotesComponent', () => {
 
     expect(dispatchSpy).toHaveBeenCalledWith(expectedAction);
   });
+
+  it('should show EmptyNoteComponent if there is NO note', () => {
+    mockHasNotesInStorageSelector.setResult(false);
+    mockStore.refreshState();
+
+    fixture.detectChanges();
+
+    const emptyNoteElement = de.query(By.css('#EmptyNote'));
+    expect(emptyNoteElement).toBeTruthy();
+  });
+
+  it('should hide EmptyNoteComponent if there are some notes', () => {
+    mockHasNotesInStorageSelector.setResult(true);
+    mockStore.refreshState();
+
+    fixture.detectChanges();
+
+    const emptyNoteElement = de.query(By.css('#EmptyNote'));
+    expect(emptyNoteElement).toBeFalsy();
+  });
 });
+
+@Component({
+  selector: 'app-empty-note',
+  template: '<div id="EmptyNote"></div>',
+})
+class EmptyNoteStubComponent {}

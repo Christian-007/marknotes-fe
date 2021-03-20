@@ -104,16 +104,6 @@ describe('NoteDetailsComponent', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(expectedAction);
   });
 
-  it('should show Empty Note div if there is NO note', () => {
-    mockHasNotesInStorageSelector.setResult(false);
-    mockStore.refreshState();
-    fixture.detectChanges();
-
-    const queryEmptyNoteDiv = de.query(By.css('#EmptyNote'));
-
-    expect(queryEmptyNoteDiv).toBeTruthy();
-  });
-
   it('should show Note Container div if there is a note', () => {
     mockHasNotesInStorageSelector.setResult(true);
     mockStore.refreshState();
