@@ -16,6 +16,7 @@ import { INote } from '@app/shared/models/markdown-state.model';
 export class NotesComponent implements OnInit, OnDestroy {
   isPreview$: Observable<boolean>;
   latestNote$: Observable<INote>;
+  hasNotesInStorage$: Observable<boolean>;
 
   private subscription: Subscription;
 
@@ -26,6 +27,9 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.isPreview$ = this.store.pipe(select(fromRoot.selectIsPreview));
     this.latestNote$ = this.store.pipe(
       select(NotesSelector.selectOneLatestNote),
+    );
+    this.hasNotesInStorage$ = this.store.pipe(
+      select(fromRoot.hasNotesInStorage),
     );
     this.subscription = new Subscription();
   }
