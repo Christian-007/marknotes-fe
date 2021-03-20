@@ -34,7 +34,7 @@ export class LocalStorageStrategy extends StorageStrategy {
           return findNote;
         }
 
-        throw new Error('Unable to perform delete when there is no data!');
+        throw new Error('Unable to perform findOne when there is no data!');
       }),
     );
   }
