@@ -84,6 +84,7 @@
           "builder": "ngx-build-plus:karma",
           "options": {
             "extraWebpackConfig": "webpack.config.js",
+            "codeCoverage": true,
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
