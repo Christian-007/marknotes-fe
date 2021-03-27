@@ -1,29 +1,31 @@
-<div
-  *ngIf="hasNotesInStorage$ | async"
-  id="NoteContainer"
-  class="flex flex-col"
->
-  <ng-container *ngIf="isPreview$ | async; else markdownTextArea">
-    <div
-      id="NotePreview"
-      class="leading-relaxed"
-      [innerHTML]="note.htmlText"
-    ></div>
-  </ng-container>
+<ng-container *ngIf="!!(activeNote$ | async); else noteNotFound">
+  <div id="NoteContainer" class="flex flex-col">
+    <ng-container *ngIf="isPreview$ | async; else markdownTextArea">
+      <div
+        id="NotePreview"
+        class="leading-relaxed"
+        [innerHTML]="note.htmlText"
+      ></div>
+    </ng-container>
 
-  <ng-template #markdownTextArea>
-    <input
-      id="NoteTitleTxt"
-      type="text"
-      placeholder="Page title"
-      class="bg-transparent mb-3 outline-none text-lg font-mono"
-      [(ngModel)]="note.title"
-      (ngModelChange)="onNoteTitleChange()"
-    />
-    <app-text-editor
-      placeholder="Type your note contents."
-      [(ngModel)]="note.markdownText"
-      (ngModelChange)="onMarkdownChange()"
-    ></app-text-editor>
-  </ng-template>
-</div>
+    <ng-template #markdownTextArea>
+      <input
+        id="NoteTitleTxt"
+        type="text"
+        placeholder="Page title"
+        class="bg-transparent mb-3 outline-none text-lg font-mono"
+        [(ngModel)]="note.title"
+        (ngModelChange)="onNoteTitleChange()"
+      />
+      <app-text-editor
+        placeholder="Type your note contents."
+        [(ngModel)]="note.markdownText"
+        (ngModelChange)="onMarkdownChange()"
+      ></app-text-editor>
+    </ng-template>
+  </div>
+</ng-container>
+
+<ng-template #noteNotFound>
+  <app-not-found></app-not-found>
+</ng-template>

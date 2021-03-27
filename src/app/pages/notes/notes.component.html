@@ -1,21 +1,15 @@
 <div class="flex flex-col w-full h-full">
   <app-topbar></app-topbar>
   <div class="flex flex-row w-full h-full overflow-hidden">
-    <ng-container *ngIf="!!(activeNote$ | async); else noteNotFound">
-      <div class="w-1/4 xl:w-1/5 h-full pl-6 pr-4 py-4 overflow-auto">
-        <app-sidebar></app-sidebar>
-      </div>
-      <div
-        class="w-3/4 xl:w-4/5 h-full pr-6 pl-4 py-4 overflow-auto"
-        [ngClass]="{ 'bg-gray-100': (isPreview$ | async) === false }"
-      >
-        <router-outlet></router-outlet>
-        <app-empty-note *ngIf="!(hasNotesInStorage$ | async)"></app-empty-note>
-      </div>
-    </ng-container>
-
-    <ng-template #noteNotFound>
-      <app-not-found></app-not-found>
-    </ng-template>
+    <div class="w-1/4 xl:w-1/5 h-full pl-6 pr-4 py-4 overflow-auto">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div
+      class="w-3/4 xl:w-4/5 h-full pr-6 pl-4 py-4 overflow-auto"
+      [ngClass]="{ 'bg-gray-100': (isPreview$ | async) === false }"
+    >
+      <router-outlet></router-outlet>
+      <app-empty-note *ngIf="!(hasNotesInStorage$ | async)"></app-empty-note>
+    </div>
   </div>
 </div>
