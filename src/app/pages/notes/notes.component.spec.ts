@@ -9,10 +9,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { NotesComponent } from './notes.component';
 
 import * as fromRoot from '@app/shared/store/reducers';
-import {
-  NoteDetailSelectors,
-  NotesSelector,
-} from '@app/shared/store/selectors';
+import { NotesSelector } from '@app/shared/store/selectors';
 import { INote } from '@app/shared/models/markdown-state.model';
 import { ActivatedRouteStub } from '@app/shared/testing/activated-route.stub';
 import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
@@ -37,21 +34,13 @@ describe('NotesComponent', () => {
     fromRoot.ApplicationState,
     boolean
   >;
-  let mockSelectOneNoteDetailSelector: MemoizedSelector<
-    fromRoot.ApplicationState,
-    INote
-  >;
 
   beforeEach(
     waitForAsync(() => {
       const locationSpy = jasmine.createSpyObj('Location', ['path']);
 
       TestBed.configureTestingModule({
-        declarations: [
-          NotesComponent,
-          EmptyNoteStubComponent,
-          NotFoundStubComponent,
-        ],
+        declarations: [NotesComponent, EmptyNoteStubComponent],
         imports: [CommonModule],
         providers: [
           provideMockStore(),
@@ -100,10 +89,6 @@ describe('NotesComponent', () => {
     mockHasNotesInStorageSelector = mockStore.overrideSelector(
       fromRoot.hasNotesInStorage,
       true,
-    );
-    mockSelectOneNoteDetailSelector = mockStore.overrideSelector(
-      NoteDetailSelectors.selectOne,
-      mockActiveNote,
     );
 
     fixture.detectChanges();
@@ -157,26 +142,6 @@ describe('NotesComponent', () => {
     const emptyNoteElement = de.query(By.css('#EmptyNote'));
     expect(emptyNoteElement).toBeFalsy();
   });
-
-  it('should show NotFoundComponent if the note detail cannot be found', () => {
-    mockSelectOneNoteDetailSelector.setResult(undefined);
-    mockStore.refreshState();
-
-    fixture.detectChanges();
-
-    const notFoundElement = de.query(By.css('#NotFound'));
-    expect(notFoundElement).toBeTruthy();
-  });
-
-  it('should hide NotFoundComponent if there is a note detail', () => {
-    mockSelectOneNoteDetailSelector.setResult(mockActiveNote);
-    mockStore.refreshState();
-
-    fixture.detectChanges();
-
-    const notFoundElement = de.query(By.css('#NotFound'));
-    expect(notFoundElement).toBeFalsy();
-  });
 });
 
 @Component({
@@ -184,9 +149,3 @@ describe('NotesComponent', () => {
   template: '<div id="EmptyNote"></div>',
 })
 class EmptyNoteStubComponent {}
-
-@Component({
-  selector: 'app-not-found',
-  template: '<div id="NotFound"></div>',
-})
-class NotFoundStubComponent {}

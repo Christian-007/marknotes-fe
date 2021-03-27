@@ -2,7 +2,7 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MemoizedSelector } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -39,7 +39,11 @@ describe('NoteDetailsComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [NoteDetailComponent, TextEditorStubComponent],
+        declarations: [
+          NoteDetailComponent,
+          TextEditorStubComponent,
+          NotFoundStubComponent,
+        ],
         imports: [CommonModule, FormsModule],
         providers: [
           provideMockStore(),
@@ -125,6 +129,26 @@ describe('NoteDetailsComponent', () => {
     expect(queryNotePreviewDiv).toBeTruthy();
   });
 
+  it('should show NotFoundComponent if the note detail cannot be found', () => {
+    mockActiveNoteSelector.setResult(undefined);
+    mockStore.refreshState();
+
+    fixture.detectChanges();
+
+    const notFoundElement = de.query(By.css('#NotFound'));
+    expect(notFoundElement).toBeTruthy();
+  });
+
+  it('should hide NotFoundComponent if there is a note detail', () => {
+    mockActiveNoteSelector.setResult(mockActiveNote);
+    mockStore.refreshState();
+
+    fixture.detectChanges();
+
+    const notFoundElement = de.query(By.css('#NotFound'));
+    expect(notFoundElement).toBeFalsy();
+  });
+
   describe('when Preview Mode is OFF and there is a note', () => {
     beforeEach(() => {
       mockHasNotesInStorageSelector.setResult(true);
@@ -201,3 +225,9 @@ describe('NoteDetailsComponent', () => {
     );
   });
 });
+
+@Component({
+  selector: 'app-not-found',
+  template: '<div id="NotFound"></div>',
+})
+class NotFoundStubComponent {}
