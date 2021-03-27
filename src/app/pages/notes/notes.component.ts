@@ -6,7 +6,10 @@ import { filter } from 'rxjs/operators';
 
 import * as fromRoot from '@app/shared/store/reducers';
 import { NavigationsActions, NotesActions } from '@app/shared/store/actions';
-import { NotesSelector } from '@app/shared/store/selectors';
+import {
+  NotesSelector,
+  NoteDetailSelectors,
+} from '@app/shared/store/selectors';
 import { INote } from '@app/shared/models/markdown-state.model';
 
 @Component({
@@ -14,6 +17,7 @@ import { INote } from '@app/shared/models/markdown-state.model';
   templateUrl: './notes.component.html',
 })
 export class NotesComponent implements OnInit, OnDestroy {
+  activeNote$: Observable<INote>;
   isPreview$: Observable<boolean>;
   latestNote$: Observable<INote>;
   hasNotesInStorage$: Observable<boolean>;
@@ -24,6 +28,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     private store: Store<fromRoot.ApplicationState>,
     private location: Location,
   ) {
+    this.activeNote$ = this.store.pipe(select(NoteDetailSelectors.selectOne));
     this.isPreview$ = this.store.pipe(select(fromRoot.selectIsPreview));
     this.latestNote$ = this.store.pipe(
       select(NotesSelector.selectOneLatestNote),

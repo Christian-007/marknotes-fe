@@ -8,6 +8,7 @@ import { NoteDetailComponent } from './detail/note-detail.component';
 import { NotesComponent } from './notes.component';
 import { routes } from './router';
 
+import { NotFoundModule } from '@app/pages/not-found/not-found.module';
 import { TopbarModule } from '@app/shared/components/topbar/topbar.module';
 import { SidebarModule } from '@app/shared/components/sidebar/sidebar.module';
 import { MobileEditorNavModule } from '@app/shared/components/mobile-editor-nav/mobile-editor-nav.module';
@@ -25,6 +26,7 @@ import { TextEditorModule } from '@app/shared/components/text-editor/text-editor
     MobileEditorNavModule,
     MobileSidebarModule,
     TextEditorModule,
+    NotFoundModule,
   ],
 })
 export class NotesModule {}
