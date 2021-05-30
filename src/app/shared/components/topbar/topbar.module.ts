@@ -7,6 +7,7 @@ import { TopbarComponent } from './topbar.component';
 import { CustomButtonModule } from '../buttons/custom-button.module';
 
 import { PipeModule } from '@app/shared/pipes/pipe.module';
+import { SaveStatusModule } from '../save-status/save-status.module';
 
 @NgModule({
   declarations: [TopbarComponent],
@@ -16,6 +17,7 @@ import { PipeModule } from '@app/shared/pipes/pipe.module';
     CustomButtonModule,
     PipeModule,
     RouterModule,
+    SaveStatusModule,
   ],
   exports: [TopbarComponent],
 })

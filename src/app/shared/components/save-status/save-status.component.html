@@ -1,0 +1,19 @@
+<ng-container [ngSwitch]="status">
+  <div class="flex items-center" *ngSwitchCase="SaveStatus.Saved">
+    <i aria-hidden="true" class="material-icons md-18 text-green-600">
+      cloud_done
+    </i>
+  </div>
+
+  <div class="flex items-center" *ngSwitchCase="SaveStatus.Failed">
+    <i aria-hidden="true" class="material-icons md-18 text-red-600">
+      sync_problem
+    </i>
+    <div class="ml-1 text-red-600 text-xs">failed to save</div>
+  </div>
+
+  <div class="flex items-center" *ngSwitchCase="SaveStatus.Loading">
+    <i aria-hidden="true" class="material-icons md-18 text-gray-400">sync</i>
+    <div class="ml-1 text-gray-400 text-xs">saving...</div>
+  </div>
+</ng-container>
