@@ -8,8 +8,8 @@ import { HighlightJs } from '@app/presentation/shared/services/code-highlighter/
 import { CustomSanitizer } from '@app/presentation/shared/services/custom-sanitizer/custom-sanitizer';
 import { DomPurify } from '@app/presentation/shared/services/custom-sanitizer/dom-purify';
 import { NotesService } from '@app/core/repositories/notes/notes.service';
-import { StorageStrategy } from '@app/presentation/shared/services/storage-strategy/storage-strategy';
-import { LocalStorageStrategy } from '@app/presentation/shared/services/storage-strategy/local-storage-strategy';
+import { NotesStrategy } from '@app/core/repositories/notes/strategy/notes-strategy';
+import { LocalStorageStrategy } from '@app/core/repositories/notes/strategy/local-storage-strategy';
 
 // Factories
 export const markedFactory = (
@@ -20,7 +20,7 @@ export const markedFactory = (
   return new Marked(sanitizer, codeHighlighter, customSaniziter);
 };
 
-const notesServiceFactory = (...storageStrategies: StorageStrategy[]) => {
+const notesServiceFactory = (...storageStrategies: NotesStrategy[]) => {
   return new NotesService(storageStrategies);
 };
 

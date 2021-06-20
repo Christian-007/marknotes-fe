@@ -2,21 +2,21 @@ import { Observable } from 'rxjs';
 import { Update } from '@ngrx/entity';
 
 import { INote } from '@app/presentation/shared/models/markdown-state.model';
-import { StorageStrategy } from '@app/presentation/shared/services/storage-strategy/storage-strategy';
-import { EStorageStrategy } from '@app/presentation/shared/enums/strategy.enum';
+import { NotesStrategy } from '@app/core/repositories/notes/strategy/notes-strategy';
+import { ENotesStrategy } from '@app/presentation/shared/enums/notes-strategy.enum';
 
 export class NotesService {
-  private storageStrategy: StorageStrategy;
+  private storageStrategy: NotesStrategy;
 
-  constructor(private strategies: StorageStrategy[]) {}
+  constructor(private strategies: NotesStrategy[]) {}
 
-  setStorageStrategy(strategyName: EStorageStrategy): void {
+  setStorageStrategy(strategyName: ENotesStrategy): void {
     this.storageStrategy = this.strategies.find(
-      (strategy: StorageStrategy) => strategyName === strategy.name,
+      (strategy: NotesStrategy) => strategyName === strategy.name,
     );
   }
 
-  getStorageStrategy(): StorageStrategy {
+  getStorageStrategy(): NotesStrategy {
     return this.storageStrategy;
   }
 

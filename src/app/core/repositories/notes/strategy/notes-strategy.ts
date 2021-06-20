@@ -2,10 +2,10 @@ import { Observable } from 'rxjs';
 import { Update } from '@ngrx/entity';
 
 import { INote } from '@app/presentation/shared/models/markdown-state.model';
-import { EStorageStrategy } from '@app/presentation/shared/enums/strategy.enum';
+import { ENotesStrategy } from '@app/presentation/shared/enums/notes-strategy.enum';
 
-export abstract class StorageStrategy {
-  abstract get name(): EStorageStrategy;
+export abstract class NotesStrategy {
+  abstract get name(): ENotesStrategy;
   abstract create(payload: INote): Observable<any>;
   abstract findOne(id: string): Observable<any>;
   abstract load(): Observable<any>;

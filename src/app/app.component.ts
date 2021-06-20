@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { NotesService } from '@app/core/repositories/notes/notes.service';
-import { EStorageStrategy } from '@app/presentation/shared/enums/strategy.enum';
+import { ENotesStrategy } from '@app/presentation/shared/enums/notes-strategy.enum';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,6 @@ export class AppComponent {
   isNoteListOpen = false;
 
   constructor(private notesService: NotesService) {
-    this.notesService.setStorageStrategy(EStorageStrategy.LocalStorage);
+    this.notesService.setStorageStrategy(ENotesStrategy.LocalStorage);
   }
 }

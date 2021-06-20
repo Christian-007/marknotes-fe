@@ -3,16 +3,16 @@ import { Update } from '@ngrx/entity';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { StorageStrategy } from './storage-strategy';
+import { NotesStrategy } from './notes-strategy';
 
-import { LOCAL_STORAGE } from '@app/presentation/shared/constants/storage-name.const';
+import { LOCAL_STORAGE } from '@app/core/constants/storage-name.const';
 import { INote } from '@app/presentation/shared/models/markdown-state.model';
-import { EStorageStrategy } from '@app/presentation/shared/enums/strategy.enum';
+import { ENotesStrategy } from '@app/presentation/shared/enums/notes-strategy.enum';
 
 @Injectable()
-export class LocalStorageStrategy extends StorageStrategy {
-  get name(): EStorageStrategy {
-    return EStorageStrategy.LocalStorage;
+export class LocalStorageStrategy extends NotesStrategy {
+  get name(): ENotesStrategy {
+    return ENotesStrategy.LocalStorage;
   }
 
   create(payload: INote): Observable<any> {

@@ -4,9 +4,9 @@ import { Update } from '@ngrx/entity';
 
 import { NotesService } from './notes.service';
 
-import { LocalStorageStrategy } from '@app/presentation/shared/services/storage-strategy/local-storage-strategy';
-import { StorageStrategy } from '@app/presentation/shared/services/storage-strategy/storage-strategy';
-import { EStorageStrategy } from '@app/presentation/shared/enums/strategy.enum';
+import { LocalStorageStrategy } from '@app/core/repositories/notes/strategy/local-storage-strategy';
+import { NotesStrategy } from '@app/core/repositories/notes/strategy/notes-strategy';
+import { ENotesStrategy } from '@app/presentation/shared/enums/notes-strategy.enum';
 import { INote } from '@app/presentation/shared/models/markdown-state.model';
 
 describe('NotesService', () => {
@@ -23,10 +23,10 @@ describe('NotesService', () => {
     // mock the getter 'name' value
     localStorageStrategySpy = {
       ...localStorageStrategySpy,
-      name: EStorageStrategy.LocalStorage,
+      name: ENotesStrategy.LocalStorage,
     } as jasmine.SpyObj<LocalStorageStrategy>;
 
-    const notesServiceFactory = (...storageStrategies: StorageStrategy[]) => {
+    const notesServiceFactory = (...storageStrategies: NotesStrategy[]) => {
       return new NotesService(storageStrategies);
     };
     const notesServiceProvider: Provider = {
@@ -49,7 +49,7 @@ describe('NotesService', () => {
     localStorageStrategy = TestBed.inject(LocalStorageStrategy);
 
     // Set LocalStorage as Strategy by default
-    notesService.setStorageStrategy(EStorageStrategy.LocalStorage);
+    notesService.setStorageStrategy(ENotesStrategy.LocalStorage);
   });
 
   it('should set the strategy to LocalStorageStrategy if the strategy is LocalStorage', () => {

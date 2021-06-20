@@ -1,15 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-import { cold } from 'jasmine-marbles';
 import { Update } from '@ngrx/entity';
+import { cold } from 'jasmine-marbles';
 
-import { LocalStorageStrategy } from '@app/presentation/shared/services/storage-strategy/local-storage-strategy';
-import { StorageStrategy } from '@app/presentation/shared/services/storage-strategy/storage-strategy';
-import { EStorageStrategy } from '@app/presentation/shared/enums/strategy.enum';
+import { LocalStorageStrategy } from './local-storage-strategy';
+import { NotesStrategy } from './notes-strategy';
+
+import { LOCAL_STORAGE } from '@app/core/constants/storage-name.const';
+import { ENotesStrategy } from '@app/presentation/shared/enums/notes-strategy.enum';
 import { INote } from '@app/presentation/shared/models/markdown-state.model';
-import { LOCAL_STORAGE } from '@app/presentation/shared/constants/storage-name.const';
 
 describe('LocalStorageStrategy', () => {
-  let localStorageStrategy: StorageStrategy;
+  let localStorageStrategy: NotesStrategy;
   let mockNote: INote;
 
   beforeEach(() => {
@@ -32,7 +33,7 @@ describe('LocalStorageStrategy', () => {
   });
 
   it('should return LocalStorage Enum, when get name', () => {
-    expect(localStorageStrategy.name).toBe(EStorageStrategy.LocalStorage);
+    expect(localStorageStrategy.name).toBe(ENotesStrategy.LocalStorage);
   });
 
   it('should return array of notes, when load, and storage has some notes', () => {
