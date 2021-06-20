@@ -1,0 +1,110 @@
+@import '../../../../../assets/styles/_constants.scss';
+
+.mn-Overlay {
+  z-index: 2000;
+  display: flex;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color: rgba($color: #000000, $alpha: 0.4);
+}
+
+.mn-MenuBar {
+  z-index: 2000;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  width: 280px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.2);
+
+  &__Header {
+    display: flex;
+    border-bottom: 1px solid $border_color;
+
+    .menu-title {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+    }
+  }
+
+  &__Body {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+
+    .note-list {
+      overflow-x: hidden;
+      overflow-y: auto;
+      border-bottom: 1px solid $border_color;
+
+      &__body {
+        border-top: 1px solid $border_color;
+        padding: 0.5rem 1rem;
+
+        .note-title {
+          color: #000;
+          font-size: 13px;
+          font-weight: 500;
+        }
+
+        .note-subtitle {
+          font-size: 12px;
+          color: $lighter_gray;
+        }
+      }
+
+      &__body:not(.Active):hover {
+        .note-title {
+          text-decoration: underline;
+        }
+      }
+
+      .Active {
+        background: $code_background_dark;
+
+        .note-title {
+          font-weight: 600;
+        }
+      }
+
+      .Active > :disabled {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.add-button-wrapper {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-note-editor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .empty-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .empty-text {
+      font-size: 0.9rem;
+      color: rgba($color: #000000, $alpha: 0.25);
+    }
+  }
+}
+
+.description-icon {
+  color: #000;
+}

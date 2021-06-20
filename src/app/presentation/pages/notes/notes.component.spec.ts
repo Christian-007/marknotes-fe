@@ -1,0 +1,151 @@
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule, Location } from '@angular/common';
+import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { MemoizedSelector } from '@ngrx/store';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+
+import { NotesComponent } from './notes.component';
+
+import * as fromRoot from '@app/redux/reducers';
+import { NotesSelector } from '@app/redux/selectors';
+import { INote } from '@app/presentation/shared/models/markdown-state.model';
+import { ActivatedRouteStub } from '@app/presentation/shared/testing/activated-route.stub';
+import { NavigationsActions, NotesActions } from '@app/redux/actions';
+
+describe('NotesComponent', () => {
+  let component: NotesComponent;
+  let fixture: ComponentFixture<NotesComponent>;
+  let de: DebugElement;
+  let activatedRouteStub: ActivatedRouteStub;
+  let location: Location;
+  let mockActiveNote: INote;
+  let mockStore: MockStore;
+  let mockIsPreviewSelector: MemoizedSelector<
+    fromRoot.ApplicationState,
+    boolean
+  >;
+  let mockSelectOneLatestNoteSelector: MemoizedSelector<
+    fromRoot.ApplicationState,
+    INote
+  >;
+  let mockHasNotesInStorageSelector: MemoizedSelector<
+    fromRoot.ApplicationState,
+    boolean
+  >;
+
+  beforeEach(
+    waitForAsync(() => {
+      const locationSpy = jasmine.createSpyObj('Location', ['path']);
+
+      TestBed.configureTestingModule({
+        declarations: [NotesComponent, EmptyNoteStubComponent],
+        imports: [CommonModule],
+        providers: [
+          provideMockStore(),
+          {
+            provide: ActivatedRoute,
+            useExisting: ActivatedRouteStub,
+          },
+          {
+            provide: ActivatedRouteStub,
+            useFactory: () => {
+              return new ActivatedRouteStub();
+            },
+          },
+          {
+            provide: Location,
+            useValue: locationSpy,
+          },
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).compileComponents();
+    }),
+  );
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(NotesComponent);
+    component = fixture.componentInstance;
+    de = fixture.debugElement;
+    activatedRouteStub = TestBed.inject(ActivatedRouteStub);
+    location = TestBed.inject(Location);
+    mockActiveNote = {
+      id: '1',
+      dateCreated: 1590045443713,
+      htmlText: '<h1>Hello</h1>',
+      markdownText: '## Test',
+      title: 'Testing Note',
+    };
+    mockStore = TestBed.inject(MockStore);
+    mockIsPreviewSelector = mockStore.overrideSelector(
+      fromRoot.selectIsPreview,
+      false,
+    );
+    mockSelectOneLatestNoteSelector = mockStore.overrideSelector(
+      NotesSelector.selectOneLatestNote,
+      mockActiveNote,
+    );
+    mockHasNotesInStorageSelector = mockStore.overrideSelector(
+      fromRoot.hasNotesInStorage,
+      true,
+    );
+
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should dispatch NotesActions.fetchAllNotes on initialization', () => {
+    const dispatchSpy = spyOn(mockStore, 'dispatch');
+    const expectedAction = NotesActions.fetchAllNotes();
+
+    component.ngOnInit();
+
+    expect(dispatchSpy).toHaveBeenCalledWith(expectedAction);
+  });
+
+  it('should dispatch NavigationsActions.clickNote of the latestNote.id when current route is in "/notes"', () => {
+    const mockCurrentPath = '/notes';
+    const pathSpy = location.path as jasmine.Spy;
+    pathSpy.and.returnValue(mockCurrentPath);
+    const dispatchSpy = spyOn(mockStore, 'dispatch');
+    const expectedAction = NavigationsActions.clickNote({
+      payload: mockActiveNote.id,
+    });
+    mockSelectOneLatestNoteSelector.setResult(mockActiveNote);
+    mockStore.refreshState();
+
+    component.ngOnInit();
+
+    expect(dispatchSpy).toHaveBeenCalledWith(expectedAction);
+  });
+
+  it('should show EmptyNoteComponent if there is NO note', () => {
+    mockHasNotesInStorageSelector.setResult(false);
+    mockStore.refreshState();
+
+    fixture.detectChanges();
+
+    const emptyNoteElement = de.query(By.css('#EmptyNote'));
+    expect(emptyNoteElement).toBeTruthy();
+  });
+
+  it('should hide EmptyNoteComponent if there are some notes', () => {
+    mockHasNotesInStorageSelector.setResult(true);
+    mockStore.refreshState();
+
+    fixture.detectChanges();
+
+    const emptyNoteElement = de.query(By.css('#EmptyNote'));
+    expect(emptyNoteElement).toBeFalsy();
+  });
+});
+
+@Component({
+  selector: 'app-empty-note',
+  template: '<div id="EmptyNote"></div>',
+})
+class EmptyNoteStubComponent {}

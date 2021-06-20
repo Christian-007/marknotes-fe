@@ -1,0 +1,11 @@
+@import '../../../../../../assets/styles/_constants.scss';
+
+.BtnIcon {
+  color: $darker_gray;
+
+  /** Disable blue outline */
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}

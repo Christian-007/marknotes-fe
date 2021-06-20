@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { NotesService } from '@app/pages/notes/notes.service';
-import { EStorageStrategy } from '@app/shared/enums/strategy.enum';
+import { NotesService } from '@app/core/repositories/notes/notes.service';
+import { EStorageStrategy } from '@app/presentation/shared/enums/strategy.enum';
 
 @Component({
   selector: 'app-root',
