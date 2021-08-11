@@ -1,12 +1,12 @@
 import { Provider } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { Marked } from '@app/presentation/shared/services/markdown-parser/marked';
-import { MarkdownParser } from '@app/presentation/shared/services/markdown-parser/markdown-parser';
-import { CodeHighlighter } from '@app/presentation/shared/services/code-highlighter/code-highlighter';
-import { HighlightJs } from '@app/presentation/shared/services/code-highlighter/highlight-js';
-import { CustomSanitizer } from '@app/presentation/shared/services/custom-sanitizer/custom-sanitizer';
-import { DomPurify } from '@app/presentation/shared/services/custom-sanitizer/dom-purify';
+import { Marked } from '@app/shared/services/markdown-parser/marked';
+import { MarkdownParser } from '@app/shared/services/markdown-parser/markdown-parser';
+import { CodeHighlighter } from '@app/shared/services/code-highlighter/code-highlighter';
+import { HighlightJs } from '@app/shared/services/code-highlighter/highlight-js';
+import { CustomSanitizer } from '@app/shared/services/custom-sanitizer/custom-sanitizer';
+import { DomPurify } from '@app/shared/services/custom-sanitizer/dom-purify';
 import { NotesService } from '@app/core/repositories/notes/notes.service';
 import { NotesStrategy } from '@app/core/repositories/notes/strategy/notes-strategy';
 import { LocalStorageStrategy } from '@app/core/repositories/notes/strategy/local-storage-strategy';

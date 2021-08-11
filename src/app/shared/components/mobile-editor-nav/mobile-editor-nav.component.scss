@@ -1,0 +1,17 @@
+@import '../../../../assets/styles/_constants.scss';
+
+.topbar {
+  padding: $layout_padding $container_left_right $layout_padding $layout_padding;
+  border-bottom: 1px solid $border_color;
+  height: $navigation_height;
+
+  &__title {
+    display: flex;
+    letter-spacing: 0.2px;
+    align-items: center;
+  }
+
+  .navbar-brand {
+    color: $active_state;
+  }
+}

@@ -6,8 +6,8 @@ import { switchMap } from 'rxjs/operators';
 import { NotesStrategy } from './notes-strategy';
 
 import { LOCAL_STORAGE } from '@app/core/constants/storage-name.const';
-import { INote } from '@app/presentation/shared/models/markdown-state.model';
-import { ENotesStrategy } from '@app/presentation/shared/enums/notes-strategy.enum';
+import { INote } from '@app/shared/models/markdown-state.model';
+import { ENotesStrategy } from '@app/shared/enums/notes-strategy.enum';
 
 @Injectable()
 export class LocalStorageStrategy extends NotesStrategy {

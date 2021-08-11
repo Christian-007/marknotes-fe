@@ -1,0 +1,24 @@
+@import '../../../../assets/styles/_constants.scss';
+
+.sidebar {
+  .column {
+    padding: $layout_padding $layout_padding $layout_padding
+      $container_left_right;
+  }
+
+  &__brand {
+    border-bottom: 1px solid $border_color;
+    display: flex;
+    align-items: center;
+    height: $navigation_height;
+
+    a {
+      color: $active_state;
+    }
+  }
+}
+
+:host {
+  flex-grow: 1; // Enable full height
+  overflow: hidden; // Enable overflow-y for note-list
+}

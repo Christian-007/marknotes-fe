@@ -13,14 +13,14 @@ import {
   notesServiceProvider,
 } from './app.module.config';
 
-import { NotFoundModule } from '@app/presentation/pages/not-found/not-found.module';
-import { NotesEffects } from '@app/redux/effects/notes.effects';
-import { reducers, REDUCERS_TOKEN } from '@app/redux/reducers';
+import { NotFoundModule } from '@app/presentation/not-found/not-found.module';
+import { NotesEffects } from '@app/presentation/notes/effects/notes.effects';
+import { reducers, REDUCERS_TOKEN } from '@app/presentation/notes/reducers';
 import { LocalStorageStrategy } from '@app/core/repositories/notes/strategy/local-storage-strategy';
-import { OverlayContainerComponent } from '@app/presentation/shared/components/overlay-container/overlay-container.component';
-import { OverlayContainerModule } from '@app/presentation/shared/components/overlay-container/overlay-container.module';
-import { NavigationsEffects } from '@app/redux/effects/navigations.effects';
-import { ToolbarDialogModule } from '@app/presentation/shared/components/toolbar-dialog/toolbar-dialog.module';
+import { OverlayContainerComponent } from '@app/shared/components/overlay-container/overlay-container.component';
+import { OverlayContainerModule } from '@app/shared/components/overlay-container/overlay-container.module';
+import { NavigationsEffects } from '@app/presentation/notes/effects/navigations.effects';
+import { ToolbarDialogModule } from '@app/shared/components/toolbar-dialog/toolbar-dialog.module';
 
 @NgModule({
   declarations: [AppComponent],

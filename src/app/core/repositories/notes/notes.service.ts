@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
 import { Update } from '@ngrx/entity';
 
-import { INote } from '@app/presentation/shared/models/markdown-state.model';
+import { INote } from '@app/shared/models/markdown-state.model';
 import { NotesStrategy } from '@app/core/repositories/notes/strategy/notes-strategy';
-import { ENotesStrategy } from '@app/presentation/shared/enums/notes-strategy.enum';
+import { ENotesStrategy } from '@app/shared/enums/notes-strategy.enum';
 
 export class NotesService {
   private storageStrategy: NotesStrategy;

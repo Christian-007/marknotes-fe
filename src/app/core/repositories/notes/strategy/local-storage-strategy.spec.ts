@@ -6,8 +6,8 @@ import { LocalStorageStrategy } from './local-storage-strategy';
 import { NotesStrategy } from './notes-strategy';
 
 import { LOCAL_STORAGE } from '@app/core/constants/storage-name.const';
-import { ENotesStrategy } from '@app/presentation/shared/enums/notes-strategy.enum';
-import { INote } from '@app/presentation/shared/models/markdown-state.model';
+import { ENotesStrategy } from '@app/shared/enums/notes-strategy.enum';
+import { INote } from '@app/shared/models/markdown-state.model';
 
 describe('LocalStorageStrategy', () => {
   let localStorageStrategy: NotesStrategy;
