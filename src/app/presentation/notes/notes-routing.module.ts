@@ -1,7 +1,10 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
 import { NotesComponent } from './containers/notes.component';
 import { NoteDetailComponent } from './containers/note-detail.component';
 
-export const routes = [
+export const routes: Routes = [
   {
     path: '',
     component: NotesComponent,
@@ -13,3 +16,9 @@ export const routes = [
     ],
   },
 ];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class NotesRoutingModule {}

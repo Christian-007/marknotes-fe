@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { EmptyNoteComponent } from './components/empty-note.component';
 import { NoteDetailComponent } from './containers/note-detail.component';
 import { NotesComponent } from './containers/notes.component';
-import { routes } from './router';
+import { NotesRoutingModule } from './notes-routing.module';
 
 import { NotFoundModule } from '@app/presentation/not-found/not-found.module';
 import { TopbarModule } from '@app/shared/components/topbar/topbar.module';
@@ -18,7 +17,7 @@ import { TextEditorModule } from '@app/shared/components/text-editor/text-editor
 @NgModule({
   declarations: [EmptyNoteComponent, NotesComponent, NoteDetailComponent],
   imports: [
-    RouterModule.forChild(routes),
+    NotesRoutingModule,
     CommonModule,
     FormsModule,
     TopbarModule,
